@@ -1,7 +1,9 @@
+import { PROTECTED_DIRECTORIES, TOOL_CONFIG_FILES } from '../../core/constants.js'
 import type { Policy } from '../../policy/schema.js'
 import type { RenderedFile } from './types.js'
 
-const PROTECTED_PATHS = ['.lead/', '.github/workflows/']
+// Sin barra delante, CODEOWNERS aplica cada archivo de configuración en cualquier carpeta.
+const PROTECTED_PATHS = [...PROTECTED_DIRECTORIES, ...TOOL_CONFIG_FILES]
 
 const toHandle = (person: string) => `@${person.replace(/^@/, '')}`
 

@@ -1,8 +1,14 @@
 #!/usr/bin/env node
+import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { attempt } from './core/attempt.js'
-import { PRODUCT_NAME } from './core/constants.js'
+import { EVIDENCE_DIR, PRODUCT_NAME } from './core/constants.js'
 import { generateReport } from './generate/all.js'
+import { writeEvidence } from './gates/evidence.js'
+import { runGate } from './gates/run-gate.js'
+import { runIntegrity } from './gates/run-integrity.js'
+import { createGitHubClient } from './github/client.js'
+import type { GateEvidence } from './policy/schema.js'
 import { loadPolicy } from './policy/store.js'
 import type { Policy } from './policy/schema.js'
 import { createTerminalPrompter } from './interview/prompter.js'
@@ -54,6 +60,24 @@ const runGenerate: Command = async () => {
   await generateFiles(await loadPolicy(process.cwd()))
 }
 
+const reportEvidence = (evidence: GateEvidence) => {
+  console.log(`${evidence.puerta}: ${evidence.estado}. ${evidence.resumen}`)
+  if (evidence.estado !== 'ok') process.exitCode = FAILURE_EXIT_CODE
+}
+
+const evidenceDirectory = () => join(process.cwd(), EVIDENCE_DIR)
+
+const runGateCommand: Command = async (args) => {
+  const evidence = await runGate(args[0] ?? '', { directory: process.cwd(), env: process.env })
+  await writeEvidence(evidenceDirectory(), evidence)
+  reportEvidence(evidence)
+}
+
+const runIntegrityCommand: Command = async () => {
+  const client = createGitHubClient(process.env)
+  reportEvidence(await runIntegrity({ env: process.env, client, evidenceDirectory: evidenceDirectory() }))
+}
+
 const notAvailable =
   (name: string): Command =>
   async () => {
@@ -65,7 +89,8 @@ const COMMANDS: Record<string, Command> = {
   cambiar: runChange,
   generar: runGenerate,
   proteger: notAvailable('proteger'),
-  puerta: notAvailable('puerta'),
+  puerta: runGateCommand,
+  integridad: runIntegrityCommand,
 }
 
 const showHelp: Command = async () => {
@@ -78,7 +103,8 @@ const showHelp: Command = async () => {
       '  cambiar   cambiar una decisión de la política',
       '  generar   generar los archivos del repositorio',
       '  proteger  proteger las ramas en GitHub',
-      '  puerta    ejecutar una puerta de revisión',
+      '  puerta    ejecutar una puerta (pruebas, secretos, sast, dependencias)',
+      '  integridad  comprobar que la pull request no cambia el flujo sin la lead',
     ].join('\n')
   )
 }

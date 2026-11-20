@@ -30,6 +30,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
+      # Publica el estado lead-flow/integridad en la cabeza de la pull request: en workflow_run
+      # el check de este job se cuelga del commit de la rama por defecto.
+      statuses: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

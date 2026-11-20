@@ -84,10 +84,26 @@ describe('generated outputs', () => {
     expect(content).toContain('.github/workflows/ @ana-lead @luis-sm')
   })
 
+  it('CODEOWNERS assigns the tool configuration files to the lead and the scrum master', () => {
+    const { content } = renderCodeowners(fixturePolicy())
+    for (const file of ['.gitleaks.toml', '.gitleaksignore', '.semgrepignore', '.semgrep.yml']) {
+      expect(content).toContain(`${file} @ana-lead @luis-sm`)
+    }
+  })
+
   it('CODEOWNERS assigns only the lead when there is no scrum master', () => {
     const policy = fixturePolicy()
     const { content } = renderCodeowners({ ...policy, equipo: { ...policy.equipo, scrum_master: '' } })
-    expect(content).toBe('.lead/ @ana-lead\n.github/workflows/ @ana-lead')
+    expect(content).toBe(
+      [
+        '.lead/ @ana-lead',
+        '.github/workflows/ @ana-lead',
+        '.gitleaks.toml @ana-lead',
+        '.gitleaksignore @ana-lead',
+        '.semgrepignore @ana-lead',
+        '.semgrep.yml @ana-lead',
+      ].join('\n')
+    )
   })
 
   it('the exception template asks qué, ticket, porqué, alternativas descartadas and bloquea', () => {

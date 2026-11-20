@@ -15,3 +15,8 @@ export const DIGEST_LABEL = 'parte'
 
 export const POLICY_PATH = '.lead/politica.yml'
 export const DECISIONS_DIR = '.lead/decisiones'
+
+// Una pull request que cambia estas rutas puede apagar las puertas: integridad y CODEOWNERS
+// exigen la aprobación de la lead (o del scrum master si la autora es la lead).
+export const PROTECTED_DIRECTORIES = ['.lead/', '.github/workflows/']
+export const TOOL_CONFIG_FILES = ['.gitleaks.toml', '.gitleaksignore', '.semgrepignore', '.semgrep.yml']

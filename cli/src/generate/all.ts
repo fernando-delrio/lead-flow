@@ -56,7 +56,7 @@ const toOutcome = ({ path, estado, diferencia }: Plan): FileOutcome => ({ path, 
 
 const isChanged = (plan: Plan) => plan.estado === 'creado' || plan.estado === 'actualizado'
 
-const renderAll = (policy: Policy) => RENDERERS.flatMap((render) => render(policy))
+export const renderAll = (policy: Policy): RenderedFile[] => RENDERERS.flatMap((render) => render(policy))
 
 export const generateAll = async (directory: string, policy: Policy): Promise<FileOutcome[]> => {
   const plans = await Promise.all(renderAll(policy).map((file) => planFile(directory, file)))

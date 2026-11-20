@@ -199,6 +199,14 @@ describe('renderWorkflows', () => {
     })
   })
 
+  it('integrity can publish its commit status and nothing else is written', () => {
+    expect(decisionJob('integridad').permissions).toEqual({
+      contents: 'read',
+      'pull-requests': 'read',
+      statuses: 'write',
+    })
+  })
+
   it('approval keeps the permission to list gate runs and download their artifacts', () => {
     expect(decisionJob('aprobacion').permissions).toMatchObject({ actions: 'read' })
   })
