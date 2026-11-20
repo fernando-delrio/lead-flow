@@ -67,4 +67,22 @@ describe('planWrite', () => {
     const current = `${block('igual').replaceAll('\n', '\r\n')}\r\n`
     expect(planWrite(current, 'igual', 'markdown').estado).toBe('sin_cambios')
   })
+
+  it('writes the Cursor header first on creation, with markdown markers', () => {
+    const plan = planWrite(null, 'regla', 'mdc')
+    expect(plan.contenido.split('\n').slice(0, 5)).toEqual([
+      '---',
+      'description: Reglas del equipo generadas por lead-flow',
+      'alwaysApply: true',
+      '---',
+      START,
+    ])
+  })
+
+  it('keeps a header the lead edited when updating an mdc file', () => {
+    const header = '---\ndescription: Mi texto\nalwaysApply: false\n---'
+    const plan = planWrite(`${header}\n${block('viejo')}\n`, 'nuevo', 'mdc')
+    expect(plan.estado).toBe('actualizado')
+    expect(plan.contenido).toBe(`${header}\n${block('nuevo')}\n`)
+  })
 })

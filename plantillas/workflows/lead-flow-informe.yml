@@ -1,0 +1,58 @@
+name: lead-flow informe
+
+# Lo que hace GITHUB_TOKEN no dispara workflows: una pull request que integra la aprobación
+# automática con ese token no lanza este informe. La pasada diaria recoge las integradas sin
+# informe, y LEAD_FLOW_TOKEN (opcional, de una GitHub App) evita el hueco.
+# LEAD_FLOW_TOKEN no respeta permissions: tiene que ser un token de grano fino con solo
+# contents (la rama de informes) y lectura de pull requests y acciones.
+on:
+  pull_request_target:
+    types: [closed]
+  schedule:
+    - cron: '__CRON_INFORMES__'
+  workflow_dispatch:
+
+permissions: {}
+
+# Los dos jobs escriben cadena.json: en cola, uno detrás de otro. Si GitHub descarta una
+# ejecución en espera, la pasada diaria recoge su informe.
+concurrency:
+  group: lead-flow-informes
+  cancel-in-progress: false
+
+jobs:
+  informe:
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: read
+    steps:
+      # La política que se aplicó es la de la rama base antes de integrar.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: informe
+          token: ${{ secrets.LEAD_FLOW_TOKEN || secrets.GITHUB_TOKEN }}
+
+  pendientes:
+    if: github.event_name != 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: informe-pendientes
+          token: ${{ secrets.LEAD_FLOW_TOKEN || secrets.GITHUB_TOKEN }}

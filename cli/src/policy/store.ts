@@ -15,12 +15,14 @@ const parsePolicyText = (text: string) => {
   throw new LeadFlowError(INVALID_POLICY_CODE, `${POLICY_PATH} no es un YAML válido: ${error.message}`)
 }
 
+export const parsePolicy = (text: string): Policy => validatePolicy(parsePolicyText(text))
+
 export const loadPolicy = async (directory: string): Promise<Policy> => {
   const { value: text, error } = await attempt(readFile(join(directory, POLICY_PATH), 'utf8'))
   if (error) {
     throw new LeadFlowError(MISSING_POLICY_CODE, `No se puede leer ${POLICY_PATH}: ${error.message}`)
   }
-  return validatePolicy(parsePolicyText(text))
+  return parsePolicy(text)
 }
 
 export const savePolicy = async (directory: string, policy: Policy): Promise<void> => {

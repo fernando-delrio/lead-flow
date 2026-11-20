@@ -1,6 +1,6 @@
 import { MANAGED_BLOCK_END, MANAGED_BLOCK_START } from '../core/constants.js'
 
-export type CommentStyle = 'markdown' | 'hash'
+export type CommentStyle = 'markdown' | 'hash' | 'mdc'
 export type WriteOutcome = {
   estado: 'creado' | 'actualizado' | 'sin_cambios' | 'conflicto'
   diferencia: string
@@ -12,6 +12,14 @@ const DEFAULT_LINE_ENDING = '\n'
 const COMMENT_WRAPPERS: Record<CommentStyle, (text: string) => string> = {
   markdown: (text) => `<!-- ${text} -->`,
   hash: (text) => `# ${text}`,
+  mdc: (text) => `<!-- ${text} -->`,
+}
+
+// Cursor exige su cabecera en la primera línea, antes del bloque gestionado.
+const CREATION_HEADERS: Record<CommentStyle, string[]> = {
+  markdown: [],
+  hash: [],
+  mdc: ['---', 'description: Reglas del equipo generadas por lead-flow', 'alwaysApply: true', '---'],
 }
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -46,6 +54,11 @@ const MALFORMED_REASON =
 const UNMARKED_REASON =
   'El archivo existe, está escrito a mano y no tiene bloque de lead-flow: no se escribe nada. Diferencia con lo que se generaría:'
 
+const planCreation = (blockText: string, style: CommentStyle, lineEnding: string) => {
+  const created = [...CREATION_HEADERS[style], blockText].join(lineEnding)
+  return { estado: 'creado' as const, diferencia: '', contenido: `${created}${lineEnding}` }
+}
+
 export const planWrite = (
   current: string | null,
   generated: string,
@@ -54,7 +67,7 @@ export const planWrite = (
   const lineEnding = detectLineEnding(current ?? '')
   const blockLines = buildBlock(generated, style)
   const blockText = blockLines.join(lineEnding)
-  if (current === null) return { estado: 'creado', diferencia: '', contenido: `${blockText}${lineEnding}` }
+  if (current === null) return planCreation(blockText, style, lineEnding)
 
   const starts = findMarkerLines(current, blockLines[0] as string)
   const ends = findMarkerLines(current, blockLines.at(-1) as string)

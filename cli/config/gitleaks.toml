@@ -1,0 +1,6 @@
+# Configuración fija de la puerta «secretos». La CLI la pasa con --config para que un
+# .gitleaks.toml de la pull request no cambie las reglas: se usan las de gitleaks tal cual.
+title = "lead-flow secretos"
+
+[extend]
+useDefault = true
