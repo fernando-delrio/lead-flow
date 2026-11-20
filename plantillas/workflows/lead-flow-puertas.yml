@@ -1,0 +1,69 @@
+name: lead-flow puertas
+
+# Estas puertas ejecutan código de la pull request, así que solo leen el repositorio y no
+# reciben ningún token. Lo que producen se trata como dato no fiable al decidir.
+on:
+  pull_request:
+
+permissions: {}
+
+concurrency:
+  group: lead-flow-puertas-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: pruebas
+
+  secretos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      # Historial completo: un secreto añadido y borrado en la misma pull request sigue filtrado.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: secretos
+
+  sast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: sast
+
+  dependencias:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      # Hace falta la rama base para saber qué dependencias directas son nuevas.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: dependencias

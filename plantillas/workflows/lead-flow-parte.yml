@@ -1,0 +1,29 @@
+name: lead-flow parte
+
+on:
+  schedule:
+    - cron: '__CRON_PARTE__'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: lead-flow-parte
+  cancel-in-progress: false
+
+jobs:
+  parte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: parte
+          token: ${{ secrets.GITHUB_TOKEN }}

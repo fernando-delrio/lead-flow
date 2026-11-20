@@ -1,0 +1,18 @@
+name: lead-flow resena
+
+# pull_request_review usa el workflow de la rama de la pull request. Por eso aquí no hay
+# permisos ni herramientas: solo despierta a «lead-flow decision», que corre con
+# workflow_run desde la rama por defecto.
+on:
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+permissions: {}
+
+jobs:
+  aviso:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - run: echo "Reseña recibida; la decisión la toma lead-flow decision."

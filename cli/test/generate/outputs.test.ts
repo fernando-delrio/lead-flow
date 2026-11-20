@@ -107,13 +107,22 @@ describe('generateAll', () => {
   it('creates every file and then reports no changes', async () => {
     const directory = await temporaryDirectory()
     const first = await generateAll(directory, fixturePolicy())
-    expect(first).toHaveLength(8)
+    expect(first).toHaveLength(14)
     expect(first.every((outcome) => outcome.estado === 'creado')).toBe(true)
     expect(await readFile(join(directory, '.github/pull_request_template.md'), 'utf8')).toContain(
       'Agente y modelo usados',
     )
     const second = await generateAll(directory, fixturePolicy())
     expect(second.every((outcome) => outcome.estado === 'sin_cambios')).toBe(true)
+  })
+
+  it('writes the workflows with the hash markers and valid YAML', async () => {
+    const directory = await temporaryDirectory()
+    await generateAll(directory, fixturePolicy())
+    const text = await readFile(join(directory, '.github/workflows/lead-flow-parte.yml'), 'utf8')
+    expect(text.split('\n')[0]).toBe('# lead-flow:inicio')
+    expect(text.trimEnd().split('\n').at(-1)).toBe('# lead-flow:fin')
+    expect(parse(text)).toMatchObject({ on: { schedule: [{ cron: '0 7 * * 1-5' }] } })
   })
 
   it('writes the Cursor header on line 1', async () => {

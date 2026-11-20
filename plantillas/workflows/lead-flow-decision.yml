@@ -1,0 +1,81 @@
+name: lead-flow decision
+
+# Corre con el workflow de la rama base (pull_request_target) o de la rama por defecto
+# (workflow_run) y nunca descarga ni ejecuta código de la pull request.
+# Contrato con la CLI (Tareas 11 y 13), igual en todos los disparadores: localiza la pull
+# request con LEAD_FLOW_EVENTO, LEAD_FLOW_PR y LEAD_FLOW_HEAD_SHA, toma su cabeza actual, busca
+# por la API las ejecuciones de .github/workflows/lead-flow-puertas.yml para ese SHA y descarga
+# cada artefacto por su nombre exacto. Las evidencias se leen solo como datos.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited, ready_for_review, labeled, unlabeled]
+  workflow_run:
+    workflows: [lead-flow puertas, lead-flow resena]
+    types: [completed]
+
+permissions: {}
+
+# pull_requests[0] solo agrupa ejecuciones; la CLI no lo toma como «la» pull request.
+concurrency:
+  group: lead-flow-decision-${{ github.event.pull_request.number || github.event.workflow_run.pull_requests[0].number || github.event.workflow_run.head_sha }}
+  cancel-in-progress: true
+
+jobs:
+  integridad:
+    if: >-
+      github.event_name == 'pull_request_target' ||
+      contains(fromJSON('["pull_request","pull_request_review"]'), github.event.workflow_run.event)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        env:
+          LEAD_FLOW_EVENTO: ${{ github.event_name }}
+          LEAD_FLOW_PR: ${{ github.event.pull_request.number }}
+          LEAD_FLOW_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        with:
+          puerta: integridad
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Corre también si integridad falla: con INTEGRIDAD_RESULTADO distinto de success, la CLI
+  # (Tarea 13) publica lead-flow/aprobacion en fallo y retira una aprobación anterior del SHA.
+  aprobacion:
+    needs: integridad
+    if: >-
+      !cancelled() && (github.event_name == 'pull_request_target' ||
+      contains(fromJSON('["pull_request","pull_request_review"]'), github.event.workflow_run.event))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      # Lista las ejecuciones de las puertas y descarga sus artefactos.
+      actions: read
+      # GitHub exige escritura en contents para activar la integración automática.
+      contents: write
+      issues: read
+      pull-requests: write
+      statuses: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      # Lo que hace GITHUB_TOKEN no dispara workflows: con él, la integración automática no
+      # lanza el informe. LEAD_FLOW_TOKEN (opcional, de una GitHub App) evita ese hueco.
+      # LEAD_FLOW_TOKEN no respeta permissions: tiene que ser un token de grano fino con solo
+      # contents, pull-requests, statuses e issues.
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        env:
+          LEAD_FLOW_EVENTO: ${{ github.event_name }}
+          LEAD_FLOW_PR: ${{ github.event.pull_request.number }}
+          LEAD_FLOW_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          INTEGRIDAD_RESULTADO: ${{ needs.integridad.result }}
+        with:
+          puerta: aprobacion
+          token: ${{ secrets.LEAD_FLOW_TOKEN || secrets.GITHUB_TOKEN }}

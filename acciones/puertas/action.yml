@@ -1,0 +1,97 @@
+name: lead-flow puertas
+description: Construye la CLI de lead-flow desde este repositorio y ejecuta una puerta o un paso del flujo.
+
+inputs:
+  puerta:
+    description: >-
+      Puerta (pruebas, secretos, sast, dependencias) o paso del flujo que decide
+      (integridad, aprobacion, informe, informe-pendientes, excepcion, parte).
+    required: true
+  token:
+    description: Token para la API de GitHub. Solo lo recibe el paso que ejecuta la CLI.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    # Sin caché: la de este job la podría preparar el código de una pull request.
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: '24'
+        package-manager-cache: false
+
+    - name: Construir la CLI
+      shell: bash
+      run: |
+        cd "$GITHUB_ACTION_PATH/../../cli"
+        npm ci --ignore-scripts --no-audit --no-fund
+        npm run build
+
+    # Si la herramienta no se instala, la CLI no la encuentra y deja la puerta en no_verificado.
+    - name: Instalar gitleaks
+      if: inputs.puerta == 'secretos'
+      continue-on-error: true
+      shell: bash
+      env:
+        GITLEAKS_VERSION: "8.30.1"
+        GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+      run: |
+        destino="$RUNNER_TEMP/gitleaks"
+        archivo="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+        mkdir -p "$destino"
+        curl --fail --silent --show-error --location --output "$destino/$archivo" \
+          "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archivo}"
+        echo "${GITLEAKS_SHA256}  $destino/$archivo" | sha256sum --check --strict
+        tar -xzf "$destino/$archivo" -C "$destino" gitleaks
+        echo "$destino" >> "$GITHUB_PATH"
+
+    - if: inputs.puerta == 'sast'
+      continue-on-error: true
+      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      with:
+        python-version: '3.12'
+
+    - name: Instalar semgrep
+      if: inputs.puerta == 'sast'
+      continue-on-error: true
+      shell: bash
+      env:
+        SEMGREP_VERSION: "1.186.0"
+      # Fuera del checkout, para que pip no lea nada de la pull request.
+      run: |
+        cd "$RUNNER_TEMP"
+        python -m pip install --disable-pip-version-check "semgrep==${SEMGREP_VERSION}"
+
+    - name: Ejecutar lead-flow
+      shell: bash
+      env:
+        PUERTA: ${{ inputs.puerta }}
+        GITHUB_TOKEN: ${{ inputs.token }}
+      run: |
+        declare -A comandos=(
+          [pruebas]="puerta pruebas"
+          [secretos]="puerta secretos"
+          [sast]="puerta sast"
+          [dependencias]="puerta dependencias"
+          [integridad]="integridad"
+          [aprobacion]="aprobacion"
+          [informe]="informe"
+          [informe-pendientes]="informe --pendientes"
+          [excepcion]="excepcion"
+          [parte]="parte"
+        )
+        if [[ ! "$PUERTA" =~ ^[a-z-]+$ ]] || [[ -z "${comandos[$PUERTA]:-}" ]]; then
+          echo "::error::Puerta desconocida para lead-flow"
+          exit 1
+        fi
+        read -ra argumentos <<< "${comandos[$PUERTA]}"
+        node "$GITHUB_ACTION_PATH/../../cli/dist/index.js" "${argumentos[@]}"
+
+    # La evidencia se sube también cuando la puerta falla: el informe necesita el porqué.
+    - if: always() && contains(fromJSON('["pruebas","secretos","sast","dependencias","integridad"]'), inputs.puerta)
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: lead-flow-evidencias-${{ inputs.puerta }}
+        path: lead-flow-evidencias/${{ inputs.puerta }}.json
+        if-no-files-found: error

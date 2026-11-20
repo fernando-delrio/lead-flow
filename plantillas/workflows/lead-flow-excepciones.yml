@@ -1,0 +1,39 @@
+name: lead-flow excepciones
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+concurrency:
+  group: lead-flow-excepciones-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  excepcion:
+    # Primer filtro, para que un job con escritura no arranque por cualquiera. Quién puede
+    # decidir de verdad lo comprueba la CLI (canDecide): la lead o el delegado del tema.
+    if: >-
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      contains(github.event.issue.labels.*.name, 'excepcion') &&
+      !github.event.issue.pull_request &&
+      (startsWith(github.event.comment.body, '/aprobar') || startsWith(github.event.comment.body, '/rechazar'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Lo que hace GITHUB_TOKEN no dispara workflows: la pull request de la excepción abierta
+      # con él no pasa las puertas. LEAD_FLOW_TOKEN (opcional, de una GitHub App) lo evita.
+      # LEAD_FLOW_TOKEN no respeta permissions: tiene que ser un token de grano fino con solo
+      # contents, issues y pull-requests.
+      - uses: fernando-delrio/lead-flow/acciones/puertas@v0
+        with:
+          puerta: excepcion
+          token: ${{ secrets.LEAD_FLOW_TOKEN || secrets.GITHUB_TOKEN }}

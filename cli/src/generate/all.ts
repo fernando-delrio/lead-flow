@@ -17,12 +17,13 @@ import {
   renderPullRequestTemplate,
 } from './outputs/templates.js'
 import type { RenderedFile } from './outputs/types.js'
+import { renderWorkflows } from './outputs/workflows.js'
 
 export type FileOutcome = WriteOutcome & { path: string }
 type Plan = FileOutcome & PendingFile
 export type GenerateReport = { text: string; hasConflict: boolean }
 
-const RENDERERS: Array<(policy: Policy) => RenderedFile> = [
+const RENDERERS: Array<(policy: Policy) => RenderedFile | RenderedFile[]> = [
   renderAgentsMd,
   renderClaudeMd,
   renderCopilot,
@@ -31,6 +32,7 @@ const RENDERERS: Array<(policy: Policy) => RenderedFile> = [
   renderExceptionTemplate,
   renderProductionFailureTemplate,
   renderPullRequestTemplate,
+  renderWorkflows,
 ]
 
 const NO_FILE_CODE = 'ENOENT'
@@ -54,8 +56,10 @@ const toOutcome = ({ path, estado, diferencia }: Plan): FileOutcome => ({ path, 
 
 const isChanged = (plan: Plan) => plan.estado === 'creado' || plan.estado === 'actualizado'
 
+const renderAll = (policy: Policy) => RENDERERS.flatMap((render) => render(policy))
+
 export const generateAll = async (directory: string, policy: Policy): Promise<FileOutcome[]> => {
-  const plans = await Promise.all(RENDERERS.map((render) => planFile(directory, render(policy))))
+  const plans = await Promise.all(renderAll(policy).map((file) => planFile(directory, file)))
   if (plans.some((plan) => plan.estado === 'conflicto')) return plans.map(toOutcome)
   await writeAtomically(plans.filter(isChanged))
   return plans.map(toOutcome)
