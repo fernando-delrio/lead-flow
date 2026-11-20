@@ -2,6 +2,9 @@
 import { fileURLToPath } from 'node:url'
 import { attempt } from './core/attempt.js'
 import { PRODUCT_NAME } from './core/constants.js'
+import { generateReport } from './generate/all.js'
+import { loadPolicy } from './policy/store.js'
+import type { Policy } from './policy/schema.js'
 import { createTerminalPrompter } from './interview/prompter.js'
 import { changeTopic, runInterview } from './interview/run.js'
 
@@ -15,19 +18,26 @@ const catalogRoot = () => fileURLToPath(new URL(CATALOG_PATH, import.meta.url))
 
 const today = () => new Date().toISOString().slice(0, ISO_DATE_LENGTH)
 
+const generateFiles = async (policy: Policy) => {
+  const report = await generateReport(process.cwd(), policy)
+  console.log(report.text)
+  if (report.hasConflict) process.exitCode = FAILURE_EXIT_CODE
+}
+
 const runInit: Command = async () => {
-  await runInterview({
+  const policy = await runInterview({
     directory: process.cwd(),
     catalogRoot: catalogRoot(),
     prompter: createTerminalPrompter(),
     today: today(),
   })
   console.log('Política guardada en .lead/politica.yml y decisiones en .lead/decisiones/.')
+  await generateFiles(policy)
 }
 
 const runChange: Command = async (args) => {
   const tema = args[0] ?? ''
-  await changeTopic(
+  const policy = await changeTopic(
     {
       directory: process.cwd(),
       catalogRoot: catalogRoot(),
@@ -37,6 +47,11 @@ const runChange: Command = async (args) => {
     tema
   )
   console.log(`Tema «${tema}» actualizado y decisión registrada en .lead/decisiones/.`)
+  await generateFiles(policy)
+}
+
+const runGenerate: Command = async () => {
+  await generateFiles(await loadPolicy(process.cwd()))
 }
 
 const notAvailable =
@@ -48,7 +63,7 @@ const notAvailable =
 const COMMANDS: Record<string, Command> = {
   init: runInit,
   cambiar: runChange,
-  generar: notAvailable('generar'),
+  generar: runGenerate,
   proteger: notAvailable('proteger'),
   puerta: notAvailable('puerta'),
 }
