@@ -1,3 +1,4 @@
+import { MANAGED_BLOCK_END, MANAGED_BLOCK_START } from '../core/constants.js'
 import { LeadFlowError } from '../core/errors.js'
 
 export type RiskLevel = 'bajo' | 'medio' | 'alto'
@@ -60,6 +61,10 @@ const SCHEMA_VERSION = 1
 const MAX_SUGGESTION_DISTANCE = 3
 const HOUR_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+const GITHUB_USER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/
+const LEADING_AT = /^@/
+const NEWLINE = /[\r\n]/
+const FORBIDDEN_MARKERS = [MANAGED_BLOCK_START, MANAGED_BLOCK_END]
 
 const APPROVERS: Approver[] = ['automatica', 'companero', 'qa', 'delegado', 'lead']
 const PROJECT_TYPES = ['nuevo', 'existente']
@@ -148,6 +153,17 @@ const checkPattern =
     return expected(path, description, value)
   }
 
+const checkHandle: Check = (value, path) => {
+  const description = 'un usuario de GitHub (letras, números y guiones, hasta 39 caracteres)'
+  if (typeof value === 'string' && GITHUB_USER_PATTERN.test(value.replace(LEADING_AT, ''))) return []
+  return expected(path, description, value)
+}
+
+const checkOptionalHandle: Check = (value, path) => {
+  if (value === '') return []
+  return checkHandle(value, path)
+}
+
 const checkOneOf =
   (options: string[]): Check =>
   (value, path) => {
@@ -198,10 +214,10 @@ const POLICY_SHAPE = checkObject({
     zona_horaria: checkText,
   }),
   equipo: checkObject({
-    lead: checkText,
-    scrum_master: checkText,
-    qa: checkTexts,
-    delegados: checkList(checkObject({ tema: checkText, persona: checkText })),
+    lead: checkHandle,
+    scrum_master: checkOptionalHandle,
+    qa: checkList(checkHandle),
+    delegados: checkList(checkObject({ tema: checkText, persona: checkHandle })),
   }),
   stack: checkObject({
     lenguajes: checkTexts,
@@ -243,9 +259,39 @@ const POLICY_SHAPE = checkObject({
   github: checkObject({ modo: checkOneOf(ENFORCEMENT_MODES) }),
 })
 
+const describeTextProblems = (text: string, path: string) => {
+  const newline = [text]
+    .filter((value) => NEWLINE.test(value))
+    .map(() => `${path}: no puede contener un salto de línea`)
+  const markers = FORBIDDEN_MARKERS.filter((marker) => text.includes(marker)).map(
+    (marker) => `${path}: no puede contener "${marker}", que delimita el bloque que lead-flow escribe`
+  )
+  return [...newline, ...markers]
+}
+
+const scanTexts = (value: unknown, path: string): string[] => {
+  if (typeof value === 'string') return describeTextProblems(value, path)
+  if (Array.isArray(value)) return value.flatMap((item, index) => scanTexts(item, `${path}[${index}]`))
+  if (!isRecord(value)) return []
+  return Object.entries(value).flatMap(([key, item]) => scanTexts(item, joinPath(path, key)))
+}
+
+const stripAt = (person: string) => person.replace(LEADING_AT, '')
+
+const normalizeHandles = (policy: Policy): Policy => ({
+  ...policy,
+  equipo: {
+    ...policy.equipo,
+    lead: stripAt(policy.equipo.lead),
+    scrum_master: stripAt(policy.equipo.scrum_master),
+    qa: policy.equipo.qa.map(stripAt),
+    delegados: policy.equipo.delegados.map((delegate) => ({ ...delegate, persona: stripAt(delegate.persona) })),
+  },
+})
+
 export const validatePolicy = (raw: unknown): Policy => {
-  const errors = POLICY_SHAPE(raw, '')
-  if (errors.length === 0) return raw as Policy
+  const errors = [...POLICY_SHAPE(raw, ''), ...scanTexts(raw, '')]
+  if (errors.length === 0) return normalizeHandles(raw as Policy)
   const list = errors.map((error) => `- ${error}`).join('\n')
   throw new LeadFlowError(POLICY_INVALID_CODE, `La política tiene errores:\n${list}`)
 }

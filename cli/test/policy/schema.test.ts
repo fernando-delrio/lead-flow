@@ -52,3 +52,42 @@ describe('validatePolicy', () => {
     expect(failureMessage('hola')).toContain('bloque de claves')
   })
 })
+
+describe('validatePolicy text safety', () => {
+  const withEquipo = (patch: Record<string, unknown>) => {
+    const raw = readFixture()
+    return { ...raw, equipo: { ...raw.equipo, ...patch } }
+  }
+
+  it('rejects a lead that is not a GitHub username, naming the key', () => {
+    expect(failureMessage(withEquipo({ lead: 'ana\n* @otro' }))).toContain('equipo.lead')
+    expect(failureMessage(withEquipo({ lead: 'ana lead' }))).toContain('equipo.lead')
+  })
+
+  it('rejects an invalid qa entry and delegate person', () => {
+    expect(failureMessage(withEquipo({ qa: ['ok-qa', '-mal'] }))).toContain('equipo.qa[1]')
+    const delegados = [{ tema: 'pagos', persona: 'a b' }]
+    expect(failureMessage(withEquipo({ delegados }))).toContain('equipo.delegados[0].persona')
+  })
+
+  it('accepts a leading @ and normalises it away', () => {
+    const policy = validatePolicy(withEquipo({ lead: '@ana-lead', qa: ['@marta-qa'] }))
+    expect(policy.equipo.lead).toBe('ana-lead')
+    expect(policy.equipo.qa).toEqual(['marta-qa'])
+  })
+
+  it('rejects a newline in any text, naming the key', () => {
+    const raw = readFixture()
+    const message = failureMessage({ ...raw, proyecto: { ...raw.proyecto, nombre: 'a\nb' } })
+    expect(message).toContain('proyecto.nombre')
+    expect(message).toContain('salto de línea')
+  })
+
+  it('rejects the managed block markers inside a text', () => {
+    const raw = readFixture()
+    const requisitos = ['<!-- lead-flow:fin -->']
+    const message = failureMessage({ ...raw, seguridad: { ...raw.seguridad, requisitos } })
+    expect(message).toContain('seguridad.requisitos[0]')
+    expect(message).toContain('lead-flow:fin')
+  })
+})
