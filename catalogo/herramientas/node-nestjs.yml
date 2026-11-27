@@ -25,11 +25,11 @@ opciones:
   - id: vitest-biome-pnpm-audit
     nombre: Vitest + Biome + pnpm audit
     implica: >-
-      Comandos de la política. Pruebas: vitest run. Lint: npx biome check . Build: pnpm build
+      Comandos de la política. Pruebas: pnpm exec vitest run. Lint: pnpm exec biome check . Build: pnpm build
       (nest build). Auditoría: pnpm audit --audit-level high. Exige usar pnpm.
     comandos:
-      pruebas: "vitest run"
-      lint: "npx biome check ."
+      pruebas: "pnpm exec vitest run"
+      lint: "pnpm exec biome check ."
       build: "pnpm build"
     pros:
       - Biome hace el lint y el formato con una sola herramienta.
