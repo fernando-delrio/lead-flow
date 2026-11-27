@@ -25,12 +25,12 @@ opciones:
   - id: pest-phpcs-composer-audit
     nombre: Pest + PHP_CodeSniffer + composer audit
     implica: >-
-      Comandos de la política. Pruebas: ./vendor/bin/pest. Lint: phpcs (PHP_CodeSniffer, que usa
-      PSR-12 por defecto desde la versión 4.0.0); phpcbf corrige lo que puede. Build:
+      Comandos de la política. Pruebas: ./vendor/bin/pest. Lint: ./vendor/bin/phpcs (PHP_CodeSniffer, que usa
+      PSR-12 por defecto desde la versión 4.0.0); ./vendor/bin/phpcbf corrige lo que puede. Build:
       composer install --no-dev --optimize-autoloader. Auditoría: composer audit.
     comandos:
       pruebas: "./vendor/bin/pest"
-      lint: "phpcs"
+      lint: "./vendor/bin/phpcs"
       build: "composer install --no-dev --optimize-autoloader"
     pros:
       - Pest escribe las pruebas con funciones test() y expect(), sobre el motor de PHPUnit.
