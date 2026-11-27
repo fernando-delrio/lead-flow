@@ -1,28 +1,30 @@
-## Problema
+## Problem
 
-<!-- Enlaza la incidencia: Cierra #123. Explica el problema, no solo los archivos tocados. -->
+<!-- Link the issue: Closes #123. Explain the problem, not only the files changed. -->
 
-## Cambio
+## Change
 
-<!-- Resume el comportamiento nuevo y las decisiones importantes. -->
+<!-- Summarise the new behaviour and the important decisions. -->
 
-## Comprobación
+## Verification
 
-<!-- Enumera los comandos ejecutados y su resultado. No marques lo que no hayas ejecutado. -->
+<!-- List the commands you ran and their results. Do not check anything you did not run. -->
 
 - [ ] `npm test`
 - [ ] `npm run lint`
 - [ ] `npm run build`
-- [ ] He añadido o actualizado las pruebas necesarias.
-- [ ] He actualizado la documentación visible afectada.
+- [ ] I added or updated the necessary tests.
+- [ ] I updated the affected public documentation.
 
-## Riesgos y límites
+## Risks and limits
 
-<!-- Indica efectos secundarios, migraciones, seguridad y qué queda fuera. Escribe «Ninguno conocido» solo si lo has revisado. -->
+<!-- State side effects, migrations, security concerns, and what remains out of scope. Write “None known” only after reviewing them. -->
 
-## Antes de solicitar revisión
+## Before requesting review
 
-- [ ] La pull request resuelve una sola incidencia o explica por qué no puede separarse.
-- [ ] No contiene credenciales, datos de clientes ni información privada.
-- [ ] Declara cualquier comprobación pendiente o que no haya podido ejecutar.
-- [ ] Acepto el código de conducta y la licencia Apache 2.0 del proyecto.
+- [ ] This pull request addresses one issue, or explains why it cannot be split.
+- [ ] It contains no credentials, client data, or private information.
+- [ ] It declares every pending or unexecuted check.
+- [ ] I accept the project code of conduct and Apache 2.0 license.
+
+<!-- Spanish template: .github/pull_request_template.es.md -->

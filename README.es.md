@@ -190,8 +190,8 @@ cómo se prueba tu proyecto: los agentes ejecutan esos comandos. El flujo comple
 cada decisión y sus límites están en [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md).
 
 Para verlo en un proyecto pequeño sin instalar dependencias, sigue el
-[ejemplo Node](examples/equipo-solo-node/README.md). Las notas de la primera entrega están en
-[`Equipo Solo 0.1.0`](doc/releases/equipo-solo-v0.1.0.md).
+[ejemplo Node](examples/equipo-solo-node/README.es.md). Las notas de la primera entrega están en
+[`Equipo Solo 0.1.0`](doc/releases/equipo-solo-v0.1.0.es.md).
 
 ## Para quién será
 

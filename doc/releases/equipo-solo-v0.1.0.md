@@ -1,17 +1,19 @@
 # Equipo Solo 0.1.0
 
-Primera entrega pública del plugin `equipo-solo` para Claude Code.
+[English](equipo-solo-v0.1.0.md) · [Español](equipo-solo-v0.1.0.es.md)
 
-## Qué incluye
+The first public release of the `equipo-solo` plugin for Claude Code.
 
-- Planificador e implementador con responsabilidades separadas.
-- Revisor independiente del implementador.
-- Puertas de seguridad y rendimiento.
-- Revisión de diseño para cambios visuales.
-- Cierre de incremento que comprueba pruebas, documentación y trabajo pendiente.
-- Plantillas para trasladar las reglas reales de un proyecto a los agentes.
+## What it includes
 
-## Instalar
+- A planner and implementer with separate responsibilities.
+- A reviewer independent from the implementer.
+- Security and performance gates.
+- Design review for visual changes.
+- Increment closure that checks tests, documentation, and pending work.
+- Templates for bringing a project's real rules into the agents.
+
+## Install
 
 ```bash
 claude plugin marketplace add fernando-delrio/lead-flow
@@ -19,32 +21,34 @@ claude plugin install equipo-solo@equipo-solo
 claude plugin details equipo-solo@equipo-solo
 ```
 
-## Comprobaciones realizadas
+## Verification performed
 
-- `claude plugin validate ./plugin --strict`: validación aprobada.
-- `claude plugin validate . --strict`: marketplace válido.
-- Instalación desde `fernando-delrio/lead-flow` en una configuración temporal: versión `0.1.0`,
-  plugin activo y siete agentes cargados.
-- Suite del CLI: 221 pruebas, lint y build aprobados antes de preparar la entrega.
+- `claude plugin validate ./plugin --strict`: passed.
+- `claude plugin validate . --strict`: marketplace valid.
+- Installation from `fernando-delrio/lead-flow` in an isolated temporary configuration: version
+  `0.1.0`, plugin active, and seven agents loaded.
+- CLI suite: 221 tests, lint, and build passed before the release was prepared.
 
-## Probar el recorrido
+## Try the workflow
 
-Sigue [`examples/equipo-solo-node/README.md`](../../examples/equipo-solo-node/README.md). El ejemplo
-usa únicamente Node.js y no instala dependencias.
+Follow [`examples/equipo-solo-node/README.md`](../../examples/equipo-solo-node/README.md). The
+example only uses Node.js and installs no dependencies.
 
-## Vídeo
+## Video
 
-La presentación pública está preparada en
+The public presentation is available at
 [`assets/releases/equipo-solo-v0.1.0.mp4`](../../assets/releases/equipo-solo-v0.1.0.mp4).
-Dura 68,60 segundos e incluye voz en español de España, gráficos, música original y subtítulos.
-El proyecto reproducible vive en [`video/equipo-solo-v0.1.0/`](../../video/equipo-solo-v0.1.0/).
+It is 68.60 seconds long and includes a Spanish (Spain) voice-over, Spanish on-screen text, original
+music, and Spanish subtitles. The video remains intentionally in Spanish.
+The reproducible project lives in
+[`video/equipo-solo-v0.1.0/`](../../video/equipo-solo-v0.1.0/).
 
-## Qué no incluye
+## What it does not include
 
-Esta release no publica el CLI `lead-flow`, sus puertas de GitHub ni el flujo para equipos. Esas
-piezas siguen en fase 1 dentro del mismo repositorio.
+This release does not publish the `lead-flow` CLI, its GitHub gates, or the team workflow. Those
+pieces remain in phase 1 inside the same repository.
 
-## Etiqueta
+## Tag
 
-La etiqueta propuesta es `equipo-solo-v0.1.0`. Se crea solo después de integrar y volver a
-verificar este incremento sobre `main`.
+The proposed tag is `equipo-solo-v0.1.0`. It is only created after this increment has been merged
+and verified again on `main`.

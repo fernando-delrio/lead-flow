@@ -1,43 +1,43 @@
-name: Proponer una mejora
-description: Propón un cambio antes de invertir tiempo en implementarlo.
-title: "[Propuesta]: "
+name: Propose an improvement
+description: Propose a change before investing time in its implementation.
+title: "[Proposal]: "
 labels:
   - enhancement
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Problema que quieres resolver
-      description: Describe quién lo sufre y en qué situación, sin empezar por una solución.
+      label: Problem you want to solve
+      description: Describe who experiences it and in what situation, without starting from a solution.
     validations:
       required: true
   - type: textarea
     id: outcome
     attributes:
-      label: Resultado esperado
-      description: Explica qué podría hacer una persona cuando la mejora exista.
+      label: Expected outcome
+      description: Explain what a person could do once the improvement exists.
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternativas consideradas
-      description: Incluye soluciones manuales o herramientas existentes, si las hay.
+      label: Alternatives considered
+      description: Include manual workarounds or existing tools, if any.
   - type: textarea
     id: scope
     attributes:
-      label: Qué dejarías fuera
-      description: Un límite explícito ayuda a convertir la propuesta en una tarea revisable.
+      label: What you would leave out
+      description: An explicit boundary helps turn the proposal into a reviewable task.
     validations:
       required: true
   - type: checkboxes
     id: checks
     attributes:
-      label: Comprobaciones
+      label: Checks
       options:
-        - label: He buscado propuestas similares entre las incidencias abiertas.
+        - label: I searched the open issues for similar proposals.
           required: true
-        - label: Esperaré a acordar el alcance antes de abrir una pull request grande.
+        - label: I will agree on the scope before opening a large pull request.
           required: true
-        - label: Acepto el código de conducta del proyecto.
+        - label: I accept the project code of conduct.
           required: true

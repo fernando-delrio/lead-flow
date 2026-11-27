@@ -1,67 +1,67 @@
-name: Informar de un error
-description: Cuenta un comportamiento reproducible que no coincide con lo esperado.
-title: "[Error]: "
+name: Report a bug
+description: Describe reproducible behaviour that does not match what you expected.
+title: "[Bug]: "
 labels:
   - bug
 body:
   - type: markdown
     attributes:
       value: |
-        Gracias por ayudarnos. No publiques credenciales, datos de clientes ni vulnerabilidades.
-        Para un problema de seguridad, usa el canal privado indicado en SECURITY.md.
+        Thank you for helping. Do not publish credentials, client data, or vulnerabilities.
+        For a security issue, use the private channel described in SECURITY.md.
   - type: textarea
     id: problem
     attributes:
-      label: Qué ha ocurrido
-      description: Explica el comportamiento observado y por qué supone un problema.
+      label: What happened
+      description: Explain the behaviour you observed and why it is a problem.
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Pasos para reproducirlo
-      description: Incluye los comandos y el ejemplo mínimo necesarios.
+      label: Steps to reproduce
+      description: Include the commands and the smallest example required.
       placeholder: |
-        1. Ejecuta…
-        2. Configura…
-        3. Observa…
+        1. Run…
+        2. Configure…
+        3. Observe…
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Qué esperabas
+      label: What you expected
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Versión o commit
-      placeholder: v0.1.0 o abc1234
+      label: Version or commit
+      placeholder: v0.1.0 or abc1234
     validations:
       required: true
   - type: input
     id: environment
     attributes:
-      label: Entorno
-      description: Sistema operativo y versiones de Node.js y npm.
+      label: Environment
+      description: Operating system and Node.js and npm versions.
       placeholder: Windows 11, Node.js 22.12.0, npm 10.9.0
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Salida relevante
-      description: Elimina antes cualquier secreto o dato privado.
+      label: Relevant output
+      description: Remove every secret or private value first.
       render: shell
   - type: checkboxes
     id: checks
     attributes:
-      label: Comprobaciones
+      label: Checks
       options:
-        - label: He buscado una incidencia abierta que describa el mismo problema.
+        - label: I searched for an open issue describing the same problem.
           required: true
-        - label: La información publicada no contiene secretos ni datos de terceros.
+        - label: The published information contains no secrets or third-party data.
           required: true
-        - label: Acepto el código de conducta del proyecto.
+        - label: I accept the project code of conduct.
           required: true
