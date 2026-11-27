@@ -1,143 +1,145 @@
-# Primeras tareas para colaborar
+# First contribution tasks
 
-Estos borradores proceden de observaciones ya registradas durante las revisiones de fase 1. No
-incluyen las tareas 12–18 del núcleo, que necesitan el flujo de revisión especializado del plan.
+[English](primeras-tareas.md) · [Español](primeras-tareas.es.md)
 
-Cada bloque está listo para convertirse en una incidencia de GitHub. Antes de publicarlo se crean
-las etiquetas descritas en [`etiquetas.md`](etiquetas.md).
+These drafts come from observations already recorded during phase 1 reviews. They do not include
+core tasks 12–18, which require the plan's specialised review workflow.
 
-## 1. Leer registros de decisiones con finales de línea CRLF
+Each section is ready to become a GitHub issue. Before publishing it, create the labels described
+in [`etiquetas.md`](etiquetas.md).
 
-**Etiquetas:** `bug`, `testing`, `good first issue`.
+## 1. Read decision records with CRLF line endings
 
-`parseRecord` y `parseOptions` separan parte del registro únicamente con `\n`. Un archivo editado
-en Windows puede contener `\r\n`, por lo que los valores conservan `\r` o dejan de reconocerse.
+**Labels:** `bug`, `testing`, `good first issue`.
 
-**Alcance**
+`parseRecord` and `parseOptions` split part of the record using only `\n`. A file edited on
+Windows may contain `\r\n`, leaving `\r` in values or preventing them from being recognised.
 
-- Añadir una prueba que lea un registro válido convertido a CRLF.
-- Normalizar o separar los finales de línea sin cambiar el formato que se escribe actualmente.
-- Mantener los mismos mensajes para registros realmente inválidos.
+**Scope**
 
-**Aceptación**
+- Add a test that reads a valid record converted to CRLF.
+- Normalise or split line endings without changing the format currently written.
+- Preserve the existing messages for genuinely invalid records.
 
-- La prueba demuestra que `listDecisions` devuelve el mismo objeto con LF y CRLF.
-- `npm test`, `npm run lint` y `npm run build` pasan desde `cli/`.
+**Acceptance**
 
-**Fuera:** cambiar la estructura Markdown de los registros.
+- The test proves that `listDecisions` returns the same object for LF and CRLF.
+- `npm test`, `npm run lint`, and `npm run build` pass from `cli/`.
 
-**Archivos orientativos:** `cli/src/decisions/records.ts`, `cli/test/decisions/records.test.ts`.
+**Out of scope:** changing the Markdown structure of the records.
 
-## 2. Mostrar el uso correcto de `lead-flow cambiar` cuando falta el tema
+**Suggested files:** `cli/src/decisions/records.ts`, `cli/test/decisions/records.test.ts`.
 
-**Etiquetas:** `bug`, `good first issue`.
+## 2. Show the correct use of `lead-flow cambiar` when the topic is missing
 
-`lead-flow cambiar` sin argumentos responde que el tema vacío no existe. La persona necesita ver
-el uso del comando y los temas válidos, no un error sobre `«»`.
+**Labels:** `bug`, `good first issue`.
 
-**Alcance**
+`lead-flow cambiar` without arguments says that the empty topic does not exist. A person needs to
+see the command usage and valid topics, not an error about `“”`.
 
-- Añadir una prueba del comando sin tema.
-- Mostrar un mensaje de uso en castellano, por ejemplo `lead-flow cambiar <tema>`.
-- Mantener el error actual cuando sí se proporciona un tema desconocido.
+**Scope**
 
-**Aceptación:** la nueva prueba y toda la suite, lint y build pasan.
+- Add a test for the command without a topic.
+- Show a Spanish usage message, for example `lead-flow cambiar <tema>`, because the CLI remains
+  Spanish in phase 1.
+- Keep the existing error when an unknown topic is provided.
 
-**Fuera:** rediseñar la ayuda general del CLI.
+**Acceptance:** the new test and the complete suite, lint, and build pass.
 
-**Archivos orientativos:** `cli/src/index.ts` y sus pruebas de entrada del CLI.
+**Out of scope:** redesigning the CLI's general help.
 
-## 3. Fijar con una prueba el conflicto de un archivo existente vacío
+**Suggested files:** `cli/src/index.ts` and its CLI entry-point tests.
 
-**Etiquetas:** `testing`, `good first issue`.
+## 3. Lock the conflict behaviour for an existing empty file with a test
 
-El generador considera conflicto cualquier archivo existente sin marcadores, incluso si está
-vacío. Esa protección es deliberada, pero no tiene una prueba que impida cambiarla por accidente.
+**Labels:** `testing`, `good first issue`.
 
-**Alcance**
+The generator treats any existing file without markers as a conflict, even when it is empty. This
+protection is intentional, but no test prevents it from changing by accident.
 
-- Añadir un caso con `current === ''` a las pruebas de `planWrite`.
-- Comprobar `estado`, contenido sin modificar y explicación del conflicto.
-- No cambiar la implementación salvo que la prueba revele una incoherencia real.
+**Scope**
 
-**Aceptación:** el nuevo caso demuestra los tres efectos esperados y pasa con toda la suite.
+- Add a case with `current === ''` to the `planWrite` tests.
+- Check the status, unchanged content, and conflict explanation.
+- Do not change the implementation unless the test reveals a real inconsistency.
 
-**Fuera:** permitir que el generador tome posesión automática de archivos vacíos.
+**Acceptance:** the new case demonstrates all three expected effects and passes with the full suite.
 
-**Archivo orientativo:** `cli/test/generate/blocks.test.ts`.
+**Out of scope:** allowing the generator to take ownership of empty files automatically.
 
-## 4. Incluir la licencia y el aviso en el plugin equipo-solo
+**Suggested file:** `cli/test/generate/blocks.test.ts`.
 
-**Etiquetas:** `documentation`, `good first issue`.
+## 4. Include the license and notice in the equipo-solo plugin
 
-El repositorio tiene `LICENSE` y `NOTICE` en la raíz, pero el directorio `plugin/` que se instala
-como `equipo-solo` no lleva esos archivos consigo.
+**Labels:** `documentation`, `good first issue`.
 
-**Alcance**
+The repository has `LICENSE` and `NOTICE` at its root, but the `plugin/` directory installed as
+`equipo-solo` does not carry those files.
 
-- Determinar qué archivos incluye la instalación local del marketplace.
-- Incorporar dentro de `plugin/` la licencia Apache 2.0 y el aviso correspondiente.
-- Evitar dos textos legales que puedan divergir sin una comprobación.
+**Scope**
 
-**Aceptación:** una instalación nueva permite localizar la licencia y el aviso desde el plugin.
+- Determine which files a local marketplace installation includes.
+- Add the Apache 2.0 license and corresponding notice inside `plugin/`.
+- Avoid maintaining two legal texts that can diverge without a check.
 
-**Fuera:** cambiar la licencia del proyecto.
+**Acceptance:** a fresh installation makes the license and notice discoverable from the plugin.
 
-## 5. Corregir el contraste del rojo en la historia visual
+**Out of scope:** changing the project license.
 
-**Etiquetas:** `accessibility`, `documentation`, `good first issue`.
+## 5. Fix red contrast in the visual story
 
-El rojo `#ff5555` sobre el panel `#2a2c3a` alcanza aproximadamente 4,40:1, por debajo del mínimo
-4,5:1 para texto normal. El caso registrado es `pago ✗`.
+**Labels:** `accessibility`, `documentation`, `good first issue`.
 
-**Alcance**
+Red `#ff5555` on panel `#2a2c3a` reaches approximately 4.40:1, below the 4.5:1 minimum for
+normal text. The recorded case is `pago ✕`.
 
-- Elegir un rojo que alcance al menos 4,5:1 sobre el panel sin perder el significado visual.
-- Cambiar la fuente `assets/historia/fuente/generar.mjs` y regenerar los SVG.
-- Documentar la relación de contraste comprobada.
+**Scope**
 
-**Aceptación:** `node assets/historia/fuente/generar.mjs` reproduce los SVG versionados y el texto
-afectado cumple 4,5:1 o más.
+- Choose a red that reaches at least 4.5:1 on the panel without losing its visual meaning.
+- Change `assets/historia/fuente/generar.mjs` and regenerate the SVG files.
+- Document the verified contrast ratio.
 
-**Fuera:** rediseñar las ilustraciones o sus animaciones.
+**Acceptance:** `node assets/historia/fuente/generar.mjs` reproduces the versioned SVG files and
+the affected text reaches at least 4.5:1.
 
-## 6. Incluir las pruebas en la comprobación de tipos
+**Out of scope:** redesigning the illustrations or their animations.
 
-**Etiquetas:** `testing`, `help wanted`.
+## 6. Include tests in type checking
 
-`cli/tsconfig.json` solo incluye `src`, así que `npm run build` no comprueba los tipos de los
-archivos `test/**/*.ts`.
+**Labels:** `testing`, `help wanted`.
 
-**Alcance**
+`cli/tsconfig.json` only includes `src`, so `npm run build` does not type-check files under
+`test/**/*.ts`.
 
-- Añadir una comprobación de tipos para las pruebas sin emitir JavaScript en ellas.
-- Corregir únicamente los errores de tipos que esa comprobación descubra.
-- Integrar la comprobación en los scripts que ejecuta una persona colaboradora.
+**Scope**
 
-**Aceptación:** un error de tipos deliberado en una prueba hace fallar la comprobación; test, lint
-y build continúan en verde.
+- Add type checking for tests without emitting JavaScript for them.
+- Only fix type errors discovered by that check.
+- Integrate the check into the scripts run by contributors.
 
-**Fuera:** cambiar las reglas de estilo o actualizar dependencias.
+**Acceptance:** a deliberate type error in a test fails the check; test, lint, and build remain green.
 
-## 7. Usar comandos ejecutables desde proyectos Node y Laravel
+**Out of scope:** changing style rules or updating dependencies.
 
-**Etiquetas:** `bug`, `documentation`, `good first issue`.
+## 7. Use commands executable from Node and Laravel projects
 
-El catálogo propone `vitest run` en opciones que usan pnpm y `phpcs` en Laravel. En una
-instalación local habitual, los ejecutables viven en el proyecto y se invocan con
-`pnpm exec vitest run` y `./vendor/bin/phpcs`.
+**Labels:** `bug`, `documentation`, `good first issue`.
 
-**Alcance**
+The catalogue suggests `vitest run` for pnpm options and `phpcs` for Laravel. In a typical local
+installation, executables live in the project and are invoked with `pnpm exec vitest run` and
+`./vendor/bin/phpcs`.
 
-- Actualizar el comando y la explicación en las opciones afectadas.
-- Añadir o reforzar una prueba de contenido que compruebe los comandos exactos.
-- Revisar que la documentación enlazada respalde las invocaciones.
+**Scope**
 
-**Aceptación:** las opciones de Express, NestJS y Laravel guardan comandos ejecutables desde la
-raíz de un proyecto con sus dependencias instaladas; test, lint y build pasan.
+- Update the affected commands and explanations.
+- Add or strengthen a content test that checks the exact commands.
+- Confirm that the linked documentation supports those invocations.
 
-**Fuera:** cambiar de framework de pruebas, linter o gestor de paquetes.
+**Acceptance:** the Express, NestJS, and Laravel options store commands executable from a project
+root with dependencies installed; test, lint, and build pass.
 
-**Archivos orientativos:** `catalogo/herramientas/node-express.yml`,
-`catalogo/herramientas/node-nestjs.yml`, `catalogo/herramientas/php-laravel.yml` y
+**Out of scope:** changing the test framework, linter, or package manager.
+
+**Suggested files:** `catalogo/herramientas/node-express.yml`,
+`catalogo/herramientas/node-nestjs.yml`, `catalogo/herramientas/php-laravel.yml`, and
 `cli/test/catalog/content.test.ts`.
