@@ -22,6 +22,7 @@ WIDTH = 1920
 HEIGHT = 1080
 FPS = 30
 SAMPLE_RATE = 48_000
+CAPTION_TOP_MIN = 815
 BACKGROUND = "#1E1F29"
 SURFACE = "#282A36"
 FOREGROUND = "#F8F8F2"
@@ -122,23 +123,23 @@ def draw_hook(image: Image.Image, time: float) -> None:
     labels = [("PLANIFICA", PURPLE, -360), ("IMPLEMENTA", GREEN, 0), ("APRUEBA", PINK, 360)]
     for label, color, offset in labels:
         x = center[0] + int(offset * entrance)
-        y = 700
+        y = 620
         draw.rounded_rectangle((x - 160, y - 38, x + 160, y + 38), 18, fill=SURFACE, outline=color, width=4)
         draw_centered(draw, (x, y), label, FONT_LABEL, color)
     if time >= 7.7:
-        draw_centered(draw, (960, 820), "¿QUIÉN COMPRUEBA DE VERDAD?", FONT_TITLE, ORANGE)
+        draw_centered(draw, (960, 740), "¿QUIÉN COMPRUEBA DE VERDAD?", FONT_TITLE, ORANGE)
 
 
 def draw_responsibilities(image: Image.Image, time: float) -> None:
     draw = ImageDraw.Draw(image)
     draw.text((140, 118), "RESPONSABILIDADES SEPARADAS", font=FONT_TITLE, fill=FOREGROUND)
-    center = (960, 480)
+    center = (960, 440)
     draw_node(draw, center, 88, CYAN, "PERSONA")
     labels = ["PLAN", "CÓDIGO", "SEGURIDAD", "RENDIMIENTO", "REVISIÓN", "DISEÑO", "CIERRE"]
     visible = max(1, min(7, int((time - 9.8) / 0.46) + 1))
     for index, (label, color) in enumerate(zip(labels, NODE_COLORS)):
         angle = -math.pi / 2 + index * math.tau / 7
-        point = (int(center[0] + math.cos(angle) * 350), int(center[1] + math.sin(angle) * 270))
+        point = (int(center[0] + math.cos(angle) * 350), int(center[1] + math.sin(angle) * 230))
         draw.line((*center, *point), fill=color if index < visible else "#44475A", width=5)
         draw_node(draw, point, 48, color if index < visible else "#44475A", label if index < visible else "")
 
@@ -155,7 +156,7 @@ def draw_requirement(image: Image.Image, time: float) -> None:
     marker_x = min(marker_x, 1530)
     draw.line((330, 605, marker_x, 605), fill=GREEN, width=10)
     draw.ellipse((marker_x - 18, 587, marker_x + 18, 623), fill=GREEN)
-    draw_centered(draw, (960, 780), "INCLUIDO EL LÍMITE EXACTO", FONT_LABEL, ORANGE)
+    draw_centered(draw, (960, 755), "INCLUIDO EL LÍMITE EXACTO", FONT_LABEL, ORANGE)
 
 
 def draw_pipeline(image: Image.Image, time: float) -> None:
@@ -179,8 +180,8 @@ def draw_pipeline(image: Image.Image, time: float) -> None:
     if time >= 35.8:
         for index, check in enumerate(checks):
             x = 645 + index * 210
-            draw.rounded_rectangle((x, 790, x + 170, 858), 16, fill=SURFACE, outline=GREEN, width=4)
-            draw_centered(draw, (x + 85, 824), f"✓ {check}", FONT_LABEL, GREEN)
+            draw.rounded_rectangle((x, 710, x + 170, 778), 16, fill=SURFACE, outline=GREEN, width=4)
+            draw_centered(draw, (x + 85, 744), f"OK · {check}", FONT_LABEL, GREEN)
 
 
 def draw_comparison(image: Image.Image, time: float) -> None:
@@ -191,11 +192,11 @@ def draw_comparison(image: Image.Image, time: float) -> None:
         (1010, "50,00 €", "0,00 € ENVÍO", GREEN),
     ]
     for x, amount, shipping, color in cards:
-        draw.rounded_rectangle((x, 300, x + 700, 740), 38, fill=SURFACE, outline=color, width=7)
-        draw.text((x + 350, 430), amount, font=FONT_HERO, fill=FOREGROUND, anchor="mm")
-        draw.text((x + 350, 590), shipping, font=FONT_TITLE, fill=color, anchor="mm")
+        draw.rounded_rectangle((x, 250, x + 700, 650), 38, fill=SURFACE, outline=color, width=7)
+        draw.text((x + 350, 365), amount, font=FONT_HERO, fill=FOREGROUND, anchor="mm")
+        draw.text((x + 350, 520), shipping, font=FONT_TITLE, fill=color, anchor="mm")
     if time >= 49.2:
-        draw_centered(draw, (960, 820), "EVIDENCIA CONCRETA ≠ «TERMINADO»", FONT_TITLE, CYAN)
+        draw_centered(draw, (960, 740), "EVIDENCIA CONCRETA ≠ «TERMINADO»", FONT_TITLE, CYAN)
 
 
 def draw_control(image: Image.Image, time: float) -> None:
@@ -209,7 +210,7 @@ def draw_control(image: Image.Image, time: float) -> None:
         draw_node(draw, point, 38, color)
     draw_node(draw, center, 112, CYAN)
     draw_centered(draw, center, "TÚ", FONT_HERO, FOREGROUND)
-    draw_centered(draw, (960, 810), "LOS AGENTES PROPONEN · TÚ DECIDES", FONT_TITLE, GREEN)
+    draw_centered(draw, (960, 740), "LOS AGENTES PROPONEN · TÚ DECIDES", FONT_TITLE, GREEN)
 
 
 def draw_cta(image: Image.Image, time: float) -> None:
@@ -299,7 +300,7 @@ def draw_caption(image: Image.Image, time: float, cues: list[Cue]) -> None:
     width = max(box[2] - box[0] for box in boxes) + 70
     height = len(lines) * 60 + 30
     left = WIDTH // 2 - width // 2
-    top = 890 - height // 2
+    top = max(CAPTION_TOP_MIN, 890 - height // 2)
     draw.rounded_rectangle((left, top, left + width, top + height), 18, fill=color_with_alpha("#11131A", 238))
     for line_index, line in enumerate(lines):
         draw.text((WIDTH // 2, top + 22 + line_index * 60), line, font=FONT_CAPTION, fill=FOREGROUND, stroke_width=2, stroke_fill="#11131A", anchor="ma")
