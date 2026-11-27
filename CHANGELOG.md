@@ -1,24 +1,26 @@
-# Historial de cambios
+# Changelog
 
-Los cambios relevantes de cada entrega pública se documentan en este archivo.
+[English](CHANGELOG.md) · [Español](CHANGELOG.es.md)
 
-## Sin publicar
+Relevant changes in each public release are documented in this file.
+
+## Unreleased
 
 ## Equipo Solo 0.1.0 — 2026-11-27
 
-### Añadido
+### Added
 
-- Siete agentes para planificar, implementar, revisar y cerrar incrementos.
-- Puertas separadas de seguridad, rendimiento y diseño.
-- Plantillas `AGENTS.md` y `CLAUDE.md` para adaptar el flujo a cada proyecto.
-- Seis casos de evaluación con sus criterios.
-- Documentación de las decisiones y límites del flujo.
-- Ejemplo Node sin dependencias para probar el recorrido.
-- Icono de publicación con una persona central y siete agentes coordinados.
-- Vídeo de presentación en español, con proyecto de render reproducible y subtítulos.
+- Seven agents for planning, implementation, review, and increment closure.
+- Separate security, performance, and design gates.
+- `AGENTS.md` and `CLAUDE.md` templates for adapting the workflow to each project.
+- Six evaluation cases with their grading criteria.
+- Documentation of the workflow's decisions and limits.
+- A dependency-free Node example for trying the workflow.
+- A publication icon with one central person and seven coordinated agents.
+- A Spanish presentation video with a reproducible rendering project and subtitles.
 
-### Límites conocidos
+### Known limitations
 
-- La licencia y el aviso se consultan en la raíz del repositorio; aún no viajan dentro de la
-  carpeta instalada del plugin.
-- El CLI `lead-flow` para equipos sigue en construcción y no forma parte de esta entrega.
+- The license and notice are read from the repository root; they are not yet included in the
+  installed plugin directory.
+- The `lead-flow` CLI for teams is still under construction and is not part of this release.

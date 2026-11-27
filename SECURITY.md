@@ -1,27 +1,29 @@
-# Política de seguridad
+# Security policy
 
-## Versiones
+[English](SECURITY.md) · [Español](SECURITY.es.md)
 
-`lead-flow` aún no tiene una versión estable. Las correcciones de seguridad se preparan sobre
-`main`; cuando existan releases, esta sección indicará cuáles reciben mantenimiento.
+## Supported versions
 
-## Comunicar una vulnerabilidad
+`lead-flow` does not have a stable version yet. Security fixes are prepared against `main`; when
+releases exist, this section will state which versions receive maintenance.
 
-No publiques detalles de una vulnerabilidad en una incidencia, discusión o pull request.
+## Report a vulnerability
 
-Usa el formulario privado **Report a vulnerability** de la pestaña **Security** en GitHub:
+Do not publish vulnerability details in an issue, discussion, or pull request.
+
+Use the private **Report a vulnerability** form in GitHub's **Security** tab:
 
 https://github.com/fernando-delrio/lead-flow/security/advisories/new
 
-Incluye, si es posible:
+If possible, include:
 
-- versión o commit afectado;
-- pasos mínimos para reproducirlo;
-- impacto que has observado;
-- solución propuesta, si la conoces.
+- the affected version or commit;
+- the minimum steps needed to reproduce it;
+- the impact you observed;
+- a proposed solution, if you know one.
 
-Si el formulario privado no está disponible, abre una incidencia sin detalles técnicos que pida
-un canal privado de contacto. No adjuntes pruebas de concepto ni datos sensibles a esa incidencia.
+If the private form is unavailable, open an issue without technical details and ask for a private
+contact channel. Do not attach proof-of-concept material or sensitive data to that issue.
 
-El mantenedor evaluará el aviso y acordará contigo qué información puede publicarse. El proyecto
-no fija todavía un plazo de resolución: depende del alcance y de la disponibilidad del mantenedor.
+The maintainer will assess the report and agree with you on what information may be published. The
+project does not yet promise a resolution time; it depends on the scope and maintainer availability.
