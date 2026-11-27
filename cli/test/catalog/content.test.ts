@@ -78,4 +78,19 @@ describe('catalog content', () => {
     expect(commands).toHaveLength(optionCount * REQUIRED_COMMAND_COUNT)
     commands.forEach((command) => expect(command.trim()).not.toBe(''))
   })
+
+  it('uses commands that run from a project root with dependencies installed', async () => {
+    const stacks = EXPECTED_STACKS.herramientas ?? []
+    const entries = await Promise.all(stacks.map((stack) => loadRequired('herramientas', stack)))
+    const commands = entries.flatMap((entry) =>
+      entry.opciones.flatMap((option) => Object.values(option.comandos ?? {}))
+    )
+    expect(commands).toContain('pnpm exec vitest run')
+    expect(commands).toContain('pnpm exec biome check .')
+    expect(commands).toContain('./vendor/bin/phpcs')
+    // Project-local tools must not be called bare: they are not on PATH after install.
+    commands.forEach((command) => {
+      expect(command).not.toMatch(/^(vitest|biome|phpcs|pest|phpunit)\b/)
+    })
+  })
 })
