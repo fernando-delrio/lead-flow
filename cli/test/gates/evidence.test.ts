@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { attempt } from '../../src/core/attempt.js'
 import { LeadFlowError } from '../../src/core/errors.js'
-import { readEvidence, writeEvidence } from '../../src/gates/evidence.js'
+import { readEvidence, readGateEvidence, writeEvidence } from '../../src/gates/evidence.js'
 import type { GateEvidence } from '../../src/policy/schema.js'
 
 const evidence = (overrides: Partial<GateEvidence> = {}): GateEvidence => ({
@@ -21,6 +21,11 @@ const evidence = (overrides: Partial<GateEvidence> = {}): GateEvidence => ({
 const temporaryDirectory = () => mkdtemp(join(tmpdir(), 'lead-flow-evidencias-'))
 
 const readError = async (directory: string) => (await attempt(readEvidence(directory))).error
+
+const gateError = async (directory: string, gate: string) => (await attempt(readGateEvidence(directory, gate))).error
+
+const MULTIBYTE_CHARACTER = '\u00F1'
+const OVER_LIMIT_IN_CHARACTERS = 500_001
 
 describe('evidence', () => {
   it('evidence round-trips through write and read', async () => {
@@ -76,5 +81,35 @@ describe('evidence', () => {
   it('reports a missing directory as a LeadFlowError', async () => {
     const error = await readError(join(tmpdir(), 'lead-flow-no-existe-nunca'))
     expect(error).toBeInstanceOf(LeadFlowError)
+  })
+
+  it('measures the size in bytes before reading the file', async () => {
+    const directory = await temporaryDirectory()
+    await writeFile(join(directory, 'secretos.json'), MULTIBYTE_CHARACTER.repeat(OVER_LIMIT_IN_CHARACTERS), 'utf8')
+    const error = await readError(directory)
+    expect((error as LeadFlowError).code).toBe('EVIDENCIA_INVALIDA')
+    expect(error?.message).toContain('demasiado grande')
+  })
+})
+
+describe('readGateEvidence', () => {
+  it('reads only the file of the gate it is asked for', async () => {
+    const directory = await temporaryDirectory()
+    await writeEvidence(directory, evidence())
+    await writeFile(join(directory, 'otra.json'), '{ roto', 'utf8')
+    expect(await readGateEvidence(directory, 'secretos')).toEqual(evidence())
+  })
+
+  it('rejects a file that says it belongs to another gate', async () => {
+    const directory = await temporaryDirectory()
+    await writeFile(join(directory, 'integridad.json'), JSON.stringify(evidence()), 'utf8')
+    const error = await gateError(directory, 'integridad')
+    expect((error as LeadFlowError).code).toBe('EVIDENCIA_INVALIDA')
+    expect(error?.message).toContain('secretos')
+  })
+
+  it('rejects a gate name that is not a plain name', async () => {
+    const error = await gateError(await temporaryDirectory(), '../secretos')
+    expect((error as LeadFlowError).code).toBe('EVIDENCIA_INVALIDA')
   })
 })

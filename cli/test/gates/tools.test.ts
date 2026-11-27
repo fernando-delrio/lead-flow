@@ -7,6 +7,7 @@ import { parse } from 'yaml'
 import { attempt, attemptSync } from '../../src/core/attempt.js'
 import { type ToolSpec, runTool } from '../../src/gates/tools.js'
 import {
+  type CommitRange,
   parseGitleaksReport,
   parseSemgrepReport,
   readCommitRange,
@@ -37,6 +38,9 @@ const nodeTool = (script: string, overrides: Partial<ToolSpec> = {}): ToolSpec =
   parse: parseJsonList,
   ...overrides,
 })
+
+const semgrepTool = (report: unknown) =>
+  nodeTool(`process.stdout.write(${JSON.stringify(JSON.stringify(report))})`, { puerta: 'sast', parse: parseSemgrepReport })
 
 const SHA_BASE = 'a'.repeat(40)
 const SHA_HEAD = 'b'.repeat(40)
@@ -87,12 +91,20 @@ describe('gate tools', () => {
     expect(readFileSync(config, 'utf8')).toMatch(/useDefault\s*=\s*true/)
     const ignorePath = spec.args[spec.args.indexOf('--gitleaks-ignore-path') + 1] as string
     expect(existsSync(join(ignorePath, '.gitleaksignore'))).toBe(false)
-    expect(spec.args).not.toContain('--log-opts')
   })
 
   it('scans only the commits of the pull request when the range is known', () => {
     const spec = secretsToolSpec({ base: SHA_BASE, head: SHA_HEAD })
-    expect(spec.args.slice(-2)).toEqual(['--log-opts', `${SHA_BASE}..${SHA_HEAD}`])
+    expect(spec.args.slice(-2)).toEqual(['--log-opts', `--text ${SHA_BASE}..${SHA_HEAD}`])
+  })
+
+  it('makes git show every file as text so a .gitattributes cannot hide it', () => {
+    const logOptions = (range: CommitRange | null) => {
+      const args = secretsToolSpec(range).args
+      return (args[args.indexOf('--log-opts') + 1] ?? '').split(' ')
+    }
+    expect(logOptions({ base: SHA_BASE, head: SHA_HEAD })).toContain('--text')
+    expect(logOptions(null)).toEqual(expect.arrayContaining(['--text', '--all', '--full-history']))
   })
 
   it('reads the commit range from the pull request event', async () => {
@@ -121,6 +133,11 @@ describe('gate tools', () => {
     expect(spec.args).toContain('--metrics=off')
   })
 
+  it('asks semgrep to analyse large files instead of skipping them', () => {
+    const args = sastToolSpec(fixturePolicy()).args
+    expect(args[args.indexOf('--max-target-bytes') + 1]).toBe('0')
+  })
+
   it('falls back to the default semgrep pack for a language without a pack', () => {
     const policy = fixturePolicy()
     const spec = sastToolSpec({ ...policy, stack: { ...policy.stack, lenguajes: ['cobol'] } })
@@ -145,6 +162,25 @@ describe('gate tools', () => {
     expect(result.detalles).toEqual([{ regla: 'js.eval', archivo: 'src/a.ts', linea: 9 }])
     expect(parseSemgrepReport(JSON.stringify({ results: [], errors: [] })).ok).toBe(true)
     expect(attemptSync(() => parseSemgrepReport('[]')).error).not.toBeNull()
+  })
+
+  it('reports no_verificado when semgrep could not analyse some files', async () => {
+    const errors = [
+      { level: 'error', type: 'Fatal error', message: 'sin memoria' },
+      { level: 'warn', type: 'Timeout', message: 'tiempo agotado', path: 'src/grande.ts' },
+    ]
+    const evidence = await runTool(semgrepTool({ results: [], errors }))
+    expect(evidence.estado).toBe('no_verificado')
+    expect(evidence.resumen).toContain('2')
+    expect(evidence.detalles).toHaveLength(2)
+  })
+
+  it('keeps semgrep warnings in the summary and the details without changing the status', async () => {
+    const errors = [{ level: 'warn', type: ['PartialParsing', []], message: 'análisis parcial', path: 'src/a.ts' }]
+    const evidence = await runTool(semgrepTool({ results: [], errors }))
+    expect(evidence.estado).toBe('ok')
+    expect(evidence.resumen).toContain('Avisos de la herramienta: 1')
+    expect(evidence.detalles).toEqual([expect.objectContaining({ tipo: 'aviso', archivo: 'src/a.ts' })])
   })
 })
 
