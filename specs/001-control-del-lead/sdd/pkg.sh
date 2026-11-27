@@ -10,8 +10,8 @@ tar -C "$R" --exclude=.git --exclude=node_modules --exclude=dist --exclude=.supe
 PATHS=("$@"); [ ${#PATHS[@]} -eq 0 ] && PATHS=(".")
 { echo "# Paquete de revisión: tarea $TAG (foto snap-$N → estado actual; rutas: ${PATHS[*]})"; echo
   for P in "${PATHS[@]}"; do mkdir -p "$W/snap-$N/$P" "$CUR/$P";
-    echo "## Archivos ($P)"; diff -rqN "$W/snap-$N/$P" "$CUR/$P" | sed "s#$W/##g"; echo
-    echo "## Diferencias ($P)"; diff -ruN -U10 -x package-lock.json "$W/snap-$N/$P" "$CUR/$P" | sed "s#$W/##g"; echo
+    echo "## Archivos ($P)"; diff -rqN --strip-trailing-cr "$W/snap-$N/$P" "$CUR/$P" | sed "s#$W/##g"; echo
+    echo "## Diferencias ($P)"; diff -ruN --strip-trailing-cr -U10 -x package-lock.json "$W/snap-$N/$P" "$CUR/$P" | sed "s#$W/##g"; echo
   done; } > "$OUT"
 rm -rf "$CUR"
 echo "escrito $OUT ($(wc -c < "$OUT") bytes)"

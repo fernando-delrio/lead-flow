@@ -22,6 +22,10 @@ const WORKFLOW_RUN_EVENT = 'workflow_run'
 const UNLOCATED_CODE = 'PULL_REQUEST_SIN_LOCALIZAR'
 const MISSING_POLICY_CODE = 'POLITICA_NO_ENCONTRADA'
 const INCOMPLETE_LIST_CODE = 'LISTA_INCOMPLETA'
+const CHANGED_DURING_CHECK_CODE = 'PULL_REQUEST_CAMBIADA'
+const RUN_ID_PATTERN = /^\d+$/
+const REPOSITORY_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/
+const SERVER_URL_PATTERN = /^https:\/\/[^\s/]+$/
 const NOT_VERIFIED_NOTE = 'La integridad queda sin verificar y cuenta como fallo.'
 const COMMIT_STATES: Record<GateStatus, CommitStatus['state']> = { ok: 'success', fallo: 'failure', no_verificado: 'failure' }
 
@@ -79,6 +83,23 @@ const gatherInput = async (client: GitHubClient, pullRequest: PullRequest): Prom
   return { policy, changedFiles, generatedOnBase, filesOnHead, approvals, author: pullRequest.author }
 }
 
+// La lista de archivos no va atada a un SHA: si la cabeza o la base cambian mientras se leen los
+// datos, la evidencia sería de un estado que no existe.
+const confirmUnchanged = async (client: GitHubClient, first: PullRequest) => {
+  const again = await client.getPullRequest(first.number)
+  if (again.headSha === first.headSha && again.baseSha === first.baseSha) return
+  throw new LeadFlowError(
+    CHANGED_DURING_CHECK_CODE,
+    `La pull request ha cambiado durante la comprobación (cabeza ${first.headSha} → ${again.headSha}). Se comprobará de nuevo con el nuevo commit.`
+  )
+}
+
+const checkPullRequest = async (client: GitHubClient, pullRequest: PullRequest) => {
+  const input = await gatherInput(client, pullRequest)
+  await confirmUnchanged(client, pullRequest)
+  return checkIntegrity(input)
+}
+
 const notVerified = (error: Error) =>
   createEvidence({
     puerta: INTEGRITY_GATE,
@@ -94,15 +115,28 @@ const evidenceFrom = (outcome: Outcome<GateEvidence>) => {
   return outcome.value
 }
 
+// Por caracteres y no por unidades UTF-16: así no se parte un emoji de un nombre de archivo.
 const shorten = (text: string) => {
-  if (text.length <= MAX_DESCRIPTION_LENGTH) return text
-  return `${text.slice(0, MAX_DESCRIPTION_LENGTH - ELLIPSIS.length)}${ELLIPSIS}`
+  const characters = Array.from(text)
+  if (characters.length <= MAX_DESCRIPTION_LENGTH) return text
+  return `${characters.slice(0, MAX_DESCRIPTION_LENGTH - Array.from(ELLIPSIS).length).join('')}${ELLIPSIS}`
 }
 
-const toCommitStatus = (evidence: GateEvidence): CommitStatus => ({
+// El enlace a la ejecución lleva a quien ve el estado hasta el porqué; sin datos válidos no se pone.
+const linkToRun = (env: Environment): Pick<CommitStatus, 'target_url'> => {
+  const server = env.GITHUB_SERVER_URL ?? ''
+  const repository = env.GITHUB_REPOSITORY ?? ''
+  const runId = env.GITHUB_RUN_ID ?? ''
+  const isValid = SERVER_URL_PATTERN.test(server) && REPOSITORY_PATTERN.test(repository) && RUN_ID_PATTERN.test(runId)
+  if (!isValid) return {}
+  return { target_url: `${server}/${repository}/actions/runs/${runId}` }
+}
+
+const toCommitStatus = (evidence: GateEvidence, env: Environment): CommitStatus => ({
   state: COMMIT_STATES[evidence.estado],
   context: STATUS_CONTEXT,
   description: shorten(evidence.resumen),
+  ...linkToRun(env),
 })
 
 const recordEvidence = async (context: IntegrityContext, evidence: GateEvidence) => {
@@ -114,8 +148,8 @@ export const runIntegrity = async (context: IntegrityContext): Promise<GateEvide
   const located = await attempt(locatePullRequest(context))
   if (located.error) return recordEvidence(context, notVerified(located.error))
   const pullRequest = located.value
-  const checked = await attempt(gatherInput(context.client, pullRequest).then(checkIntegrity))
+  const checked = await attempt(checkPullRequest(context.client, pullRequest))
   const evidence = await recordEvidence(context, evidenceFrom(checked))
-  await context.client.setCommitStatus(pullRequest.headSha, toCommitStatus(evidence))
+  await context.client.setCommitStatus(pullRequest.headSha, toCommitStatus(evidence, context.env))
   return evidence
 }

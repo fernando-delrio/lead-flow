@@ -4,7 +4,9 @@ import { attempt, attemptSync } from '../core/attempt.js'
 import type { GateEvidence, GateStatus } from '../policy/schema.js'
 import { createEvidence } from './evidence.js'
 
-export type ToolResult = { ok: boolean; detalles: unknown[] }
+// errors: lo que la herramienta no ha podido analizar, deja la puerta sin verificar.
+// warnings: avisos que se cuentan en el resumen y van a detalles sin cambiar el estado.
+export type ToolResult = { ok: boolean; detalles: unknown[]; errors?: unknown[]; warnings?: unknown[] }
 
 export type ToolSpec = {
   puerta: string
@@ -65,10 +67,21 @@ const notVerified = (reason: string): Verdict => ({
   detalles: [],
 })
 
+const describeWarnings = (warnings: unknown[]) => {
+  if (warnings.length === 0) return ''
+  return ` Avisos de la herramienta: ${warnings.length}.`
+}
+
 const describeResult = (command: string, result: ToolResult): Verdict => {
-  if (result.ok) return { estado: 'ok', resumen: `«${command}» no ha encontrado hallazgos.`, detalles: result.detalles }
-  const resumen = `«${command}» ha encontrado hallazgos: ${result.detalles.length}.`
-  return { estado: 'fallo', resumen, detalles: result.detalles }
+  const errors = result.errors ?? []
+  const warnings = result.warnings ?? []
+  const detalles = [...result.detalles, ...errors, ...warnings]
+  if (errors.length > 0) {
+    return { ...notVerified(`«${command}» no ha podido analizar todo el código (errores: ${errors.length}).`), detalles }
+  }
+  const note = describeWarnings(warnings)
+  if (result.ok) return { estado: 'ok', resumen: `«${command}» no ha encontrado hallazgos.${note}`, detalles }
+  return { estado: 'fallo', resumen: `«${command}» ha encontrado hallazgos: ${result.detalles.length}.${note}`, detalles }
 }
 
 const judgeExecution = (spec: ToolSpec, run: Execution): Verdict => {
