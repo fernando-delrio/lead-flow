@@ -1,12 +1,14 @@
-# Ejemplo de Equipo Solo con Node.js
+# Equipo Solo Node.js example
 
-Proyecto deliberadamente pequeño para observar el flujo sin que el dominio o las dependencias
-oculten lo importante.
+[English](README.md) · [Español](README.es.md)
 
-## Estado inicial
+A deliberately small project for observing the workflow without letting the domain or dependencies
+hide what matters.
 
-El carrito cobra `4,99 €` de envío cuando contiene productos. No hay descuentos, impuestos ni
-persistencia.
+## Initial state
+
+The cart charges `€4.99` for shipping when it contains products. There are no discounts, taxes,
+or persistence.
 
 ```bash
 npm test
@@ -14,25 +16,25 @@ npm run lint
 npm run build
 ```
 
-Los tres comandos deben terminar correctamente sin instalar dependencias.
+All three commands must complete successfully without installing dependencies.
 
-## Encargo de la demostración
+## Demonstration task
 
-Abre Claude Code en esta carpeta y pega:
+Open Claude Code in this directory and paste:
 
 ```text
-Lee AGENTS.md y CLAUDE.md. Añade envío gratuito cuando el subtotal sea de 50 euros o más.
-Incluye el caso exacto de 50 euros, conserva el envío de 4,99 euros por debajo y no hagas Git.
-Usa el flujo de agentes y para al cerrar el incremento.
+Read AGENTS.md and CLAUDE.md. Add free shipping when the subtotal is 50 euros or more.
+Include the exact 50-euro boundary, keep shipping at 4.99 euros below it, and do not use Git.
+Use the agent workflow and stop after closing the increment.
 ```
 
-## Resultado que se debe poder comprobar
+## Verifiable outcome
 
-- Un carrito vacío no paga envío.
-- Con subtotal `49,99 €`, el envío cuesta `4,99 €`.
-- Con subtotal `50,00 €`, el envío es gratuito.
-- Con subtotal superior a `50,00 €`, el envío es gratuito.
-- Pruebas, lint y build pasan.
+- An empty cart pays no shipping.
+- At a subtotal of `€49.99`, shipping costs `€4.99`.
+- At a subtotal of `€50.00`, shipping is free.
+- Above a subtotal of `€50.00`, shipping is free.
+- Tests, lint, and build pass.
 
-El punto de la demostración no es la dificultad del cambio, sino poder ver quién planifica, quién
-implementa, qué se comprueba y quién revisa antes de cerrarlo.
+The point of the demonstration is not the difficulty of the change. It is seeing who plans, who
+implements, what gets checked, and who reviews before the increment is closed.

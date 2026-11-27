@@ -118,7 +118,7 @@ Lo que dicen los estudios:
 
 Las encuestas miden lo que opinan sus encuestados, no hechos medidos, y varios de estos editores
 venden herramientas relacionadas. Cada cifra, con lo que mide exactamente y su fuente, está en
-[`doc/investigacion.md`](doc/investigacion.md).
+[`doc/investigacion.es.md`](doc/investigacion.es.md).
 
 ## Cómo funcionará
 
@@ -190,8 +190,8 @@ cómo se prueba tu proyecto: los agentes ejecutan esos comandos. El flujo comple
 cada decisión y sus límites están en [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md).
 
 Para verlo en un proyecto pequeño sin instalar dependencias, sigue el
-[ejemplo Node](examples/equipo-solo-node/README.md). Las notas de la primera entrega están en
-[`Equipo Solo 0.1.0`](doc/releases/equipo-solo-v0.1.0.md).
+[ejemplo Node](examples/equipo-solo-node/README.es.md). Las notas de la primera entrega están en
+[`Equipo Solo 0.1.0`](doc/releases/equipo-solo-v0.1.0.es.md).
 
 ## Para quién será
 
@@ -209,13 +209,13 @@ Para startups y consultoras que programan con IA y entregan software a clientes.
 ¿Quieres probar `lead-flow` en tu equipo cuando esté lista la fase 1? Sigue el repositorio
 (**Watch → Custom → Releases**) o [abre una incidencia](https://github.com/fernando-delrio/lead-flow/issues/new)
 contando tu caso. Si quieres ayudar a construirlo, consulta la
-[guía de contribución](CONTRIBUTING.es.md) y el [plan de comunidad](doc/comunidad.md).
+[guía de contribución](CONTRIBUTING.es.md) y el [plan de comunidad](doc/comunidad.es.md).
 
 ## Para saber más
 
 - [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md): el flujo del kit `equipo-solo`, sus decisiones y sus fuentes.
 - [`specs/001-control-del-lead/diseno.md`](specs/001-control-del-lead/diseno.md): el diseño completo de `lead-flow`.
-- [`doc/investigacion.md`](doc/investigacion.md): las cifras verificadas, con lo que mide cada una.
+- [`doc/investigacion.es.md`](doc/investigacion.es.md): las cifras verificadas, con lo que mide cada una.
 
 ## Licencia y autor
 

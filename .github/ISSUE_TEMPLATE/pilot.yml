@@ -1,53 +1,53 @@
-name: Proponer un equipo piloto
-description: Cuéntanos dónde te gustaría probar lead-flow cuando la fase 1 esté lista.
-title: "[Piloto]: "
+name: Propose a pilot team
+description: Tell us where you would like to try lead-flow when phase 1 is ready.
+title: "[Pilot]: "
 body:
   - type: markdown
     attributes:
       value: |
-        `lead-flow` sigue en construcción. No incluyas nombres de clientes, repositorios privados,
-        credenciales ni información contractual.
+        `lead-flow` is still under construction. Do not include client names, private repositories,
+        credentials, or contractual information.
   - type: input
     id: team
     attributes:
-      label: Tipo y tamaño aproximado del equipo
-      placeholder: Consultora, 6 personas de desarrollo
+      label: Approximate team type and size
+      placeholder: Consultancy, 6 developers
     validations:
       required: true
   - type: input
     id: stack
     attributes:
-      label: Stack principal
-      placeholder: TypeScript, React y Node.js
+      label: Main stack
+      placeholder: TypeScript, React, and Node.js
     validations:
       required: true
   - type: textarea
     id: workflow
     attributes:
-      label: Cómo utilizáis agentes de IA
-      description: Herramientas, frecuencia y parte del flujo en la que participan.
+      label: How you use AI agents
+      description: Tools, frequency, and the parts of the workflow where they participate.
     validations:
       required: true
   - type: textarea
     id: problem
     attributes:
-      label: Qué problema queréis comprobar
-      description: Revisión, seguridad, trazabilidad, carga de la lead u otro problema concreto.
+      label: What problem you want to test
+      description: Review, security, traceability, lead workload, or another specific problem.
     validations:
       required: true
   - type: textarea
     id: limits
     attributes:
-      label: Límites para la prueba
-      description: Restricciones técnicas, de privacidad o de tiempo que se puedan contar públicamente.
+      label: Pilot constraints
+      description: Technical, privacy, or time constraints that can be shared publicly.
   - type: checkboxes
     id: checks
     attributes:
-      label: Confirmación
+      label: Confirmation
       options:
-        - label: Entiendo que lead-flow aún no tiene una versión estable.
+        - label: I understand that lead-flow does not have a stable version yet.
           required: true
-        - label: La información publicada no identifica a clientes ni expone datos privados.
+        - label: The published information does not identify clients or expose private data.
           required: true
-        - label: Acepto el código de conducta del proyecto.
+        - label: I accept the project code of conduct.
           required: true

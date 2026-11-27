@@ -1,24 +1,26 @@
-# Etiquetas de colaboración
+# Collaboration labels
 
-Las etiquetas ayudan a encontrar una tarea adecuada sin tener que conocer todo el proyecto. La
-descripción debe explicar cuándo usar cada una; el color solo facilita distinguirlas.
+[English](etiquetas.md) · [Español](etiquetas.es.md)
 
-| Etiqueta | Color | Uso |
+Labels help someone find a suitable task without knowing the entire project. The description must
+explain when to use each one; colour only makes them easier to distinguish.
+
+| Label | Colour | Use |
 |---|---:|---|
-| `good first issue` | `#7057ff` | Tarea pequeña, aislada y con criterios de aceptación completos. |
-| `help wanted` | `#008672` | Trabajo preparado para una persona externa, con algo de contexto técnico. |
-| `bug` | `#d73a4a` | Comportamiento reproducible que contradice el diseño o la documentación. |
-| `enhancement` | `#a2eeef` | Mejora de comportamiento que necesita acordar alcance. |
-| `documentation` | `#0075ca` | README, guías, ejemplos o textos del catálogo. |
-| `testing` | `#5319e7` | Cobertura, aislamiento o infraestructura de pruebas. |
-| `accessibility` | `#1d76db` | Barreras de acceso visual, motriz, auditivo o cognitivo. |
-| `security` | `#b60205` | Endurecimiento público; una vulnerabilidad se comunica en privado. |
-| `community` | `#0e8a16` | Incorporación, colaboración, moderación o difusión. |
-| `pilot` | `#fbca04` | Equipo interesado en probar una entrega todavía no estable. |
-| `needs discussion` | `#d4c5f9` | El problema existe, pero el alcance todavía no permite implementarlo. |
-| `blocked` | `#000000` | No puede avanzar hasta que ocurra una decisión o cambio identificado. |
+| `good first issue` | `#7057ff` | Small, isolated task with complete acceptance criteria. |
+| `help wanted` | `#008672` | Work prepared for an external contributor, with some technical context. |
+| `bug` | `#d73a4a` | Reproducible behaviour that contradicts the design or documentation. |
+| `enhancement` | `#a2eeef` | Behaviour improvement whose scope must be agreed. |
+| `documentation` | `#0075ca` | README files, guides, examples, or catalogue text. |
+| `testing` | `#5319e7` | Test coverage, isolation, or infrastructure. |
+| `accessibility` | `#1d76db` | Visual, motor, auditory, or cognitive access barriers. |
+| `security` | `#b60205` | Public hardening work; vulnerabilities are reported privately. |
+| `community` | `#0e8a16` | Onboarding, collaboration, moderation, or outreach. |
+| `pilot` | `#fbca04` | A team interested in trying an unstable release. |
+| `needs discussion` | `#d4c5f9` | The problem exists, but the scope is not ready for implementation. |
+| `blocked` | `#000000` | Cannot progress until an identified decision or change happens. |
 
-## Regla de uso
+## Usage rule
 
-`good first issue` y `help wanted` solo se añaden cuando la incidencia contiene contexto, alcance,
-criterios de aceptación, comprobaciones y una lista explícita de lo que queda fuera.
+`good first issue` and `help wanted` are only added when an issue contains context, scope,
+acceptance criteria, verification steps, and an explicit list of what is out of scope.

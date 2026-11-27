@@ -1,38 +1,40 @@
-# Plan de comunidad de lead-flow
+# lead-flow community plan
 
-Este documento convierte la difusión y la colaboración en trabajo verificable. GitHub es la sede
-canónica; GitLab funciona como espejo y no recibe cambios independientes.
+[English](comunidad.md) · [Español](comunidad.es.md)
 
-## Objetivo
+This document turns outreach and collaboration into verifiable work. GitHub is the canonical home;
+GitLab is a mirror and receives no independent changes.
 
-Conseguir personas que prueben lo que ya funciona, equipos piloto que ayuden a validar
-`lead-flow` y colaboraciones pequeñas que puedan revisarse sin crear otro cuello de botella.
+## Goal
+
+Find people who try what already works, pilot teams that help validate `lead-flow`, and small
+contributions that can be reviewed without creating another bottleneck.
 
 ## Plan
 
-| Paso | Resultado observable | Estado |
+| Step | Observable outcome | Status |
 |---|---|---|
-| 1. Sede principal | GitHub recibe incidencias y pull requests; GitLab es un espejo. | Preparado |
-| 2. Entradas claras | El README separa probar, colaborar y proponer un piloto. | Preparado |
-| 3. Base comunitaria | Guías, [formularios](../.github/ISSUE_TEMPLATE/) y plantilla de PR. | Preparado |
-| 4. Primeras tareas | Siete incidencias publicadas, de la [#7](https://github.com/fernando-delrio/lead-flow/issues/7) a la [#13](https://github.com/fernando-delrio/lead-flow/issues/13). | Preparado |
-| 5. Demostración pública | Instalación reproducible, ejemplo, notas, guion y vídeo; falta crear la release. | En curso |
-| 6. Difusión | Una pieza principal adaptada a comunidades y contacto directo. | Pendiente |
-| 7. Conversación | Discussions con preguntas, ideas y experiencias. | Pendiente |
-| 8. Medición | Registro de pruebas, pilotos, primeras PR y tiempo de respuesta. | Pendiente |
+| 1. Primary home | GitHub receives issues and pull requests; GitLab is a mirror. | Ready |
+| 2. Clear entry points | The README separates trying, contributing, and proposing a pilot. | Ready |
+| 3. Community foundation | Guides, [forms](../.github/ISSUE_TEMPLATE/), and a pull request template. | Ready |
+| 4. First tasks | Seven issues published, from [#7](https://github.com/fernando-delrio/lead-flow/issues/7) to [#13](https://github.com/fernando-delrio/lead-flow/issues/13). | Ready |
+| 5. Public demonstration | Reproducible installation, example, notes, script, and video; the release still needs to be created. | In progress |
+| 6. Outreach | One primary piece adapted for communities and direct contact. | Pending |
+| 7. Conversation | Discussions for questions, ideas, and experiences. | Pending |
+| 8. Measurement | Record installations, pilots, first pull requests, and response time. | Pending |
 
-## Criterio para invitar a colaborar
+## Criterion for inviting contributions
 
-Antes de difundir una tarea, otra persona debe poder entender el problema, preparar el proyecto,
-comprobar el resultado y saber qué queda fuera sin necesitar una conversación privada.
+Before sharing a task, another person must be able to understand the problem, set up the project,
+verify the result, and know what is out of scope without needing a private conversation.
 
-## Métricas iniciales
+## Initial metrics
 
-- personas que completan una instalación;
-- equipos que aceptan probar el flujo;
-- incidencias asumidas por personas externas;
-- primeras pull requests y tiempo hasta la primera respuesta;
-- personas que vuelven a participar.
+- people who complete an installation;
+- teams that agree to try the workflow;
+- issues taken by external contributors;
+- first pull requests and time to first response;
+- people who participate again.
 
-Las estrellas y las visitas sirven como contexto, pero no sustituyen estas señales de uso y
-colaboración real.
+Stars and visits provide context, but they do not replace these signals of real use and
+collaboration.

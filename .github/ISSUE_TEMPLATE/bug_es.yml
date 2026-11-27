@@ -1,0 +1,67 @@
+name: Informar de un error
+description: Cuenta un comportamiento reproducible que no coincide con lo esperado.
+title: "[Error]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por ayudarnos. No publiques credenciales, datos de clientes ni vulnerabilidades.
+        Para un problema de seguridad, usa el canal privado indicado en SECURITY.md.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qué ha ocurrido
+      description: Explica el comportamiento observado y por qué supone un problema.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducirlo
+      description: Incluye los comandos y el ejemplo mínimo necesarios.
+      placeholder: |
+        1. Ejecuta…
+        2. Configura…
+        3. Observa…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Qué esperabas
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versión o commit
+      placeholder: v0.1.0 o abc1234
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Entorno
+      description: Sistema operativo y versiones de Node.js y npm.
+      placeholder: Windows 11, Node.js 22.12.0, npm 10.9.0
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Salida relevante
+      description: Elimina antes cualquier secreto o dato privado.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Comprobaciones
+      options:
+        - label: He buscado una incidencia abierta que describa el mismo problema.
+          required: true
+        - label: La información publicada no contiene secretos ni datos de terceros.
+          required: true
+        - label: Acepto el código de conducta del proyecto.
+          required: true

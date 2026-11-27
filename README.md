@@ -119,7 +119,7 @@ What the studies report:
 
 Surveys report what their respondents say, not independently measured facts, and several
 publishers sell related tools. Each figure, exactly what it measures, and its source are recorded
-in [`doc/investigacion.md`](doc/investigacion.md) (currently in Spanish).
+in [`doc/investigacion.md`](doc/investigacion.md).
 
 ## How it will work
 
@@ -209,14 +209,13 @@ Startups and consultancies that build with AI and deliver software to clients.
 Want to try `lead-flow` with your team when phase 1 is ready? Watch the repository
 (**Watch → Custom → Releases**) or [open an issue](https://github.com/fernando-delrio/lead-flow/issues/new)
 and describe your case. To help build it, read the
-[contribution guide](CONTRIBUTING.md) and the [community plan](doc/comunidad.md), currently in
-Spanish.
+[contribution guide](CONTRIBUTING.md) and the [community plan](doc/comunidad.md).
 
 ## Learn more
 
 - [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md): the `equipo-solo` workflow, its decisions, and its sources (Spanish).
 - [`specs/001-control-del-lead/diseno.md`](specs/001-control-del-lead/diseno.md): the complete `lead-flow` design (Spanish).
-- [`doc/investigacion.md`](doc/investigacion.md): verified figures and exactly what each one measures (Spanish).
+- [`doc/investigacion.md`](doc/investigacion.md): verified figures and exactly what each one measures.
 
 ## License and author
 
