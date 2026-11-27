@@ -1,10 +1,14 @@
 {
   "name": "equipo-solo",
+  "displayName": "Equipo Solo",
   "version": "0.1.0",
   "description": "Equipo de agentes para un desarrollador full stack que trabaja solo: especificar, implementar, pasar puertas de calidad en paralelo y cerrar cada incremento.",
   "author": {
-    "name": "Fernando del Río"
+    "name": "Fernando del Río",
+    "url": "https://github.com/fernando-delrio"
   },
+  "homepage": "https://github.com/fernando-delrio/lead-flow#probar-hoy-el-kit-equipo-solo",
+  "repository": "https://github.com/fernando-delrio/lead-flow",
   "license": "Apache-2.0",
   "keywords": ["agents", "spec-driven", "code-review", "full-stack", "quality-gates"]
 }
