@@ -1,224 +1,227 @@
 # lead-flow
 
-**La IA pone la velocidad. El flujo hace que llegue al cliente.**
+[English](README.md) · [Español](README.es.md)
 
-`lead-flow` (nombre provisional) es un flujo de trabajo para equipos que programan con IA, pensado
-para startups y consultoras que entregan software a sus clientes. Siempre decide una persona, la
-lead engineer. Las personas revisan donde hay riesgo, y lo demás se vigila sin frenar a nadie.
+**AI provides the speed. The workflow gets it to the client.**
 
-> **Estado:** `lead-flow` está en construcción (fase 1) y todavía no se puede usar. Lo que ya se
-> puede instalar hoy es el kit `equipo-solo` para Claude Code. Detalle en
-> [Qué existe hoy y qué no](#qué-existe-hoy-y-qué-no).
+`lead-flow` (working name) is a workflow for teams that build software with AI, designed for
+startups and consultancies that deliver software to clients. A person—the lead engineer—always
+makes the decisions. People review where risk exists; everything else is checked without slowing
+the team down.
 
-## Empieza aquí
+> **Status:** `lead-flow` is under construction (phase 1) and cannot be used yet. The
+> `equipo-solo` kit for Claude Code is available today. See
+> [What exists today and what does not](#what-exists-today-and-what-does-not).
 
-- **Quiero probar lo que ya funciona:** instala el kit [`equipo-solo`](#probar-hoy-el-kit-equipo-solo).
-- **Quiero colaborar:** lee [`CONTRIBUTING.md`](CONTRIBUTING.md) y consulta las
-  [incidencias abiertas](https://github.com/fernando-delrio/lead-flow/issues).
-- **Quiero probar `lead-flow` con mi equipo:** abre una
-  [incidencia](https://github.com/fernando-delrio/lead-flow/issues/new) y cuenta brevemente tu caso.
+## Start here
 
-**Dónde colaboramos.** GitHub es la sede canónica del proyecto: allí se reciben incidencias y
-pull requests. El repositorio de GitLab es un espejo para dar visibilidad al trabajo; no se deben
-integrar cambios por separado en los dos sitios.
+- **I want to try what already works:** install the [`equipo-solo` kit](#try-the-equipo-solo-kit-today).
+- **I want to contribute:** read [`CONTRIBUTING.md`](CONTRIBUTING.md) and browse the
+  [open issues](https://github.com/fernando-delrio/lead-flow/issues).
+- **I want to try `lead-flow` with my team:** open an
+  [issue](https://github.com/fernando-delrio/lead-flow/issues/new) and briefly describe your case.
 
-## La historia, en un minuto
+**Where we collaborate.** GitHub is the project's canonical home: issues and pull requests belong
+there. The GitLab repository is a mirror that gives the work more visibility; changes must not be
+merged independently in both places.
 
-![Los personajes: la lead, que decide cómo se trabaja; el programador con su IA, que construyen; el revisor, que da el visto bueno; y el cliente, que paga y recibe.](assets/historia/01-personajes.svg)
+## The story, in one minute
 
-Una consultora tiene que entregarle a un cliente su tienda online.
+![The people involved: the lead, who decides how the team works; the developer and their AI, who build; the reviewer, who gives approval; and the client, who pays and receives the work.](assets/historia/01-personajes.svg)
 
-![Escena 1, el encargo: el cliente pide su tienda online para el viernes.](assets/historia/02-el-encargo.svg)
+A consultancy must deliver an online shop to a client.
 
-El plazo es el viernes. Con IA, debería sobrar tiempo.
+![Scene 1, the request: the client asks for the online shop by Friday.](assets/historia/02-el-encargo.svg)
 
-![Escena 2, la IA va muy rápido: piezas de la tienda (carrito, pago, login, envíos) salen sin parar del programador con su IA. El lunes ya hay 120.](assets/historia/03-la-ia-va-muy-rapido.svg)
+The deadline is Friday. With AI, there should be plenty of time.
 
-El lunes la IA ya ha construido 120 piezas de la tienda. La IA construye mucho más rápido de lo
-que el equipo puede revisar.<br>
-*Para el equipo técnico: un agente puede abrir decenas de pull requests en una jornada.*
+![Scene 2, AI moves very fast: pieces of the shop—cart, payment, login, and shipping—pour out from the developer and their AI. By Monday there are already 120.](assets/historia/03-la-ia-va-muy-rapido.svg)
 
-![Escena 3, todo se para en una persona: las piezas se amontonan delante del revisor, que no puede revisar 120 una a una. El jueves quedan 87 sin revisar.](assets/historia/04-todo-se-para-en-una-persona.svg)
+By Monday, AI has already built 120 pieces of the shop. AI builds much faster than the team can
+review.<br>
+*For the technical team: an agent can open dozens of pull requests in one working day.*
 
-Pasan los días y el revisor no da abasto. La velocidad de la IA se pierde aquí.<br>
-*Dato: en una encuesta encargada por GitLab, el 85 % de los encuestados coincide en que el atasco
-ya no es escribir código, sino revisarlo y validarlo.*
+![Scene 3, everything stops at one person: pieces pile up in front of the reviewer, who cannot review 120 one by one. By Thursday, 87 are still waiting.](assets/historia/04-todo-se-para-en-una-persona.svg)
 
-![Escena 4, llega tarde y con un fallo: la pieza del pago se cuela con un fallo, la tienda se entrega el lunes siguiente y el cliente pregunta qué ha hecho la IA en su tienda.](assets/historia/05-llega-tarde-y-con-un-fallo.svg)
+The days pass and the reviewer cannot keep up. The speed gained from AI is lost here.<br>
+*Data point: in a GitLab-commissioned survey, 85% of respondents agreed that the bottleneck is no
+longer writing code, but reviewing and validating it.*
 
-Para llegar, se revisa a medias. Se entrega el lunes siguiente, el pago falla y nadie puede
-enseñarle al cliente qué se hizo.<br>
-*Dato: en las pruebas de Veracode, con más de 100 modelos, el código generado tuvo fallos de
-seguridad del OWASP Top 10 en el 45 % de los casos. Y en la encuesta de Qodo, solo el 45 % de los
-líderes de ingeniería puede rastrear qué cambios de código vienen de la IA.*
+![Scene 4, late and faulty: the payment piece gets through with a defect, the shop is delivered the following Monday, and the client asks what AI did in their shop.](assets/historia/05-llega-tarde-y-con-un-fallo.svg)
 
-![La misma semana, con el flujo: el lunes la lead decide las reglas. Las piezas pasan de una en una por un filtro automático; el pago con fallo se para y cae en la caja del filtro, y el carrito, el login y los envíos siguen. El revisor mira solo las 14 importantes y se entrega el viernes.](assets/historia/06-la-misma-semana-con-el-flujo.svg)
+To finish, the team reviews only part of the work. Delivery slips to the following Monday, payment
+fails, and nobody can show the client what was done.<br>
+*Data point: in Veracode tests involving more than 100 models, generated code contained OWASP Top
+10 security flaws in 45% of cases. In Qodo's survey, only 45% of engineering leaders could trace
+which code changes came from AI.*
 
-La misma semana, con el flujo. El filtro detiene el fallo del pago antes de que llegue a nadie. El
-revisor solo mira lo que importa. Se entrega el viernes.<br>
-*Para el equipo técnico: puertas obligatorias en CI, revisión humana según el riesgo, y la lead
-aprueba los cambios del flujo.*
+![The same week with the workflow: on Monday, the lead decides the rules. Pieces pass one by one through an automated filter; the faulty payment piece stops and drops into the filter box, while the cart, login, and shipping continue. The reviewer checks only the 14 important pieces and delivery happens on Friday.](assets/historia/06-la-misma-semana-con-el-flujo.svg)
 
-![Si el cliente pide pruebas, recibe un informe de la pieza del pago: quién la pidió, quién la hizo y con qué modelo, el resultado del filtro automático, el fallo corregido antes de entregar, quién la revisó, quién la aprobó y la huella del cambio.](assets/historia/07-si-el-cliente-pide-pruebas.svg)
+The same week, with the workflow. The filter stops the payment defect before it reaches anyone. The
+reviewer only checks what matters. Delivery happens on Friday.<br>
+*For the technical team: mandatory CI gates, risk-based human review, and lead approval for changes
+to the workflow.*
 
-Si el cliente pide pruebas, recibe el informe de cada pieza: quién la pidió, quién la hizo y con
-qué modelo de IA (según lo declara el equipo), qué comprobó el filtro automático, qué fallo se
-corrigió antes de entregar, quién la revisó y quién la aprobó.
+![If the client asks for evidence, they receive a report for the payment piece: who requested it, who built it and with which model, the automated filter result, the defect corrected before delivery, who reviewed it, who approved it, and the change fingerprint.](assets/historia/07-si-el-cliente-pide-pruebas.svg)
 
-**La misma semana, en una tabla**
+If the client asks for evidence, they receive a report for each piece: who requested it, who built
+it and with which AI model (as declared by the team), what the automated filter checked, which
+defect was fixed before delivery, who reviewed it, and who approved it.
 
-| | Sin flujo | Con flujo |
+**The same week, in a table**
+
+| | Without the workflow | With the workflow |
 |---|---|---|
-| Entrega | Lunes siguiente | Viernes |
-| Revisado a mano | 120 piezas, a medias | 14 importantes, a fondo |
-| Fallo del pago | Lo descubre el cliente | Parado antes de entregar |
-| ¿Qué hizo la IA? | Nadie lo sabe | Un informe por pieza |
+| Delivery | The following Monday | Friday |
+| Manually reviewed | 120 pieces, partially | 14 important pieces, thoroughly |
+| Payment defect | Found by the client | Stopped before delivery |
+| What did AI do? | Nobody knows | One report per piece |
 
-![La IA pone la velocidad. El flujo hace que llegue al cliente.](assets/historia/08-frase-final.svg)
+![AI provides the speed. The workflow gets it to the client.](assets/historia/08-frase-final.svg)
 
-*Ejemplo ilustrativo. La tienda, los días y las cifras de la historia (120 piezas, 87 sin
-revisar, 14 importantes) están inventados para explicar la idea: no son datos medidos. La historia
-cuenta cómo está diseñado `lead-flow`, que todavía está en construcción. Los datos reales están en
-la sección siguiente. Las escenas se generan con `node assets/historia/fuente/generar.mjs`.*
+*Illustrative example. The shop, dates, and figures in the story (120 pieces, 87 waiting, 14
+important) are invented to explain the idea; they are not measured data. The story describes the
+design of `lead-flow`, which is still under construction. The real data appears in the next
+section. The scenes are generated with `node assets/historia/fuente/generar.mjs`.*
 
-## El problema, con datos
+## The problem, with data
 
-La IA escribe código muy rápido, pero esa velocidad se pierde en dos sitios antes de llegar al
-cliente:
+AI writes code very quickly, but that speed is lost in two places before the work reaches the
+client:
 
-1. **El atasco de la revisión.** Todo acaba en una persona que no da abasto. El trabajo se para
-   ahí, o se revisa a medias y se cuelan fallos.
-2. **La falta de pruebas para el cliente.** Cuando pregunta «¿qué ha hecho la IA en mi proyecto?»,
-   nadie puede enseñárselo.
+1. **The review bottleneck.** Everything ends up with one person who cannot keep up. Work either
+   stops there, or receives only partial review and defects slip through.
+2. **The lack of evidence for the client.** When they ask, “What did AI do in my project?”, nobody
+   can show them.
 
-Lo que dicen los estudios:
+What the studies report:
 
-- **El 97 % de los encuestados ya usa asistentes de IA para programar, y solo el 30 % tiene un
-  gobierno completo de esa adopción.** Encuesta a 831 profesionales de empresas de 500 empleados o
-  más, hecha en marzo de 2026. Encuesta de un proveedor de herramientas.
+- **97% of respondents already use AI coding assistants, while only 30% have comprehensive
+  governance for that adoption.** Survey of 831 professionals at companies with at least 500
+  employees, conducted in March 2026. Vendor-sponsored research.
   ([Black Duck, 2026](https://news.blackduck.com/2026-06-09-AI-Coding-Hits-97-Enterprise-Adoption-New-Black-Duck-Study-Shows-Governance-Is-the-ROI-Multiplier))
-- **El 85 % de los encuestados coincide en que el cuello de botella ya no es escribir código, sino
-  revisarlo y validarlo.** Encuesta de The Harris Poll a 1.528 desarrolladores y compradores de
-  tecnología de seis países. Encuesta encargada por un proveedor de herramientas.
+- **85% of respondents agree that the bottleneck is no longer writing code, but reviewing and
+  validating it.** The Harris Poll survey of 1,528 developers and technology buyers across six
+  countries. Vendor-sponsored research.
   ([GitLab, 2026](https://about.gitlab.com/press/releases/2026-06-23-gitlab-research-reveals-organizations-are-generating-ai-code-faster-than-they-can-control-it/))
-- **En las pruebas de Veracode, el código generado tuvo fallos de seguridad en el 45 % de los
-  casos.** Análisis de 80 tareas de código con más de 100 modelos, buscando vulnerabilidades de la
-  clasificación OWASP Top 10 (la lista de referencia de los fallos de seguridad web más comunes).
-  Mide esas pruebas, no todo el código hecho con IA. Estudio de un proveedor de herramientas.
+- **In Veracode's tests, generated code contained security flaws in 45% of cases.** Analysis of 80
+  coding tasks across more than 100 models, looking for OWASP Top 10 vulnerabilities (the reference
+  list of common web security failures). It measures those tests, not all AI-generated code.
+  Vendor research.
   ([Veracode, 2025](https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/))
-- **Menos de la mitad de los líderes de ingeniería (45 %) puede rastrear qué cambios de código
-  vienen de la IA.** Encuesta a 500 desarrolladores de EE. UU. y 300 líderes de ingeniería.
-  Encuesta de un proveedor de herramientas.
+- **Fewer than half of engineering leaders (45%) can trace which code changes came from AI.**
+  Survey of 500 US developers and 300 engineering leaders. Vendor research.
   ([Qodo, 2026](https://www.qodo.ai/state-of-ai-code-quality-report/))
-- **La IA amplifica lo que ya hay en la organización: sin controles sólidos, más cambios generan
-  más inestabilidad.** Informe de investigación DORA (Google Cloud), con casi 5.000 profesionales.
+- **AI amplifies what already exists in an organisation: without strong controls, more changes
+  create more instability.** DORA research report from Google Cloud, based on almost 5,000
+  professionals.
   ([DORA 2025, Google Cloud](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report))
 
-Las encuestas miden lo que opinan sus encuestados, no hechos medidos, y varios de estos editores
-venden herramientas relacionadas. Cada cifra, con lo que mide exactamente y su fuente, está en
-[`doc/investigacion.md`](doc/investigacion.md).
+Surveys report what their respondents say, not independently measured facts, and several
+publishers sell related tools. Each figure, exactly what it measures, and its source are recorded
+in [`doc/investigacion.md`](doc/investigacion.md) (currently in Spanish).
 
-## Cómo funcionará
+## How it will work
 
-Así está diseñado `lead-flow`. Nada de esto funciona todavía: la columna «Fase» dice en qué fase
-llega cada pieza.
+This is the design of `lead-flow`. None of it works yet: the “Phase” column shows when each piece
+is planned.
 
-| Pieza | Qué hará | Fase |
+| Component | What it will do | Phase |
 |---|---|---|
-| **La lead decide, en una entrevista** | <ul><li>Una herramienta de terminal le preguntará tema por tema: tecnología, seguridad, dependencias, ramas y revisión.</li><li>Le enseñará las opciones con sus pros, sus contras y la documentación oficial, **sin recomendar ninguna**.</li><li>Cada decisión quedará escrita en el repositorio, con su porqué, la fecha y quién la tomó.</li></ul> | 1 |
-| **Puertas automáticas que bloquean la integración** (con GitHub Team o en repositorios públicos; sin ello, avisan) | Cada pull request pasará pruebas, búsqueda de secretos (claves o contraseñas olvidadas en el código), análisis estático de seguridad y revisión de dependencias. Con una puerta en rojo no se podrá integrar, y las reglas del flujo solo las cambiará la lead. | 1 |
-| **Aprobación según el riesgo** | <ul><li>Bajo: se integra solo y sale en el parte de la stand-up, donde cualquiera puede pedir revisarlo.</li><li>Medio: lo aprueba un compañero que no sea el autor.</li><li>Alto (autenticación, pagos, migraciones, datos personales y lo que añada la lead): QA o la persona en quien delegue la lead.</li></ul> | 1 |
-| **Excepciones que decide la lead** | Si un programador necesita algo no previsto, como una librería nueva, lo pedirá en una incidencia. Si le bloquea, saldrá arriba en el parte; si no, se dejará para la próxima ceremonia. Decidirá la lead, que podrá dar un permiso temporal hasta esa ceremonia, y la decisión quedará registrada. | 1 |
-| **Informe interno por ticket** | Se hará con evidencias (el resultado de cada puerta, quién revisó y quién aprobó) y no con lo que el agente dice de sí mismo. Será lo que se le enseñe al cliente si pide pruebas. | 1 |
-| **Parte diario** | Cada mañana mostrará lo que se integró sin revisión de una persona. En la fase 2, además, lo que está parado: pull requests vetadas, excepciones pendientes, revisiones que esperan demasiado y el tiempo de respuesta de la lead, para que ella no se convierta en el nuevo atasco. | 1 y 2 |
-| **Control de calidad por muestreo** | Una persona revisará al azar una parte de lo que se integró solo, como el control de calidad de una fábrica. | 2 |
-| **Resumen para el cliente** | Un borrador en lenguaje de negocio, que prepara el sistema y que la lead revisa y envía ella. Nunca saldrá nada al cliente sin una persona. | 2 |
-| **Métricas** | Entregas a tiempo, fallos que llegan al cliente, carga de revisión humana y tiempo de respuesta de la lead. | 2 |
-| **Revisión con agentes y con dos modelos** | Opcional. Agentes de IA que revisan cada cambio y, si la lead lo activa, dos modelos de proveedores distintos: uno implementa y el otro revisa, para que no compartan los mismos puntos ciegos. | 2 |
+| **The lead decides through an interview** | <ul><li>A terminal tool will ask about technology, security, dependencies, branches, and review.</li><li>It will present options with their advantages, disadvantages, and official documentation, **without recommending one**.</li><li>Every decision will be written to the repository with its rationale, date, and decision maker.</li></ul> | 1 |
+| **Automated gates block merging** (with GitHub Team or public repositories; otherwise they warn) | Every pull request will run tests, secret scanning (keys or passwords accidentally left in code), static security analysis, and dependency review. A failing gate prevents merging, and only the lead can change workflow rules. | 1 |
+| **Risk-based approval** | <ul><li>Low: merges automatically and appears in the stand-up report, where anyone can request a review.</li><li>Medium: approved by a teammate who is not the author.</li><li>High (authentication, payments, migrations, personal data, and anything the lead adds): QA or the person delegated by the lead.</li></ul> | 1 |
+| **Exceptions decided by the lead** | If a developer needs something not covered by the rules, such as a new library, they will request it in an issue. Blocking requests appear at the top of the report; non-blocking requests wait for the next ceremony. The lead decides, may grant temporary permission until that ceremony, and the decision is recorded. | 1 |
+| **Internal report per ticket** | Built from evidence—the result of every gate, who reviewed, and who approved—not from what an agent claims about itself. This is what the client sees if they request evidence. | 1 |
+| **Daily report** | Every morning it shows what merged without human review. In phase 2 it also shows blocked work: vetoed pull requests, pending exceptions, reviews waiting too long, and the lead's response time, so the lead does not become the next bottleneck. | 1 and 2 |
+| **Sample-based quality control** | A person randomly reviews some of the work that merged automatically, like quality control in a factory. | 2 |
+| **Client summary** | A business-language draft prepared by the system, reviewed and sent by the lead. Nothing reaches the client without a person. | 2 |
+| **Metrics** | On-time delivery, defects that reach the client, human review load, and lead response time. | 2 |
+| **Agent review with two models** | Optional. AI agents review each change and, if enabled by the lead, models from two different providers are used: one implements and the other reviews, so they do not share the same blind spots. | 2 |
 
-**Con cualquier agente.** Cada programador podrá trabajar con el agente que quiera (Claude Code,
-Codex, Cursor, Copilot, Devin…) dentro de un marco que no puede cambiar. El control vivirá en
-GitHub (ramas protegidas, responsables de código y comprobaciones obligatorias), no en el agente. Al
-agente solo se le contarán las reglas por adelantado, para que las conozca antes de empezar.
+**Works with any agent.** Each developer may use their preferred agent (Claude Code, Codex,
+Cursor, Copilot, Devin, and others) inside a framework they cannot change. Control lives in GitHub
+(protected branches, code owners, and required checks), not inside the agent. Agents receive the
+rules in advance so they know them before starting.
 
-**Los controles no dependen de la IA.** Primero van las comprobaciones automáticas de siempre
-(pruebas, secretos, análisis estático, dependencias). La revisión con agentes será opcional, por
-coste y por privacidad del código del cliente.
+**The controls do not depend on AI.** Conventional automated checks come first: tests, secret
+scanning, static analysis, and dependency checks. Agent review remains optional because of cost
+and client-code privacy.
 
-**Palabras que salen en este documento**
+**Terms used in this document**
 
-- **Pull request:** la propuesta de cambio que se revisa antes de integrarla en el proyecto.
-- **CI** (integración continua): las comprobaciones que GitHub ejecuta solo en cada pull request.
-- **Puerta:** una de esas comprobaciones; si falla, el cambio no entra.
-- **Rama protegida:** la versión principal del proyecto, donde nadie integra nada sin pasar las puertas.
-- **Responsables de código:** las personas que GitHub exige que aprueben los cambios de ciertas carpetas (en `lead-flow`, la de las reglas).
-- **Análisis estático:** revisar el código en busca de fallos sin ejecutarlo.
-- **Stand-up:** la reunión diaria corta del equipo.
-- **Ceremonia:** las reuniones fijas del trabajo ágil (planificación, revisión, retrospectiva).
-- **Incremento:** un trozo pequeño de trabajo que funciona de principio a fin.
+- **Pull request:** a proposed change that is reviewed before it is merged into the project.
+- **CI** (continuous integration): checks that GitHub runs automatically on every pull request.
+- **Gate:** one of those checks; if it fails, the change does not enter the main branch.
+- **Protected branch:** the main version of the project, where nothing merges without passing the gates.
+- **Code owners:** people whose approval GitHub requires for changes to specific folders (the rules folder in `lead-flow`).
+- **Static analysis:** inspecting code for failures without executing it.
+- **Stand-up:** the team's short daily meeting.
+- **Ceremony:** scheduled agile meetings such as planning, review, and retrospective.
+- **Increment:** a small piece of work that functions from end to end.
 
-## Qué existe hoy y qué no
+## What exists today and what does not
 
-| Qué | Estado |
+| Item | Status |
 |---|---|
-| Kit `equipo-solo` para Claude Code | **Disponible.** Agentes para especificar, implementar, pasar puertas de seguridad, rendimiento y diseño, y cerrar cada incremento. Pensado para quien programa solo. |
-| `lead-flow`, fase 1 · núcleo en GitHub | **En construcción.** Entrevista, política del proyecto, puertas en CI, aprobación por riesgo, excepciones, informe por ticket y parte diario de lo integrado sin persona. Todavía no se puede usar. |
-| Fase 2 · visibilidad | Pendiente. Parte completo de bloqueos, muestreo de calidad, resumen para el cliente, métricas y revisión con agentes y con dos modelos. |
-| Fase 3 · presentación | Pendiente. Vídeo, guía de adopción y repositorio de ejemplo público. |
-| Fase 4 · GitLab | Pendiente. Las mismas piezas sobre GitLab. |
+| `equipo-solo` kit for Claude Code | **Available.** Agents for specification, implementation, security, performance and design gates, and increment closure. Designed for solo developers. |
+| `lead-flow`, phase 1 · GitHub core | **Under construction.** Interview, project policy, CI gates, risk-based approval, exceptions, per-ticket reporting, and a daily report of work merged without a person. It cannot be used yet. |
+| Phase 2 · visibility | Pending. Full blocking report, quality sampling, client summary, metrics, and agent review with two models. |
+| Phase 3 · presentation | **In progress.** Public video and example are available; the adoption guide is pending. |
+| Phase 4 · GitLab | Pending. The same components on GitLab. |
 
-Un límite que conviene saber desde ya: GitHub solo obliga a cumplir la protección de ramas y los
-responsables de código en repositorios públicos o, en los privados, con el plan Team o superior.
-Sin eso, `lead-flow` funcionará en modo aviso (las puertas se ejecutan pero no bloquean) y lo dirá
-claramente.
+One limitation is worth knowing now: GitHub only enforces branch protection and code owners in
+public repositories or private repositories on the Team plan or above. Without that, `lead-flow`
+will operate in warning mode—the gates run but do not block—and will state this clearly.
 
-### Probar hoy el kit `equipo-solo`
+### Try the `equipo-solo` kit today
 
-Necesitas Claude Code. Desde una terminal:
+You need Claude Code. Run from a terminal:
 
 ```bash
 claude plugin marketplace add fernando-delrio/lead-flow
 claude plugin install equipo-solo@equipo-solo
 ```
 
-Abre una sesión nueva y comprueba con `/agents` que los agentes aparecen con el prefijo
-`equipo-solo:`. Para adaptarlo a tu proyecto, copia `plugin/AGENTS.template.md` a la raíz de tu
-repositorio como `AGENTS.md` y `plugin/CLAUDE.template.md` como `CLAUDE.md`, y rellena sobre todo
-cómo se prueba tu proyecto: los agentes ejecutan esos comandos. El flujo completo, el porqué de
-cada decisión y sus límites están en [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md).
+Open a new session and use `/agents` to confirm that the agents appear with the `equipo-solo:`
+prefix. To adapt the kit to your project, copy `plugin/AGENTS.template.md` to your repository root
+as `AGENTS.md`, and `plugin/CLAUDE.template.md` as `CLAUDE.md`. Most importantly, fill in how
+your project is tested: the agents run those commands. The complete workflow, its rationale, and
+its limits are documented in [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md) (currently in Spanish).
 
-Para verlo en un proyecto pequeño sin instalar dependencias, sigue el
-[ejemplo Node](examples/equipo-solo-node/README.md). Las notas de la primera entrega están en
+To see it in a small project without installing dependencies, follow the
+[Node example](examples/equipo-solo-node/README.md). The first release notes are in
 [`Equipo Solo 0.1.0`](doc/releases/equipo-solo-v0.1.0.md).
 
-## Para quién será
+## Who it is for
 
-Para startups y consultoras que programan con IA y entregan software a clientes.
+Startups and consultancies that build with AI and deliver software to clients.
 
-| Quién | Qué sacará |
+| Person | What they gain |
 |---|---|
-| **La lead engineer** | Decidirá cómo se trabaja y revisará lo importante. El parte diario le avisará si ella misma se convierte en el atasco. |
-| **Los programadores** | Conocerán las reglas antes de empezar, usarán el agente que prefieran y pedirán excepciones con una plantilla. |
-| **La dirección** | Verá plazos, bloqueos y fallos con datos del propio repositorio (fase 2). |
-| **El cliente** | Recibirá un resumen de lo entregado (fase 2) y, si pide pruebas, el informe de cada pieza. |
+| **Lead engineer** | Decides how the team works and reviews what matters. The daily report warns if the lead becomes the bottleneck. |
+| **Developers** | Know the rules before starting, use their preferred agent, and request exceptions through a template. |
+| **Management** | Sees delivery dates, blockers, and failures using repository data (phase 2). |
+| **Client** | Receives a delivery summary (phase 2) and, on request, the report for each piece of work. |
 
-## ¿Te interesa?
+## Interested?
 
-¿Quieres probar `lead-flow` en tu equipo cuando esté lista la fase 1? Sigue el repositorio
-(**Watch → Custom → Releases**) o [abre una incidencia](https://github.com/fernando-delrio/lead-flow/issues/new)
-contando tu caso. Si quieres ayudar a construirlo, consulta la
-[guía de contribución](CONTRIBUTING.md) y el [plan de comunidad](doc/comunidad.md).
+Want to try `lead-flow` with your team when phase 1 is ready? Watch the repository
+(**Watch → Custom → Releases**) or [open an issue](https://github.com/fernando-delrio/lead-flow/issues/new)
+and describe your case. To help build it, read the
+[contribution guide](CONTRIBUTING.md) and the [community plan](doc/comunidad.md), currently in
+Spanish.
 
-## Para saber más
+## Learn more
 
-- [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md): el flujo del kit `equipo-solo`, sus decisiones y sus fuentes.
-- [`specs/001-control-del-lead/diseno.md`](specs/001-control-del-lead/diseno.md): el diseño completo de `lead-flow`.
-- [`doc/investigacion.md`](doc/investigacion.md): las cifras verificadas, con lo que mide cada una.
+- [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md): the `equipo-solo` workflow, its decisions, and its sources (Spanish).
+- [`specs/001-control-del-lead/diseno.md`](specs/001-control-del-lead/diseno.md): the complete `lead-flow` design (Spanish).
+- [`doc/investigacion.md`](doc/investigacion.md): verified figures and exactly what each one measures (Spanish).
 
-## Licencia y autor
+## License and author
 
-Apache License 2.0 (texto completo en [`LICENSE`](LICENSE), atribución en [`NOTICE`](NOTICE)).
-Puedes usarlo, modificarlo y distribuirlo, también en proyectos comerciales, conservando el aviso
-de copyright. Se ofrece «tal cual», sin garantía de ningún tipo.
+Apache License 2.0 (full text in [`LICENSE`](LICENSE), attribution in [`NOTICE`](NOTICE)). You may
+use, modify, and distribute it, including in commercial projects, provided you retain the copyright
+notice. It is provided “as is”, without warranties of any kind.
 
-Autor: Fernando del Río.
+Author: Fernando del Río.

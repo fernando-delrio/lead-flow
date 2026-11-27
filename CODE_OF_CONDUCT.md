@@ -1,36 +1,37 @@
-# Código de conducta
+# Code of conduct
 
-## Nuestro compromiso
+[English](CODE_OF_CONDUCT.md) · [Español](CODE_OF_CONDUCT.es.md)
 
-Queremos que cualquier persona pueda participar en `lead-flow` sin sufrir acoso ni desprecio por
-su experiencia, identidad, origen, capacidad, aspecto, creencias o situación personal.
+## Our commitment
 
-## Comportamientos esperados
+We want everyone to be able to participate in `lead-flow` without harassment or contempt based on
+their experience, identity, origin, ability, appearance, beliefs, or personal circumstances.
 
-- Tratar a las demás personas con respeto y paciencia.
-- Criticar las ideas y el código, no a quien los escribió.
-- Explicar el contexto y ayudar a quien todavía está aprendiendo.
-- Aceptar una corrección, reconocer los errores y reparar el daño cuando sea posible.
-- Proteger los datos personales, las credenciales y la información de clientes.
+## Expected behaviour
 
-## Comportamientos inaceptables
+- Treat other people with respect and patience.
+- Criticise ideas and code, not the person who wrote them.
+- Explain context and help people who are still learning.
+- Accept correction, acknowledge mistakes, and repair harm when possible.
+- Protect personal data, credentials, and client information.
 
-- Insultos, amenazas, acoso o atención personal no deseada.
-- Discriminación, burlas o ataques personales.
-- Publicar información privada de otra persona sin permiso.
-- Introducir deliberadamente código dañino, credenciales o datos ajenos.
-- Mantener una conducta que una persona razonable consideraría inapropiada en un entorno profesional.
+## Unacceptable behaviour
 
-## Alcance y aplicación
+- Insults, threats, harassment, or unwanted personal attention.
+- Discrimination, ridicule, or personal attacks.
+- Publishing another person's private information without permission.
+- Deliberately introducing harmful code, credentials, or third-party data.
+- Conduct that a reasonable person would consider inappropriate in a professional setting.
 
-Este código se aplica en el repositorio y en los espacios públicos donde alguien represente al
-proyecto. El mantenedor puede editar o retirar aportaciones, cerrar conversaciones y limitar la
-participación cuando sea necesario para proteger a la comunidad.
+## Scope and enforcement
 
-Para comunicar un incidente, contacta de forma privada con Fernando del Río mediante el canal que
-figure en su [perfil de GitHub](https://github.com/fernando-delrio). Si no hay un canal privado
-disponible, abre una incidencia que solo solicite ese canal y no revele datos personales ni detalles
-del incidente.
+This code applies in the repository and in public spaces where someone represents the project. The
+maintainer may edit or remove contributions, close conversations, and restrict participation when
+necessary to protect the community.
 
-Los avisos se revisarán con confidencialidad y atendiendo tanto a la seguridad de quien informa
-como a la gravedad y el contexto de los hechos.
+To report an incident, contact Fernando del Río privately through the channel listed on his
+[GitHub profile](https://github.com/fernando-delrio). If no private channel is available, open an
+issue that only requests one and does not disclose personal data or incident details.
+
+Reports will be reviewed confidentially, considering both the safety of the reporter and the
+severity and context of the incident.
