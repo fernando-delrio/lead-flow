@@ -65,6 +65,11 @@ const findDrift = (input: IntegrityInput) =>
     .filter((file) => !matchesGenerated(file, input.filesOnHead[file.path]))
     .map((file) => file.path)
 
+const listUnapproved = (input: IntegrityInput, approver: string | null, changedProtected: string[]) => {
+  if (hasApproval(input.approvals, approver)) return []
+  return changedProtected
+}
+
 // La aprobación solo cubre lo que cambia esta pull request; un desfase previo de la base sigue fallando.
 const collectFindings = (input: IntegrityInput): Findings => {
   const generatedPaths = input.generatedOnBase.map((file) => file.path)
@@ -76,7 +81,7 @@ const collectFindings = (input: IntegrityInput): Findings => {
     approver,
     isApproved,
     changedProtected,
-    unapproved: changedProtected.filter(() => !isApproved),
+    unapproved: listUnapproved(input, approver, changedProtected),
     drifted: findDrift(input).filter((path) => !isCovered(path)),
   }
 }
@@ -88,14 +93,24 @@ const describeApprover = (approver: string | null) => {
   return `falta la aprobación de @${approver} en el último commit`
 }
 
-const describeProblems = (findings: Findings) => [
-  ...[findings.unapproved]
-    .filter((paths) => paths.length > 0)
-    .map((paths) => `Cambios en archivos protegidos sin aprobar (${describeApprover(findings.approver)}): ${paths.join(', ')}.`),
-  ...[findings.drifted]
-    .filter((paths) => paths.length > 0)
-    .map((paths) => `Archivos generados que no coinciden con la política de la rama base: ${paths.join(', ')}. Ejecuta «lead-flow generar» y pide la aprobación que corresponda.`),
+type ProblemKind = { pick: (findings: Findings) => string[]; describe: (paths: string, findings: Findings) => string }
+
+const PROBLEM_KINDS: ProblemKind[] = [
+  {
+    pick: (findings) => findings.unapproved,
+    describe: (paths, findings) => `Cambios en archivos protegidos sin aprobar (${describeApprover(findings.approver)}): ${paths}.`,
+  },
+  {
+    pick: (findings) => findings.drifted,
+    describe: (paths) =>
+      `Archivos generados que no coinciden con la política de la rama base: ${paths}. Ejecuta «lead-flow generar» y pide la aprobación que corresponda.`,
+  },
 ]
+
+const describeProblems = (findings: Findings) =>
+  PROBLEM_KINDS.filter((kind) => kind.pick(findings).length > 0).map((kind) =>
+    kind.describe(kind.pick(findings).join(', '), findings)
+  )
 
 const describeSuccess = (findings: Findings) => {
   if (findings.changedProtected.length > 0) {

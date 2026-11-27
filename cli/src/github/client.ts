@@ -8,7 +8,7 @@ import type { Review } from '../policy/schema.js'
 export type PullRequest = { number: number; headSha: string; baseSha: string; author: string; changedFiles: number }
 export type ChangedFile = { path: string; previousPath: string | null }
 export type CommitReview = Review & { commitSha: string }
-export type CommitStatus = { state: 'success' | 'failure'; context: string; description: string }
+export type CommitStatus = { state: 'success' | 'failure'; context: string; description: string; target_url?: string }
 
 export type GitHubClient = {
   getPullRequest: (number: number) => Promise<PullRequest>
@@ -28,6 +28,8 @@ const DEFAULT_API_URL = 'https://api.github.com'
 const API_VERSION = '2022-11-28'
 const JSON_MEDIA_TYPE = 'application/vnd.github+json'
 const RAW_MEDIA_TYPE = 'application/vnd.github.raw+json'
+const BODY_MEDIA_TYPE = 'application/json'
+const DEFAULT_METHOD = 'GET'
 const NOT_FOUND_STATUS = 404
 const PAGE_SIZE = 100
 // La API de archivos de una pull request no devuelve más de 3000 (30 páginas de 100).
@@ -90,16 +92,16 @@ const requirePullNumber = (number: number) => {
 
 const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 
-const describeRequest = (spec: RequestSpec) => `${spec.method ?? 'GET'} ${spec.path.split('?')[0]}`
+const describeRequest = (spec: RequestSpec) => `${spec.method ?? DEFAULT_METHOD} ${spec.path.split('?')[0]}`
 
 const buildInit = (connection: Connection, spec: RequestSpec): RequestInit => ({
-  method: spec.method ?? 'GET',
+  method: spec.method ?? DEFAULT_METHOD,
   headers: {
     accept: spec.accept ?? JSON_MEDIA_TYPE,
     authorization: `Bearer ${connection.token}`,
     'user-agent': PRODUCT_NAME,
     'x-github-api-version': API_VERSION,
-    'content-type': 'application/json',
+    'content-type': BODY_MEDIA_TYPE,
   },
   body: JSON.stringify(spec.body),
 })
