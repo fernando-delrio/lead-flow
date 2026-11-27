@@ -14,10 +14,11 @@ Los cambios relevantes de cada entrega pública se documentan en este archivo.
 - Seis casos de evaluación con sus criterios.
 - Documentación de las decisiones y límites del flujo.
 - Ejemplo Node sin dependencias para probar el recorrido.
+- Icono de publicación con una persona central y siete agentes coordinados.
+- Vídeo de presentación en español, con proyecto de render reproducible y subtítulos.
 
 ### Límites conocidos
 
-- El plugin todavía no tiene un icono para el directorio de Claude Code.
 - La licencia y el aviso se consultan en la raíz del repositorio; aún no viajan dentro de la
   carpeta instalada del plugin.
 - El CLI `lead-flow` para equipos sigue en construcción y no forma parte de esta entrega.

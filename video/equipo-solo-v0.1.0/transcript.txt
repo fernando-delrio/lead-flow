@@ -1,0 +1,13 @@
+Puedes pedirle a una IA que cambie código en segundos. Pero cuando la misma IA planifica, implementa y se da el visto bueno, ¿qué parte has comprobado de verdad?
+
+Equipo Solo separa esas responsabilidades dentro de Claude Code.
+
+Imagina un carrito sencillo. El encargo es claro: envío gratuito desde cincuenta euros, incluido el límite exacto.
+
+Primero, el planificador convierte esa frase en comportamiento comprobable. Después, el implementador escribe la prueba y cambia el código. Las puertas revisan seguridad y rendimiento sin editar nada. Otro agente compara el resultado con el requisito. Y el cierre comprueba que pruebas, lint, build y documentación estén al día.
+
+Si el subtotal es cuarenta y nueve con noventa y nueve, el envío sigue costando cuatro con noventa y nueve. Con cincuenta, pasa a cero. El cambio deja una evidencia concreta, no solo una respuesta que dice «terminado».
+
+Git sigue en manos de la persona. Los agentes proponen; tú decides qué se integra.
+
+Equipo Solo cero punto uno ya se puede instalar desde GitHub. Prueba el ejemplo, abre una incidencia y cuéntanos dónde se atasca tu flujo.

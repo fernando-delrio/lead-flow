@@ -1,0 +1,159 @@
+1
+00:00:00,219 --> 00:00:01,669
+Puedes pedirle a una IA que
+
+2
+00:00:01,669 --> 00:00:03,147
+cambie código en segundos.
+
+3
+00:00:03,589 --> 00:00:05,451
+Pero cuando la misma IA planifica,
+
+4
+00:00:05,595 --> 00:00:07,259
+implementa y se da el visto
+
+5
+00:00:07,259 --> 00:00:09,221
+bueno, ¿qué parte has comprobado de
+
+6
+00:00:09,221 --> 00:00:09,717
+verdad?
+
+7
+00:00:09,776 --> 00:00:12,507
+Equipo Solo separa esas responsabilidades dentro
+
+8
+00:00:12,507 --> 00:00:13,430
+de Claude Code.
+
+9
+00:00:13,744 --> 00:00:15,264
+Imagina un carrito sencillo.
+
+10
+00:00:15,323 --> 00:00:16,390
+El encargo es claro:
+
+11
+00:00:16,390 --> 00:00:19,205
+envío gratuito desde cincuenta euros, incluido
+
+12
+00:00:19,205 --> 00:00:20,085
+el límite exacto.
+
+13
+00:00:20,509 --> 00:00:23,240
+Primero, el planificador convierte esa frase
+
+14
+00:00:23,240 --> 00:00:24,759
+en comportamiento comprobable.
+
+15
+00:00:25,117 --> 00:00:27,549
+Después, el implementador escribe la prueba
+
+16
+00:00:27,549 --> 00:00:28,813
+y cambia el código.
+
+17
+00:00:28,999 --> 00:00:31,474
+Las puertas revisan seguridad y rendimiento
+
+18
+00:00:31,474 --> 00:00:32,525
+sin editar nada.
+
+19
+00:00:32,855 --> 00:00:34,733
+Otro agente compara el resultado con
+
+20
+00:00:34,733 --> 00:00:35,527
+el requisito.
+
+21
+00:00:35,799 --> 00:00:37,746
+Y el cierre comprueba que pruebas,
+
+22
+00:00:37,847 --> 00:00:40,322
+lint, build y documentación estén al
+
+23
+00:00:40,322 --> 00:00:40,775
+día.
+
+24
+00:00:40,988 --> 00:00:42,353
+Si el subtotal es cuarenta y
+
+25
+00:00:42,353 --> 00:00:44,102
+nueve con noventa y nueve, el
+
+26
+00:00:44,102 --> 00:00:46,278
+envío sigue costando cuatro con noventa
+
+27
+00:00:46,278 --> 00:00:46,817
+y nueve.
+
+28
+00:00:47,046 --> 00:00:48,822
+Con cincuenta, pasa a cero.
+
+29
+00:00:49,212 --> 00:00:51,500
+El cambio deja una evidencia concreta,
+
+30
+00:00:51,644 --> 00:00:53,164
+no solo una respuesta que dice
+
+31
+00:00:53,180 --> 00:00:54,103
+«terminado».
+
+32
+00:00:54,375 --> 00:00:55,826
+Git sigue en manos de la
+
+33
+00:00:55,826 --> 00:00:56,364
+persona.
+
+34
+00:00:56,551 --> 00:00:57,815
+Los agentes proponen;
+
+35
+00:00:57,916 --> 00:00:59,436
+tú decides qué se integra.
+
+36
+00:00:59,725 --> 00:01:01,730
+Equipo Solo cero punto uno ya
+
+37
+00:01:01,730 --> 00:01:03,378
+se puede instalar desde GitHub.
+
+38
+00:01:03,693 --> 00:01:05,911
+Prueba el ejemplo, abre una incidencia
+
+39
+00:01:05,911 --> 00:01:07,703
+y cuéntanos dónde se atasca tu
+
+40
+00:01:07,703 --> 00:01:08,242
+flujo.
