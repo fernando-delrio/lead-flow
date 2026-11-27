@@ -18,10 +18,10 @@ contributions that can be reviewed without creating another bottleneck.
 | 2. Clear entry points | The README separates trying, contributing, and proposing a pilot. | Ready |
 | 3. Community foundation | Guides, [forms](../.github/ISSUE_TEMPLATE/), and a pull request template. | Ready |
 | 4. First tasks | Seven issues published, from [#7](https://github.com/fernando-delrio/lead-flow/issues/7) to [#13](https://github.com/fernando-delrio/lead-flow/issues/13). | Ready |
-| 5. Public demonstration | Reproducible installation, example, notes, script, and video; the release still needs to be created. | In progress |
-| 6. Outreach | One primary piece adapted for communities and direct contact. | Pending |
-| 7. Conversation | Discussions for questions, ideas, and experiences. | Pending |
-| 8. Measurement | Record installations, pilots, first pull requests, and response time. | Pending |
+| 5. Public demonstration | Reproducible installation, example, notes, video, and [public release](https://github.com/fernando-delrio/lead-flow/releases/tag/equipo-solo-v0.1.0). | Ready |
+| 6. Outreach | The first launch post is published and the repository has a social preview for subsequent channels. | Ready |
+| 7. Conversation | [Discussions](https://github.com/fernando-delrio/lead-flow/discussions) provides welcome, support, and ideas entry points. | Ready |
+| 8. Measurement | A [public baseline and measurement method](community-metrics.md) records confirmed use and external collaboration. | Ready |
 
 ## Criterion for inviting contributions
 
