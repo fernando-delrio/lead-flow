@@ -1,0 +1,53 @@
+name: Proponer un equipo piloto
+description: Cuéntanos dónde te gustaría probar lead-flow cuando la fase 1 esté lista.
+title: "[Piloto]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `lead-flow` sigue en construcción. No incluyas nombres de clientes, repositorios privados,
+        credenciales ni información contractual.
+  - type: input
+    id: team
+    attributes:
+      label: Tipo y tamaño aproximado del equipo
+      placeholder: Consultora, 6 personas de desarrollo
+    validations:
+      required: true
+  - type: input
+    id: stack
+    attributes:
+      label: Stack principal
+      placeholder: TypeScript, React y Node.js
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Cómo utilizáis agentes de IA
+      description: Herramientas, frecuencia y parte del flujo en la que participan.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qué problema queréis comprobar
+      description: Revisión, seguridad, trazabilidad, carga de la lead u otro problema concreto.
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Límites para la prueba
+      description: Restricciones técnicas, de privacidad o de tiempo que se puedan contar públicamente.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmación
+      options:
+        - label: Entiendo que lead-flow aún no tiene una versión estable.
+          required: true
+        - label: La información publicada no identifica a clientes ni expone datos privados.
+          required: true
+        - label: Acepto el código de conducta del proyecto.
+          required: true

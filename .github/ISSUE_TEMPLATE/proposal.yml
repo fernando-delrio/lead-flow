@@ -1,0 +1,43 @@
+name: Proponer una mejora
+description: Propón un cambio antes de invertir tiempo en implementarlo.
+title: "[Propuesta]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema que quieres resolver
+      description: Describe quién lo sufre y en qué situación, sin empezar por una solución.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Resultado esperado
+      description: Explica qué podría hacer una persona cuando la mejora exista.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      description: Incluye soluciones manuales o herramientas existentes, si las hay.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Qué dejarías fuera
+      description: Un límite explícito ayuda a convertir la propuesta en una tarea revisable.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Comprobaciones
+      options:
+        - label: He buscado propuestas similares entre las incidencias abiertas.
+          required: true
+        - label: Esperaré a acordar el alcance antes de abrir una pull request grande.
+          required: true
+        - label: Acepto el código de conducta del proyecto.
+          required: true

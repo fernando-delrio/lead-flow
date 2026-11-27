@@ -10,6 +10,18 @@ lead engineer. Las personas revisan donde hay riesgo, y lo demás se vigila sin 
 > puede instalar hoy es el kit `equipo-solo` para Claude Code. Detalle en
 > [Qué existe hoy y qué no](#qué-existe-hoy-y-qué-no).
 
+## Empieza aquí
+
+- **Quiero probar lo que ya funciona:** instala el kit [`equipo-solo`](#probar-hoy-el-kit-equipo-solo).
+- **Quiero colaborar:** lee [`CONTRIBUTING.md`](CONTRIBUTING.md) y consulta las
+  [incidencias abiertas](https://github.com/fernando-delrio/lead-flow/issues).
+- **Quiero probar `lead-flow` con mi equipo:** abre una
+  [incidencia](https://github.com/fernando-delrio/lead-flow/issues/new) y cuenta brevemente tu caso.
+
+**Dónde colaboramos.** GitHub es la sede canónica del proyecto: allí se reciben incidencias y
+pull requests. El repositorio de GitLab es un espejo para dar visibilidad al trabajo; no se deben
+integrar cambios por separado en los dos sitios.
+
 ## La historia, en un minuto
 
 ![Los personajes: la lead, que decide cómo se trabaja; el programador con su IA, que construyen; el revisor, que da el visto bueno; y el cliente, que paga y recibe.](assets/historia/01-personajes.svg)
@@ -190,7 +202,8 @@ Para startups y consultoras que programan con IA y entregan software a clientes.
 
 ¿Quieres probar `lead-flow` en tu equipo cuando esté lista la fase 1? Sigue el repositorio
 (**Watch → Custom → Releases**) o [abre una incidencia](https://github.com/fernando-delrio/lead-flow/issues/new)
-contando tu caso.
+contando tu caso. Si quieres ayudar a construirlo, consulta la
+[guía de contribución](CONTRIBUTING.md) y el [plan de comunidad](doc/comunidad.md).
 
 ## Para saber más
 

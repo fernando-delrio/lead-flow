@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Comunicar una vulnerabilidad
+    url: https://github.com/fernando-delrio/lead-flow/security/advisories/new
+    about: Usa un aviso privado y no publiques detalles de seguridad en una incidencia.
+  - name: Leer la guía de contribución
+    url: https://github.com/fernando-delrio/lead-flow/blob/main/CONTRIBUTING.md
+    about: Consulta cómo preparar, comprobar y enviar un cambio.
