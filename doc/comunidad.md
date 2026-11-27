@@ -14,8 +14,8 @@ Conseguir personas que prueben lo que ya funciona, equipos piloto que ayuden a v
 |---|---|---|
 | 1. Sede principal | GitHub recibe incidencias y pull requests; GitLab es un espejo. | Preparado |
 | 2. Entradas claras | El README separa probar, colaborar y proponer un piloto. | Preparado |
-| 3. Base comunitaria | Guías de contribución, seguridad y conducta; después, plantillas. | En curso |
-| 4. Primeras tareas | Entre 5 y 10 incidencias pequeñas, con alcance y comprobación. | Pendiente |
+| 3. Base comunitaria | Guías, [formularios](../.github/ISSUE_TEMPLATE/) y plantilla de PR. | Preparado |
+| 4. Primeras tareas | [Siete borradores](primeras-tareas.md) con alcance; falta publicarlos. | En curso |
 | 5. Demostración pública | Release, instalación reproducible, vídeo corto y ejemplo. | Pendiente |
 | 6. Difusión | Una pieza principal adaptada a comunidades y contacto directo. | Pendiente |
 | 7. Conversación | Discussions con preguntas, ideas y experiencias. | Pendiente |
