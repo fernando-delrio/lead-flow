@@ -86,7 +86,7 @@ describe('generated outputs', () => {
 
   it('CODEOWNERS assigns the tool configuration files to the lead and the scrum master', () => {
     const { content } = renderCodeowners(fixturePolicy())
-    for (const file of ['.gitleaks.toml', '.gitleaksignore', '.semgrepignore', '.semgrep.yml']) {
+    for (const file of ['.gitleaks.toml', '.gitleaksignore', '.semgrepignore', '.semgrep.yml', '.gitattributes']) {
       expect(content).toContain(`${file} @ana-lead @luis-sm`)
     }
   })
@@ -102,6 +102,7 @@ describe('generated outputs', () => {
         '.gitleaksignore @ana-lead',
         '.semgrepignore @ana-lead',
         '.semgrep.yml @ana-lead',
+        '.gitattributes @ana-lead',
       ].join('\n')
     )
   })

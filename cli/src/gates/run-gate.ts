@@ -32,6 +32,11 @@ const TESTS_TOOL = 'comandos de stack.comandos'
 const NOT_VERIFIED_NOTE = 'La puerta queda sin verificar y cuenta como fallo.'
 
 const SEMGREP_DEFAULT_PACK = 'p/default'
+const SEMGREP_NO_SIZE_LIMIT = '0'
+// Un error de nivel «error» o un archivo que no se termina de analizar dejan código sin revisar,
+// aunque semgrep salga con 0. Un Timeout puede llegar con nivel «warn»: cuenta por su tipo.
+const SEMGREP_BLOCKING_LEVEL = 'error'
+const SEMGREP_BLOCKING_TYPES = ['Timeout', 'Out of memory', 'Stack overflow']
 const SEMGREP_PACKS: Record<string, string> = {
   python: 'p/python',
   javascript: 'p/javascript',
@@ -65,10 +70,17 @@ const invalidReport = (tool: string, what: string): never => {
   throw new LeadFlowError(INVALID_REPORT_CODE, `el informe de ${tool} ${what}`)
 }
 
-const rangeArgs = (range: CommitRange | null) => {
-  if (range === null) return []
-  return ['--log-opts', `${range.base}..${range.head}`]
+// gitleaks parte --log-opts por espacios y lo pasa a git log. --text hace que git muestre como texto
+// lo que un .gitattributes marca como binario. Sin rango se repiten las opciones por defecto de gitleaks 8.30.
+const FULL_HISTORY_LOG_OPTIONS = ['--full-history', '--all', '--diff-filter=tuxdb']
+const TEXT_LOG_OPTION = '--text'
+
+const logOptions = (range: CommitRange | null) => {
+  if (range === null) return [...FULL_HISTORY_LOG_OPTIONS, TEXT_LOG_OPTION]
+  return [TEXT_LOG_OPTION, `${range.base}..${range.head}`]
 }
+
+const rangeArgs = (range: CommitRange | null) => ['--log-opts', logOptions(range).join(' ')]
 
 // Configuración explícita: un .gitleaks.toml o un «gitleaks:allow» de la pull request no apagan la puerta.
 export const secretsToolSpec = (range: CommitRange | null): ToolSpec => ({
@@ -116,7 +128,7 @@ const semgrepPacks = (policy: Policy) => {
 }
 
 // --x-ignore-semgrepignore-files es interna en semgrep: si desaparece, semgrep falla y la puerta
-// queda sin verificar, nunca en verde.
+// queda sin verificar, nunca en verde. --max-target-bytes 0 quita el límite de 1 MB por archivo.
 export const sastToolSpec = (policy: Policy): ToolSpec => ({
   puerta: 'sast',
   command: 'semgrep',
@@ -124,6 +136,7 @@ export const sastToolSpec = (policy: Policy): ToolSpec => ({
     'scan',
     ...semgrepPacks(policy).flatMap((pack) => ['--config', pack]),
     '--json', '--disable-nosem', '--x-ignore-semgrepignore-files', '--metrics=off',
+    '--max-target-bytes', SEMGREP_NO_SIZE_LIMIT,
     '.',
   ],
   parse: parseSemgrepReport,
@@ -134,11 +147,42 @@ const toCodeFinding = (item: unknown) => {
   return { regla: item.check_id, archivo: item.path, linea: pickPath(item, ['start', 'line']) }
 }
 
+// El tipo de un error de semgrep es un texto o una lista cuyo primer elemento es el nombre.
+const semgrepErrorType = (type: unknown) => {
+  if (Array.isArray(type)) return String(type[0])
+  return String(type)
+}
+
+const isBlockingSemgrepError = (item: JsonRecord) =>
+  item.level === SEMGREP_BLOCKING_LEVEL || SEMGREP_BLOCKING_TYPES.includes(semgrepErrorType(item.type))
+
+const isWarningSemgrepError = (item: JsonRecord) => !isBlockingSemgrepError(item)
+
+const toSemgrepProblem = (tipo: string) => (item: JsonRecord) => ({
+  tipo,
+  nivel: item.level,
+  clase: semgrepErrorType(item.type),
+  mensaje: item.message,
+  archivo: item.path,
+})
+
+const readSemgrepErrors = (report: JsonRecord): JsonRecord[] => {
+  const errors = report.errors ?? []
+  if (Array.isArray(errors) && errors.every(isRecord)) return errors
+  return invalidReport('semgrep', 'trae «errors» que no son objetos')
+}
+
 export const parseSemgrepReport = (stdout: string): ToolResult => {
   const report = JSON.parse(stdout) as unknown
   if (!isRecord(report) || !Array.isArray(report.results)) return invalidReport('semgrep', 'no trae «results»')
   const detalles = report.results.map(toCodeFinding)
-  return { ok: detalles.length === 0, detalles }
+  const problems = readSemgrepErrors(report)
+  return {
+    ok: detalles.length === 0,
+    detalles,
+    errors: problems.filter(isBlockingSemgrepError).map(toSemgrepProblem('error')),
+    warnings: problems.filter(isWarningSemgrepError).map(toSemgrepProblem('aviso')),
+  }
 }
 
 
