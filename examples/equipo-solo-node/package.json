@@ -1,0 +1,14 @@
+{
+  "name": "equipo-solo-node-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/cart.js && node --check test/cart.test.js",
+    "build": "node --check src/cart.js"
+  }
+}
