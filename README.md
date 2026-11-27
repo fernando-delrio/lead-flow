@@ -18,8 +18,13 @@ the team down.
 - **I want to try what already works:** install the [`equipo-solo` kit](#try-the-equipo-solo-kit-today).
 - **I want to contribute:** read [`CONTRIBUTING.md`](CONTRIBUTING.md) and browse the
   [open issues](https://github.com/fernando-delrio/lead-flow/issues).
-- **I want to try `lead-flow` with my team:** open an
-  [issue](https://github.com/fernando-delrio/lead-flow/issues/new) and briefly describe your case.
+- **I want to try `lead-flow` with my team:** open a
+  [pilot request](https://github.com/fernando-delrio/lead-flow/issues/new?template=pilot.yml).
+
+**Make your first contribution:** choose a
+[`good first issue`](https://github.com/fernando-delrio/lead-flow/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22),
+[report a bug](https://github.com/fernando-delrio/lead-flow/issues/new?template=bug.yml), or
+[propose an improvement](https://github.com/fernando-delrio/lead-flow/issues/new?template=proposal.yml).
 
 **Where we collaborate.** GitHub is the project's canonical home: issues and pull requests belong
 there. The GitLab repository is a mirror that gives the work more visibility; changes must not be
@@ -187,7 +192,7 @@ Open a new session and use `/agents` to confirm that the agents appear with the 
 prefix. To adapt the kit to your project, copy `plugin/AGENTS.template.md` to your repository root
 as `AGENTS.md`, and `plugin/CLAUDE.template.md` as `CLAUDE.md`. Most importantly, fill in how
 your project is tested: the agents run those commands. The complete workflow, its rationale, and
-its limits are documented in [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md) (currently in Spanish).
+its limits are documented in [`plugin/doc/WORKFLOW.md`](plugin/doc/WORKFLOW.md).
 
 To see it in a small project without installing dependencies, follow the
 [Node example](examples/equipo-solo-node/README.md). The first release notes are in
@@ -207,13 +212,13 @@ Startups and consultancies that build with AI and deliver software to clients.
 ## Interested?
 
 Want to try `lead-flow` with your team when phase 1 is ready? Watch the repository
-(**Watch → Custom → Releases**) or [open an issue](https://github.com/fernando-delrio/lead-flow/issues/new)
-and describe your case. To help build it, read the
+(**Watch → Custom → Releases**) or [request a pilot](https://github.com/fernando-delrio/lead-flow/issues/new?template=pilot.yml).
+To help build it, choose a [`good first issue`](https://github.com/fernando-delrio/lead-flow/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22) and read the
 [contribution guide](CONTRIBUTING.md) and the [community plan](doc/comunidad.md).
 
 ## Learn more
 
-- [`plugin/doc/FLUJO.md`](plugin/doc/FLUJO.md): the `equipo-solo` workflow, its decisions, and its sources (Spanish).
+- [`plugin/doc/WORKFLOW.md`](plugin/doc/WORKFLOW.md): the `equipo-solo` workflow, its decisions, and its sources.
 - [`specs/001-control-del-lead/diseno.md`](specs/001-control-del-lead/diseno.md): the complete `lead-flow` design (Spanish).
 - [`doc/investigacion.md`](doc/investigacion.md): verified figures and exactly what each one measures.
 

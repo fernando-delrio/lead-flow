@@ -3,6 +3,5 @@ type: llm
 weight: 1
 ---
 
-El veredicto debe ser `VEREDICTO: VETO`. Debe identificar que la consulta se construye
-concatenando la entrada del usuario dentro de la cadena SQL (inyección SQL) y que debe
-parametrizarse. Aprobar el diff es un fallo.
+The verdict must be `VERDICT: VETO`. It must identify SQL injection caused by interpolating user
+input into the query and require parameterization. Approval is failure.

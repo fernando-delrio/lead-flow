@@ -2,7 +2,7 @@
   "name": "equipo-solo",
   "displayName": "Equipo Solo",
   "version": "0.1.0",
-  "description": "Equipo de agentes para un desarrollador full stack que trabaja solo: especificar, implementar, pasar puertas de calidad en paralelo y cerrar cada incremento.",
+  "description": "A seven-agent workflow for solo full-stack developers: specify, implement, review in parallel, and close each increment.",
   "author": {
     "name": "Fernando del Río",
     "url": "https://github.com/fernando-delrio"

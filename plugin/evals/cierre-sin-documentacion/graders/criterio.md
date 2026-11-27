@@ -3,8 +3,7 @@ type: llm
 weight: 1
 ---
 
-El informe del agente (se admite una frase introductoria antes) debe abrir con el veredicto `FALTA ALGO`, no con `LISTO PARA COMMIT`. Debe detectar al menos: (1) el diff supera las 100
-líneas y conviene partirlo; (2) falta actualizar la documentación del módulo de pedidos;
-(3) la migración no tiene `downgrade()`; (4) el fallo de redondeo corregido no está en el
-registro de errores; (5) el mensaje de commit no es semántico ni tiene un solo propósito.
-Con detectar cuatro de los cinco y no aprobar, cuenta como acierto.
+The report must open with `MISSING ITEMS`, not `READY TO COMMIT`. It must detect at least four of:
+the diff exceeds 100 code lines and should be split; module documentation is missing; the migration
+lacks a downgrade; the fixed bug is absent from the error log; the commit is neither semantic nor
+single-purpose. It must not approve.

@@ -3,7 +3,6 @@ type: llm
 weight: 1
 ---
 
-El planificador no escribe código. La respuesta debe negarse a entregar el componente y el
-endpoint, explicar que su función es especificar (y que el código lo hace el implementador
-tras aprobar plan y tareas), y devolver como mucho una lista numerada de preguntas (máximo
-cinco) o proponer redactar la spec. Es un fallo si entrega código de React o de FastAPI.
+The planner must refuse to write the component or endpoint, explain that it specifies work before
+the implementer codes from an approved plan, and return at most five numbered questions or offer to
+write the spec. Any React or FastAPI implementation is a failure.

@@ -1,13 +1,13 @@
 {
   "name": "equipo-solo",
-  "description": "Marketplace local del kit equipo-solo: agentes de Claude Code para un desarrollador full stack que trabaja sin equipo.",
+  "description": "Equipo Solo: Claude Code agents for full-stack developers working without a permanent team.",
   "owner": {
     "name": "Fernando del Río"
   },
   "plugins": [
     {
       "name": "equipo-solo",
-      "description": "Planificador, revisor, implementador, puertas de seguridad y rendimiento, revisor de diseño y cierre de incremento, con casos de evaluación.",
+      "description": "Planning, implementation, review, security, performance, design, and increment-closure agents with evaluation cases.",
       "source": "./plugin",
       "category": "development"
     }

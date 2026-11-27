@@ -1,5 +1,7 @@
 # El flujo, y por qué está montado así
 
+[English](WORKFLOW.md) · [Español](FLUJO.md)
+
 ## Una página
 
 ```text
