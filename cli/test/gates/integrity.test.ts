@@ -17,6 +17,8 @@ const HEAD_SHA = 'b'.repeat(40)
 const OLD_SHA = 'c'.repeat(40)
 const BASE_SHA = 'a'.repeat(40)
 const WORKFLOW = '.github/workflows/lead-flow-puertas.yml'
+const EMOJI = '\u{1F600}'
+const LONE_SURROGATE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/
 
 const fixturePolicy = (): Policy => validatePolicy(parse(POLICY_TEXT))
 
@@ -76,6 +78,13 @@ describe('checkIntegrity', () => {
 
   it('flags a tool configuration change without the approval of the lead', () => {
     const changedFiles = ['.gitleaksignore', 'src/.semgrepignore', '.gitleaks.toml', '.semgrep.yml']
+    const evidence = checkIntegrity(integrityInput({ changedFiles, approvals: [approval('marta-qa')] }))
+    expect(evidence.estado).toBe('fallo')
+    for (const file of changedFiles) expect(evidence.resumen).toContain(file)
+  })
+
+  it('flags a .gitattributes change in any folder without the approval of the lead', () => {
+    const changedFiles = ['.gitattributes', 'sub/.gitattributes']
     const evidence = checkIntegrity(integrityInput({ changedFiles, approvals: [approval('marta-qa')] }))
     expect(evidence.estado).toBe('fallo')
     for (const file of changedFiles) expect(evidence.resumen).toContain(file)
@@ -142,7 +151,13 @@ describe('checkIntegrity', () => {
 
 type FakeCalls = { statuses: Array<{ sha: string; status: CommitStatus }>; reviewsFor: number[]; lookups: string[] }
 
-type FakeSetup = { changed?: ChangedFile[]; reviews?: CommitReview[]; changedCount?: number; files?: Record<string, string> }
+type FakeSetup = {
+  changed?: ChangedFile[]
+  reviews?: CommitReview[]
+  changedCount?: number
+  files?: Record<string, string>
+  heads?: string[]
+}
 
 const fakeFiles = () => ({ ...headMatching(renderAll(fixturePolicy())), '.lead/politica.yml': POLICY_TEXT })
 
@@ -157,8 +172,14 @@ const fakeClient = (setup: FakeSetup = {}) => {
     changedFiles: setup.changedCount ?? changed.length,
   }
   const files = setup.files ?? fakeFiles()
+  const heads = setup.heads ?? []
+  const readCount = { value: 0 }
   const client: GitHubClient = {
-    getPullRequest: async () => pullRequest,
+    getPullRequest: async () => {
+      const headSha = heads[readCount.value] ?? pullRequest.headSha
+      readCount.value += 1
+      return { ...pullRequest, headSha }
+    },
     findPullRequestNumber: async (sha) => {
       calls.lookups.push(sha)
       return 7
@@ -238,6 +259,39 @@ describe('runIntegrity', () => {
     const evidence = await runIntegrity({ env: pullRequestEnv, client, evidenceDirectory: await evidenceDirectory() })
     expect(evidence.estado).toBe('no_verificado')
     expect(calls.statuses[0]?.status.state).toBe('failure')
+  })
+
+  it('reports no_verificado when the pull request changes during the check', async () => {
+    const { client, calls } = fakeClient({ heads: [HEAD_SHA, OLD_SHA] })
+    const evidence = await runIntegrity({ env: pullRequestEnv, client, evidenceDirectory: await evidenceDirectory() })
+    expect(evidence.estado).toBe('no_verificado')
+    expect(evidence.resumen).toContain('ha cambiado')
+    expect(calls.statuses).toHaveLength(1)
+    expect(calls.statuses[0]?.sha).toBe(HEAD_SHA)
+    expect(calls.statuses[0]?.status.state).toBe('failure')
+  })
+
+  it('cuts the status description without splitting a character', async () => {
+    const descriptions = await Promise.all(
+      ['.lead/', '.lead/x'].map(async (folder) => {
+        const { client, calls } = fakeClient({ changed: [{ path: `${folder}${EMOJI.repeat(80)}`, previousPath: null }] })
+        await runIntegrity({ env: pullRequestEnv, client, evidenceDirectory: await evidenceDirectory() })
+        return calls.statuses[0]?.status.description ?? ''
+      })
+    )
+    for (const description of descriptions) expect(description).not.toMatch(LONE_SURROGATE)
+    for (const description of descriptions) expect(Array.from(description)).toHaveLength(140)
+  })
+
+  it('links the commit status to the run when the environment names it', async () => {
+    const runEnv = { GITHUB_SERVER_URL: 'https://github.com', GITHUB_REPOSITORY: 'equipo/tienda', GITHUB_RUN_ID: '42' }
+    const linked = fakeClient()
+    await runIntegrity({ env: { ...pullRequestEnv, ...runEnv }, client: linked.client, evidenceDirectory: await evidenceDirectory() })
+    expect(linked.calls.statuses[0]?.status.target_url).toBe('https://github.com/equipo/tienda/actions/runs/42')
+    const unlinked = fakeClient()
+    const badEnv = { ...pullRequestEnv, ...runEnv, GITHUB_RUN_ID: '42; rm' }
+    await runIntegrity({ env: badEnv, client: unlinked.client, evidenceDirectory: await evidenceDirectory() })
+    expect(unlinked.calls.statuses[0]?.status).not.toHaveProperty('target_url')
   })
 
   it('reports no_verificado without a pull request to look at', async () => {
