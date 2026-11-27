@@ -6,6 +6,13 @@ Relevant changes in each public release are documented in this file.
 
 ## Unreleased
 
+### Changed
+
+- English is now the primary language for agent instructions, project templates, workflow
+  documentation, evaluation cases, and public package metadata.
+- Agent identifiers remain stable, and agents answer in the language used by the person invoking
+  them. Spanish project templates remain available with the `.es.md` suffix.
+
 ## Equipo Solo 0.1.0 — 2026-11-27
 
 ### Added

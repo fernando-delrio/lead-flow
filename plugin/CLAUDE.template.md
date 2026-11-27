@@ -1,21 +1,16 @@
-# CLAUDE.md — <Nombre del proyecto>
+# CLAUDE.md — <Project name>
 
 @AGENTS.md
 
-Las reglas comunes están en `AGENTS.md` (importado arriba). Aquí solo lo que aplica a Claude Code.
-
-## Flujo de agentes
+Shared rules live in `AGENTS.md`. This file only defines the Claude Code workflow.
 
 ```text
-planificador → revisor (spec) → aprobación → planificador (plan y tareas) → aprobación
-  → implementador (una tarea) → puertas en paralelo → revisor (requisito por requisito)
-  → cierre-incremento → commit de la persona
+planificador → revisor (spec) → approval → planificador (plan and tasks) → approval
+  → implementador (one task) → parallel gates → revisor (requirement by requirement)
+  → cierre-incremento → the person commits
 ```
 
-- **Puertas en paralelo:** al cerrar un incremento, lanza en un solo mensaje las que
-  correspondan según lo tocado. Son de solo lectura y no se necesitan entre sí. Un veto para el
-  trabajo; ninguna puerta revierte ni edita.
-- **No las lances en cada edición:** un sistema multiagente gasta bastantes más tokens que una
-  sola sesión. Una vez por incremento.
-- **Modelo:** planificador, revisor y puerta-seguridad en opus; el resto en sonnet. Para una
-  tarea de autenticación o datos sensibles, lanza el implementador con `model: opus`.
+- Launch all relevant gates together when closing an increment. They are read-only.
+- Run them once per increment, not after every edit.
+- Planning, review, and security use opus; the others use sonnet. The implementer may use opus
+  for authentication or sensitive-data work.

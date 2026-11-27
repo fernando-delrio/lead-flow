@@ -1,7 +1,7 @@
 {
   "name": "lead-flow",
   "version": "0.1.0",
-  "description": "Control del lead: puertas de revisión para equipos que usan agentes de IA.",
+  "description": "Lead-controlled review gates for teams that build software with AI agents.",
   "type": "module",
   "bin": {
     "lead-flow": "dist/index.js"

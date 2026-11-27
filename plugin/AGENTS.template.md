@@ -1,52 +1,49 @@
-# AGENTS.md — <Nombre del proyecto>
+# AGENTS.md — <Project name>
 
-Entrada corta para cualquier agente (objetivo: 60-100 líneas). El detalle vive en `doc/` y se
-lee solo cuando se toca ese tema. Si crece de 120 líneas, mueve texto a `doc/` y deja aquí
-solo la regla y un enlace.
+Keep this entry point short (target: 60-100 lines). Detailed rules live in `doc/` and are loaded
+only when relevant. If it grows beyond 120 lines, move detail to `doc/` and leave a rule and link.
 
-**Qué es:** <una frase: producto, para quién, estado>.
-**Pregunta de control antes de dar algo por terminado:** ¿lo pondría delante del cliente ahora
-mismo, sin avisar de nada? Si la respuesta es «sí, pero…», no está terminado.
+**What it is:** <product, audience, and status in one sentence>.
+**Completion check:** Would I put this in front of the client now without a warning? If the answer
+is “yes, but…”, it is not finished.
 
-## Stack y comandos
-- Frontend: <stack>. Backend: <stack>. Base de datos: <motor en dev y en producción>.
-- Arrancar: `<comando backend>` · `<comando frontend>`.
-- **Probar** (los agentes usan estas líneas, mantenlas exactas):
-  `<pruebas backend>` · `<lint backend>` · `<pruebas frontend>` · `<lint frontend>` · `<build>`.
-- Auditoría de dependencias: `<pip-audit>` · `<npm audit --audit-level=high>`.
+## Stack and commands
+- Frontend: <stack>. Backend: <stack>. Database: <development and production engines>.
+- Start: `<backend command>` · `<frontend command>`.
+- **Verify:** `<backend tests>` · `<backend lint>` · `<frontend tests>` · `<frontend lint>` · `<build>`.
+- Dependencies: `<pip-audit>` · `<npm audit --audit-level=high>`.
 
-## Estructura
-- <Por feature o por capas; reglas de dependencias entre módulos; una línea por capa>.
-- Antes de crear un archivo: módulo dueño, capa, producción o prueba, consumidores.
+## Structure
+- <Module, layer, and dependency rules>.
+- Before creating a file: identify its owner, layer, production/test role, and consumers.
 
-## Reglas de código
-- <5-8 reglas concretas y comprobables: tamaño de función, estilo de errores, nombres…>
-- Lo que una máquina puede vigilar (lint, prueba de estilo), que lo vigile la máquina.
+## Code rules
+- <5-8 concrete, verifiable rules>.
+- Enforce mechanically verifiable rules with tests or lint, not prose alone.
 
-## Líneas rojas de dominio
-- <Lo que nunca se dice o se hace en este negocio: vocabulario prohibido, promesas, datos…>
-- Qué prueba hace cumplir cada línea roja.
+## Domain red lines
+- <What must never be said or done, and which test enforces it>.
 
-## Seguridad
-- <Consultas parametrizadas, secretos fuera del código, autenticación en cada ruta, CORS…>
+## Security
+- <Parameterized queries, secrets outside code, authentication, CORS…>.
 
-## Forma de trabajar
-- Incrementos pequeños que conectan backend y frontend. Prueba antes que código en la lógica.
-- **Git es de la persona**: el agente propone los comandos, nunca los ejecuta.
-- Al terminar un incremento: parar, resumir y esperar la señal.
-- Primero la spec (`specs/NNN-*/`, requisitos EARS), luego plan, tareas y código.
+## Working method
+- Build small end-to-end increments. Write the test before logic.
+- **Git belongs to the person:** agents propose commands and never execute them.
+- After one increment: stop, summarize, and wait for approval.
+- Write the spec first, then the plan, tasks, and code.
 
-## Límites
-- ✅ Siempre: leer antes de editar, ejecutar las pruebas que toques.
-- ⚠️ Pregunta antes: dependencias nuevas, migraciones ya aplicadas, configuración de despliegue.
-- 🚫 Nunca: Git, credenciales en el código, dar por hecho algo que no has ejecutado.
+## Boundaries
+- ✅ Always: read before editing and run affected checks.
+- ⚠️ Ask first: dependencies, applied migrations, and deployment configuration.
+- 🚫 Never: Git writes, credentials in code, or claiming an unexecuted check passed.
 
-## Verificación antes de dar algo por terminado
-Pruebas y lint en verde, documentación al día, diff pequeño. Según lo tocado pasan sus
-puertas: `puerta-seguridad`, `puerta-rendimiento`, `revisor-diseno`. Son de solo lectura y se
-lanzan **a la vez** al cerrar el incremento; `cierre-incremento` confirma qué falta.
+## Completion checks
+Tests and lint pass, documentation is current, and the diff is small. Run the relevant
+`puerta-seguridad`, `puerta-rendimiento`, and `revisor-diseno` agents in parallel;
+`cierre-incremento` confirms what remains.
 
-## Lee X cuando toques Y
-| Si tocas… | Lee |
+## Read X when changing Y
+| When changing… | Read |
 |---|---|
-| <tema> | `doc/<archivo>.md` |
+| <topic> | `doc/<file>.md` |

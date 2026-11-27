@@ -18,7 +18,12 @@ lead engineer. Las personas revisan donde hay riesgo, y lo demás se vigila sin 
 - **Quiero colaborar:** lee [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) y consulta las
   [incidencias abiertas](https://github.com/fernando-delrio/lead-flow/issues).
 - **Quiero probar `lead-flow` con mi equipo:** abre una
-  [incidencia](https://github.com/fernando-delrio/lead-flow/issues/new) y cuenta brevemente tu caso.
+  [solicitud de piloto](https://github.com/fernando-delrio/lead-flow/issues/new?template=pilot_es.yml).
+
+**Haz tu primera contribución:** elige una
+[`good first issue`](https://github.com/fernando-delrio/lead-flow/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22),
+[comunica un error](https://github.com/fernando-delrio/lead-flow/issues/new?template=bug_es.yml) o
+[propón una mejora](https://github.com/fernando-delrio/lead-flow/issues/new?template=proposal_es.yml).
 
 **Dónde colaboramos.** GitHub es la sede canónica del proyecto: allí se reciben incidencias y
 pull requests. El repositorio de GitLab es un espejo para dar visibilidad al trabajo; no se deben
@@ -207,8 +212,8 @@ Para startups y consultoras que programan con IA y entregan software a clientes.
 ## ¿Te interesa?
 
 ¿Quieres probar `lead-flow` en tu equipo cuando esté lista la fase 1? Sigue el repositorio
-(**Watch → Custom → Releases**) o [abre una incidencia](https://github.com/fernando-delrio/lead-flow/issues/new)
-contando tu caso. Si quieres ayudar a construirlo, consulta la
+(**Watch → Custom → Releases**) o [solicita un piloto](https://github.com/fernando-delrio/lead-flow/issues/new?template=pilot_es.yml).
+Para ayudar a construirlo, elige una [`good first issue`](https://github.com/fernando-delrio/lead-flow/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22) y consulta la
 [guía de contribución](CONTRIBUTING.es.md) y el [plan de comunidad](doc/comunidad.es.md).
 
 ## Para saber más

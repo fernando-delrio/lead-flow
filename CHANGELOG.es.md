@@ -6,6 +6,13 @@ Los cambios relevantes de cada entrega pública se documentan en este archivo.
 
 ## Sin publicar
 
+### Cambiado
+
+- El inglés pasa a ser el idioma principal de las instrucciones de agentes, plantillas,
+  documentación del flujo, evaluaciones y metadatos públicos del paquete.
+- Los identificadores se mantienen estables y los agentes responden en el idioma de quien los
+  invoca. Las plantillas españolas siguen disponibles con el sufijo `.es.md`.
+
 ## Equipo Solo 0.1.0 — 2026-11-27
 
 ### Añadido
