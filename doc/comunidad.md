@@ -16,7 +16,7 @@ Conseguir personas que prueben lo que ya funciona, equipos piloto que ayuden a v
 | 2. Entradas claras | El README separa probar, colaborar y proponer un piloto. | Preparado |
 | 3. Base comunitaria | Guías, [formularios](../.github/ISSUE_TEMPLATE/) y plantilla de PR. | Preparado |
 | 4. Primeras tareas | Siete incidencias publicadas, de la [#7](https://github.com/fernando-delrio/lead-flow/issues/7) a la [#13](https://github.com/fernando-delrio/lead-flow/issues/13). | Preparado |
-| 5. Demostración pública | Instalación reproducible, ejemplo, notas y guion; faltan vídeo y release. | En curso |
+| 5. Demostración pública | Instalación reproducible, ejemplo, notas, guion y vídeo; falta crear la release. | En curso |
 | 6. Difusión | Una pieza principal adaptada a comunidades y contacto directo. | Pendiente |
 | 7. Conversación | Discussions con preguntas, ideas y experiencias. | Pendiente |
 | 8. Medición | Registro de pruebas, pilotos, primeras PR y tiempo de respuesta. | Pendiente |

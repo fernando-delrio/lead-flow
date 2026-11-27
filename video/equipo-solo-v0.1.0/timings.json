@@ -1,0 +1,916 @@
+{
+  "duration": 68.5265306122449,
+  "voice": {
+    "provider": "HeyGen",
+    "name": "Montserrat - Warm & Expressive",
+    "voice_id": "1777080b7f574979875dc144b9fbf0de",
+    "locale": "es-ES"
+  },
+  "words": [
+    {
+      "text": "Puedes",
+      "start_time": 0.299,
+      "end_time": 0.5547
+    },
+    {
+      "text": "pedirle",
+      "start_time": 0.597,
+      "end_time": 0.939
+    },
+    {
+      "text": "a",
+      "start_time": 0.981,
+      "end_time": 1.024
+    },
+    {
+      "text": "una",
+      "start_time": 1.067,
+      "end_time": 1.237
+    },
+    {
+      "text": "IA",
+      "start_time": 1.28,
+      "end_time": 1.493
+    },
+    {
+      "text": "que",
+      "start_time": 1.579,
+      "end_time": 1.7067
+    },
+    {
+      "text": "cambie",
+      "start_time": 1.749,
+      "end_time": 2.005
+    },
+    {
+      "text": "código",
+      "start_time": 2.048,
+      "end_time": 2.347
+    },
+    {
+      "text": "en",
+      "start_time": 2.389,
+      "end_time": 2.432
+    },
+    {
+      "text": "segundos",
+      "start_time": 2.475,
+      "end_time": 2.987
+    },
+    {
+      "text": "Pero",
+      "start_time": 3.669,
+      "end_time": 3.84
+    },
+    {
+      "text": "cuando",
+      "start_time": 3.883,
+      "end_time": 4.053
+    },
+    {
+      "text": "la",
+      "start_time": 4.096,
+      "end_time": 4.181
+    },
+    {
+      "text": "misma",
+      "start_time": 4.224,
+      "end_time": 4.48
+    },
+    {
+      "text": "IA",
+      "start_time": 4.523,
+      "end_time": 4.736
+    },
+    {
+      "text": "planifica",
+      "start_time": 4.779,
+      "end_time": 5.291
+    },
+    {
+      "text": "implementa",
+      "start_time": 5.675,
+      "end_time": 6.357
+    },
+    {
+      "text": "y",
+      "start_time": 6.528,
+      "end_time": 6.656
+    },
+    {
+      "text": "se",
+      "start_time": 6.699,
+      "end_time": 6.827
+    },
+    {
+      "text": "da",
+      "start_time": 6.869,
+      "end_time": 6.912
+    },
+    {
+      "text": "el",
+      "start_time": 6.955,
+      "end_time": 6.997
+    },
+    {
+      "text": "visto",
+      "start_time": 7.04,
+      "end_time": 7.296
+    },
+    {
+      "text": "bueno",
+      "start_time": 7.339,
+      "end_time": 7.595
+    },
+    {
+      "text": "qué",
+      "start_time": 8.064,
+      "end_time": 8.2347
+    },
+    {
+      "text": "parte",
+      "start_time": 8.277,
+      "end_time": 8.533
+    },
+    {
+      "text": "has",
+      "start_time": 8.576,
+      "end_time": 8.6187
+    },
+    {
+      "text": "comprobado",
+      "start_time": 8.704,
+      "end_time": 9.173
+    },
+    {
+      "text": "de",
+      "start_time": 9.216,
+      "end_time": 9.2587
+    },
+    {
+      "text": "verdad",
+      "start_time": 9.301,
+      "end_time": 9.557
+    },
+    {
+      "text": "Equipo",
+      "start_time": 9.856,
+      "end_time": 10.197
+    },
+    {
+      "text": "Solo",
+      "start_time": 10.24,
+      "end_time": 10.5388
+    },
+    {
+      "text": "separa",
+      "start_time": 10.582,
+      "end_time": 10.9228
+    },
+    {
+      "text": "esas",
+      "start_time": 11.008,
+      "end_time": 11.1788
+    },
+    {
+      "text": "responsabilidades",
+      "start_time": 11.222,
+      "end_time": 12.117
+    },
+    {
+      "text": "dentro",
+      "start_time": 12.16,
+      "end_time": 12.5015
+    },
+    {
+      "text": "de",
+      "start_time": 12.587,
+      "end_time": 12.672
+    },
+    {
+      "text": "Claude",
+      "start_time": 12.715,
+      "end_time": 12.928
+    },
+    {
+      "text": "Code",
+      "start_time": 13.056,
+      "end_time": 13.27
+    },
+    {
+      "text": "Imagina",
+      "start_time": 13.824,
+      "end_time": 14.1228
+    },
+    {
+      "text": "un",
+      "start_time": 14.208,
+      "end_time": 14.2508
+    },
+    {
+      "text": "carrito",
+      "start_time": 14.293,
+      "end_time": 14.5495
+    },
+    {
+      "text": "sencillo",
+      "start_time": 14.635,
+      "end_time": 15.104
+    },
+    {
+      "text": "El",
+      "start_time": 15.403,
+      "end_time": 15.488
+    },
+    {
+      "text": "encargo",
+      "start_time": 15.531,
+      "end_time": 15.829
+    },
+    {
+      "text": "es",
+      "start_time": 15.872,
+      "end_time": 15.9148
+    },
+    {
+      "text": "claro",
+      "start_time": 15.957,
+      "end_time": 16.256
+    },
+    {
+      "text": "envío",
+      "start_time": 16.47,
+      "end_time": 16.8108
+    },
+    {
+      "text": "gratuito",
+      "start_time": 16.854,
+      "end_time": 17.28
+    },
+    {
+      "text": "desde",
+      "start_time": 17.323,
+      "end_time": 17.536
+    },
+    {
+      "text": "cincuenta",
+      "start_time": 17.579,
+      "end_time": 18.048
+    },
+    {
+      "text": "euros",
+      "start_time": 18.091,
+      "end_time": 18.347
+    },
+    {
+      "text": "incluido",
+      "start_time": 18.645,
+      "end_time": 19.243
+    },
+    {
+      "text": "el",
+      "start_time": 19.285,
+      "end_time": 19.328
+    },
+    {
+      "text": "límite",
+      "start_time": 19.371,
+      "end_time": 19.541
+    },
+    {
+      "text": "exacto",
+      "start_time": 19.669,
+      "end_time": 19.925
+    },
+    {
+      "text": "Primero",
+      "start_time": 20.589,
+      "end_time": 21.015
+    },
+    {
+      "text": "el",
+      "start_time": 21.229,
+      "end_time": 21.442
+    },
+    {
+      "text": "planificador",
+      "start_time": 21.485,
+      "end_time": 22.0395
+    },
+    {
+      "text": "convierte",
+      "start_time": 22.082,
+      "end_time": 22.594
+    },
+    {
+      "text": "esa",
+      "start_time": 22.637,
+      "end_time": 22.85
+    },
+    {
+      "text": "frase",
+      "start_time": 22.893,
+      "end_time": 23.1915
+    },
+    {
+      "text": "en",
+      "start_time": 23.32,
+      "end_time": 23.4049
+    },
+    {
+      "text": "comportamiento",
+      "start_time": 23.448,
+      "end_time": 24.13
+    },
+    {
+      "text": "comprobable",
+      "start_time": 24.173,
+      "end_time": 24.599
+    },
+    {
+      "text": "Después",
+      "start_time": 25.197,
+      "end_time": 25.581
+    },
+    {
+      "text": "el",
+      "start_time": 25.965,
+      "end_time": 26.05
+    },
+    {
+      "text": "implementador",
+      "start_time": 26.093,
+      "end_time": 26.69
+    },
+    {
+      "text": "escribe",
+      "start_time": 26.733,
+      "end_time": 27.1169
+    },
+    {
+      "text": "la",
+      "start_time": 27.16,
+      "end_time": 27.245
+    },
+    {
+      "text": "prueba",
+      "start_time": 27.288,
+      "end_time": 27.586
+    },
+    {
+      "text": "y",
+      "start_time": 27.629,
+      "end_time": 27.842
+    },
+    {
+      "text": "cambia",
+      "start_time": 27.885,
+      "end_time": 28.183
+    },
+    {
+      "text": "el",
+      "start_time": 28.226,
+      "end_time": 28.269
+    },
+    {
+      "text": "código",
+      "start_time": 28.311,
+      "end_time": 28.653
+    },
+    {
+      "text": "Las",
+      "start_time": 29.079,
+      "end_time": 29.207
+    },
+    {
+      "text": "puertas",
+      "start_time": 29.293,
+      "end_time": 29.634
+    },
+    {
+      "text": "revisan",
+      "start_time": 29.72,
+      "end_time": 30.0609
+    },
+    {
+      "text": "seguridad",
+      "start_time": 30.104,
+      "end_time": 30.658
+    },
+    {
+      "text": "y",
+      "start_time": 30.744,
+      "end_time": 30.8289
+    },
+    {
+      "text": "rendimiento",
+      "start_time": 30.872,
+      "end_time": 31.4689
+    },
+    {
+      "text": "sin",
+      "start_time": 31.554,
+      "end_time": 31.7249
+    },
+    {
+      "text": "editar",
+      "start_time": 31.767,
+      "end_time": 32.1089
+    },
+    {
+      "text": "nada",
+      "start_time": 32.194,
+      "end_time": 32.365
+    },
+    {
+      "text": "Otro",
+      "start_time": 32.935,
+      "end_time": 33.1487
+    },
+    {
+      "text": "agente",
+      "start_time": 33.191,
+      "end_time": 33.575
+    },
+    {
+      "text": "compara",
+      "start_time": 33.618,
+      "end_time": 34.002
+    },
+    {
+      "text": "el",
+      "start_time": 34.045,
+      "end_time": 34.087
+    },
+    {
+      "text": "resultado",
+      "start_time": 34.13,
+      "end_time": 34.599
+    },
+    {
+      "text": "con",
+      "start_time": 34.642,
+      "end_time": 34.77
+    },
+    {
+      "text": "el",
+      "start_time": 34.813,
+      "end_time": 34.855
+    },
+    {
+      "text": "requisito",
+      "start_time": 34.898,
+      "end_time": 35.367
+    },
+    {
+      "text": "Y",
+      "start_time": 35.879,
+      "end_time": 36.007
+    },
+    {
+      "text": "el",
+      "start_time": 36.05,
+      "end_time": 36.0927
+    },
+    {
+      "text": "cierre",
+      "start_time": 36.135,
+      "end_time": 36.519
+    },
+    {
+      "text": "comprueba",
+      "start_time": 36.562,
+      "end_time": 37.031
+    },
+    {
+      "text": "que",
+      "start_time": 37.074,
+      "end_time": 37.202
+    },
+    {
+      "text": "pruebas",
+      "start_time": 37.245,
+      "end_time": 37.586
+    },
+    {
+      "text": "lint",
+      "start_time": 37.927,
+      "end_time": 38.183
+    },
+    {
+      "text": "build",
+      "start_time": 38.525,
+      "end_time": 38.781
+    },
+    {
+      "text": "y",
+      "start_time": 38.994,
+      "end_time": 39.122
+    },
+    {
+      "text": "documentación",
+      "start_time": 39.165,
+      "end_time": 39.8047
+    },
+    {
+      "text": "estén",
+      "start_time": 39.933,
+      "end_time": 40.231
+    },
+    {
+      "text": "al",
+      "start_time": 40.274,
+      "end_time": 40.359
+    },
+    {
+      "text": "día",
+      "start_time": 40.402,
+      "end_time": 40.615
+    },
+    {
+      "text": "Si",
+      "start_time": 41.068,
+      "end_time": 41.238
+    },
+    {
+      "text": "el",
+      "start_time": 41.281,
+      "end_time": 41.3235
+    },
+    {
+      "text": "subtotal",
+      "start_time": 41.366,
+      "end_time": 41.622
+    },
+    {
+      "text": "es",
+      "start_time": 41.793,
+      "end_time": 41.878
+    },
+    {
+      "text": "cuarenta",
+      "start_time": 41.964,
+      "end_time": 42.262
+    },
+    {
+      "text": "y",
+      "start_time": 42.347,
+      "end_time": 42.39
+    },
+    {
+      "text": "nueve",
+      "start_time": 42.433,
+      "end_time": 42.646
+    },
+    {
+      "text": "con",
+      "start_time": 42.689,
+      "end_time": 42.8168
+    },
+    {
+      "text": "noventa",
+      "start_time": 42.859,
+      "end_time": 43.201
+    },
+    {
+      "text": "y",
+      "start_time": 43.243,
+      "end_time": 43.286
+    },
+    {
+      "text": "nueve",
+      "start_time": 43.329,
+      "end_time": 43.585
+    },
+    {
+      "text": "el",
+      "start_time": 43.841,
+      "end_time": 44.139
+    },
+    {
+      "text": "envío",
+      "start_time": 44.182,
+      "end_time": 44.4808
+    },
+    {
+      "text": "sigue",
+      "start_time": 44.523,
+      "end_time": 44.7368
+    },
+    {
+      "text": "costando",
+      "start_time": 44.779,
+      "end_time": 45.206
+    },
+    {
+      "text": "cuatro",
+      "start_time": 45.291,
+      "end_time": 45.7608
+    },
+    {
+      "text": "con",
+      "start_time": 45.803,
+      "end_time": 45.931
+    },
+    {
+      "text": "noventa",
+      "start_time": 45.974,
+      "end_time": 46.2728
+    },
+    {
+      "text": "y",
+      "start_time": 46.358,
+      "end_time": 46.4008
+    },
+    {
+      "text": "nueve",
+      "start_time": 46.444,
+      "end_time": 46.657
+    },
+    {
+      "text": "Con",
+      "start_time": 47.126,
+      "end_time": 47.254
+    },
+    {
+      "text": "cincuenta",
+      "start_time": 47.297,
+      "end_time": 47.766
+    },
+    {
+      "text": "pasa",
+      "start_time": 48.065,
+      "end_time": 48.321
+    },
+    {
+      "text": "a",
+      "start_time": 48.364,
+      "end_time": 48.406
+    },
+    {
+      "text": "cero",
+      "start_time": 48.449,
+      "end_time": 48.662
+    },
+    {
+      "text": "El",
+      "start_time": 49.292,
+      "end_time": 49.42
+    },
+    {
+      "text": "cambio",
+      "start_time": 49.463,
+      "end_time": 49.804
+    },
+    {
+      "text": "deja",
+      "start_time": 49.89,
+      "end_time": 50.1458
+    },
+    {
+      "text": "una",
+      "start_time": 50.188,
+      "end_time": 50.316
+    },
+    {
+      "text": "evidencia",
+      "start_time": 50.359,
+      "end_time": 50.7858
+    },
+    {
+      "text": "concreta",
+      "start_time": 50.828,
+      "end_time": 51.34
+    },
+    {
+      "text": "no",
+      "start_time": 51.724,
+      "end_time": 51.852
+    },
+    {
+      "text": "solo",
+      "start_time": 51.895,
+      "end_time": 52.108
+    },
+    {
+      "text": "una",
+      "start_time": 52.151,
+      "end_time": 52.279
+    },
+    {
+      "text": "respuesta",
+      "start_time": 52.322,
+      "end_time": 52.7058
+    },
+    {
+      "text": "que",
+      "start_time": 52.791,
+      "end_time": 52.876
+    },
+    {
+      "text": "dice",
+      "start_time": 52.919,
+      "end_time": 53.004
+    },
+    {
+      "text": "terminado",
+      "start_time": 53.26,
+      "end_time": 53.943
+    },
+    {
+      "text": "Git",
+      "start_time": 54.455,
+      "end_time": 54.796
+    },
+    {
+      "text": "sigue",
+      "start_time": 54.967,
+      "end_time": 55.266
+    },
+    {
+      "text": "en",
+      "start_time": 55.308,
+      "end_time": 55.351
+    },
+    {
+      "text": "manos",
+      "start_time": 55.394,
+      "end_time": 55.6498
+    },
+    {
+      "text": "de",
+      "start_time": 55.692,
+      "end_time": 55.778
+    },
+    {
+      "text": "la",
+      "start_time": 55.82,
+      "end_time": 55.863
+    },
+    {
+      "text": "persona",
+      "start_time": 55.906,
+      "end_time": 56.204
+    },
+    {
+      "text": "Los",
+      "start_time": 56.631,
+      "end_time": 56.8018
+    },
+    {
+      "text": "agentes",
+      "start_time": 56.844,
+      "end_time": 57.1858
+    },
+    {
+      "text": "proponen",
+      "start_time": 57.228,
+      "end_time": 57.655
+    },
+    {
+      "text": "tú",
+      "start_time": 57.996,
+      "end_time": 58.167
+    },
+    {
+      "text": "decides",
+      "start_time": 58.21,
+      "end_time": 58.4658
+    },
+    {
+      "text": "qué",
+      "start_time": 58.636,
+      "end_time": 58.764
+    },
+    {
+      "text": "se",
+      "start_time": 58.807,
+      "end_time": 58.892
+    },
+    {
+      "text": "integra",
+      "start_time": 58.935,
+      "end_time": 59.276
+    },
+    {
+      "text": "Equipo",
+      "start_time": 59.805,
+      "end_time": 60.231
+    },
+    {
+      "text": "Solo",
+      "start_time": 60.317,
+      "end_time": 60.615
+    },
+    {
+      "text": "cero",
+      "start_time": 60.658,
+      "end_time": 60.871
+    },
+    {
+      "text": "punto",
+      "start_time": 60.914,
+      "end_time": 61.1699
+    },
+    {
+      "text": "uno",
+      "start_time": 61.255,
+      "end_time": 61.4259
+    },
+    {
+      "text": "ya",
+      "start_time": 61.511,
+      "end_time": 61.767
+    },
+    {
+      "text": "se",
+      "start_time": 61.81,
+      "end_time": 61.9379
+    },
+    {
+      "text": "puede",
+      "start_time": 61.981,
+      "end_time": 62.1086
+    },
+    {
+      "text": "instalar",
+      "start_time": 62.151,
+      "end_time": 62.535
+    },
+    {
+      "text": "desde",
+      "start_time": 62.578,
+      "end_time": 62.791
+    },
+    {
+      "text": "GitHub",
+      "start_time": 62.834,
+      "end_time": 63.218
+    },
+    {
+      "text": "Prueba",
+      "start_time": 63.773,
+      "end_time": 64.029
+    },
+    {
+      "text": "el",
+      "start_time": 64.071,
+      "end_time": 64.1139
+    },
+    {
+      "text": "ejemplo",
+      "start_time": 64.157,
+      "end_time": 64.498
+    },
+    {
+      "text": "abre",
+      "start_time": 64.797,
+      "end_time": 65.095
+    },
+    {
+      "text": "una",
+      "start_time": 65.138,
+      "end_time": 65.2659
+    },
+    {
+      "text": "incidencia",
+      "start_time": 65.309,
+      "end_time": 65.863
+    },
+    {
+      "text": "y",
+      "start_time": 65.991,
+      "end_time": 66.1619
+    },
+    {
+      "text": "cuéntanos",
+      "start_time": 66.205,
+      "end_time": 66.6739
+    },
+    {
+      "text": "dónde",
+      "start_time": 66.759,
+      "end_time": 67.1006
+    },
+    {
+      "text": "se",
+      "start_time": 67.143,
+      "end_time": 67.3139
+    },
+    {
+      "text": "atasca",
+      "start_time": 67.357,
+      "end_time": 67.6126
+    },
+    {
+      "text": "tu",
+      "start_time": 67.655,
+      "end_time": 67.7406
+    },
+    {
+      "text": "flujo",
+      "start_time": 67.783,
+      "end_time": 68.082
+    }
+  ]
+}

@@ -21,7 +21,7 @@ claude plugin details equipo-solo@equipo-solo
 
 ## Comprobaciones realizadas
 
-- `claude plugin validate ./plugin --strict`: validación aprobada, con aviso por icono ausente.
+- `claude plugin validate ./plugin --strict`: validación aprobada.
 - `claude plugin validate . --strict`: marketplace válido.
 - Instalación desde `fernando-delrio/lead-flow` en una configuración temporal: versión `0.1.0`,
   plugin activo y siete agentes cargados.
@@ -31,6 +31,13 @@ claude plugin details equipo-solo@equipo-solo
 
 Sigue [`examples/equipo-solo-node/README.md`](../../examples/equipo-solo-node/README.md). El ejemplo
 usa únicamente Node.js y no instala dependencias.
+
+## Vídeo
+
+La presentación pública está preparada en
+[`assets/releases/equipo-solo-v0.1.0.mp4`](../../assets/releases/equipo-solo-v0.1.0.mp4).
+Dura 68,60 segundos e incluye voz en español de España, gráficos, música original y subtítulos.
+El proyecto reproducible vive en [`video/equipo-solo-v0.1.0/`](../../video/equipo-solo-v0.1.0/).
 
 ## Qué no incluye
 

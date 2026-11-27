@@ -1,0 +1,35 @@
+{
+  "direction": "Precisión suiza sobre sala de control",
+  "canvas": [1920, 1080],
+  "fps": 30,
+  "palette": {
+    "background": "#1E1F29",
+    "surface": "#282A36",
+    "foreground": "#F8F8F2",
+    "muted": "#9AA0B4",
+    "cyan": "#8BE9FD",
+    "green": "#50FA7B",
+    "orange": "#FFB86C",
+    "pink": "#FF79C6",
+    "purple": "#BD93F9",
+    "red": "#FF5555",
+    "yellow": "#F1FA8C"
+  },
+  "type": {
+    "family": "Segoe UI",
+    "heading_weight": 700,
+    "body_weight": 600,
+    "caption_size": 46
+  },
+  "motion": {
+    "entrance_seconds": 0.35,
+    "exit_seconds": 0.2,
+    "easing": "smoothstep"
+  },
+  "exclusions": [
+    "sin rebotes en cifras",
+    "sin terminales simuladas",
+    "sin movimiento ambiental durante la lectura",
+    "sin duplicar subtítulos con titulares"
+  ]
+}

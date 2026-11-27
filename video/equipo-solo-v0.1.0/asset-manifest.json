@@ -1,0 +1,34 @@
+{
+  "assets": [
+    {
+      "id": "narration",
+      "path": "assets/narration-original.wav",
+      "provider": "HeyGen",
+      "voice": "Montserrat - Warm & Expressive",
+      "voice_id": "1777080b7f574979875dc144b9fbf0de",
+      "locale": "es-ES",
+      "status": "local_only_not_versioned",
+      "sha256": "AB8CFD73EAD7CAA977985F9A1AE512580E378ACC9EF8BE2EF763C4911684D928"
+    },
+    {
+      "id": "plugin-icon",
+      "path": "../../plugin/.claude-plugin/icon.png",
+      "provider": "OpenAI image generation",
+      "role": "identidad del plugin"
+    },
+    {
+      "id": "music",
+      "path": "build/music.wav",
+      "provider": "generación determinista local",
+      "seed": 1701,
+      "role": "cama instrumental original"
+    },
+    {
+      "id": "delivery",
+      "path": "../../assets/releases/equipo-solo-v0.1.0.mp4",
+      "provider": "render local reproducible",
+      "sha256": "6EBFF0A070720185E87AD0AAA544FF24F4BD0E64AFA127DDF868B730F6E124B0",
+      "role": "MP4 final de publicación"
+    }
+  ]
+}
