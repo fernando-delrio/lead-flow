@@ -25,12 +25,12 @@ opciones:
   - id: vitest-biome-pnpm-audit
     nombre: Vitest + Biome + pnpm audit
     implica: >-
-      Comandos de la política. Pruebas: vitest run (ejecuta una vez y termina, sin modo vigilante).
-      Lint: npx biome check . Build: pnpm build, si el proyecto compila TypeScript. Auditoría:
+      Comandos de la política. Pruebas: pnpm exec vitest run (ejecuta una vez y termina, sin modo vigilante).
+      Lint: pnpm exec biome check . Build: pnpm build, si el proyecto compila TypeScript. Auditoría:
       pnpm audit --audit-level high. Exige usar pnpm como gestor de paquetes.
     comandos:
-      pruebas: "vitest run"
-      lint: "npx biome check ."
+      pruebas: "pnpm exec vitest run"
+      lint: "pnpm exec biome check ."
       build: "pnpm build"
     pros:
       - Biome hace el lint y el formato con una sola herramienta.
