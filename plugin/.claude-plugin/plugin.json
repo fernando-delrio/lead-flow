@@ -9,6 +9,7 @@
   },
   "homepage": "https://github.com/fernando-delrio/lead-flow#probar-hoy-el-kit-equipo-solo",
   "repository": "https://github.com/fernando-delrio/lead-flow",
+  "icon": "./.claude-plugin/icon.png",
   "license": "Apache-2.0",
   "keywords": ["agents", "spec-driven", "code-review", "full-stack", "quality-gates"]
 }
